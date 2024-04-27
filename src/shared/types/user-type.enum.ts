@@ -1,4 +1,4 @@
 export enum UserType {
-  Ordinary = "Обычный",
-  Pro = "Pro"
+  Ordinary = 'Обычный',
+  Pro = 'Pro'
 }
