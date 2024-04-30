@@ -1,0 +1,124 @@
+{
+  "api": {
+    "titles": [
+      "Меблированные комнаты и квартиры в центре города",
+      "Сезонная аренда квартир с удобствами",
+      "Комфортная гостиница с высоким качеством обслуживания",
+      "Квартира с видом на парк",
+      "Комнаты с мебелью и удобствами",
+      "Пансионаты и дома отдыха: аренда на отдых",
+      "Квартиры с высоким качеством интерьера",
+      "Гостиницы с бесплатным Wi-Fi: аренда на отдых",
+      "Комнаты с удобствами для некурящих",
+      "Квартиры с современным дизайном"
+    ],
+    "descriptions": [
+      "Наслаждайтесь удобством и комфортом в наших меблированных квартирах и комнатах, расположенных в самом сердце города. Мы предлагаем уютные пространства с современной мебелью, идеально подходящие для долгосрочной аренды или краткосрочного отдыха.",
+      "Ищите идеальное место для сезонной аренды? Наши квартиры оборудованы всем необходимым для комфортного проживания: Wi-Fi, смарт-телевизоры, кухня с необходимой посудой и приборами. Мы предлагаем удобные и чистые пространства для вашего отдыха.",
+      "Приезжайте в нашу гостиницу и насладитесь высоким качеством обслуживания и комфортом. Мы предлагаем уютные номера с современным оборудованием, бесплатным Wi-Fi, а также удобствами для некурящих. Наша команда готовы помочь вам в любое время суток.",
+      "Наслаждайтесь прекрасным видом на парк из вашей квартиры. Мы предлагаем уютные и светлые квартиры с высококачественной мебелью и современным оборудованием. Наши квартиры идеально подходят для долгосрочной аренды или краткосрочного отдыха.",
+      "Ищите комфортное место для проживания? Наши комнаты оборудованы всем необходимым для комфортного отдыха: удобная мебель, Wi-Fi, смарт-телевизоры. Мы предлагаем чистые и уютные пространства для вашего отдыха.",
+      "Приезжайте в наш пансионат или дом отдыха и насладитесь уютным и комфортным проживанием. Мы предлагаем удобные номера с высококачественной мебелью, современным оборудованием и удобствами для некурящих. Наша команда готовы помочь вам в любое время суток.",
+      "Наслаждайтесь высоким качеством интерьера в наших квартирах. Мы предлагаем уютные и светлые квартиры с современной мебелью, идеально подходящие для долгосрочной аренды или краткосрочного отдыха. Наши квартиры оборудованы всем необходимым для комфортного проживания.",
+      "Приезжайте в нашу гостиницу и насладитесь бесплатным Wi-Fi, удобными номерами и высоким качеством обслуживания. Мы предлагаем чистые и уютные пространства для вашего отдыха. Наша команда готовы помочь вам в любое время суток.",
+      "Ищите комфортное место для проживания? Наши комнаты оборудованы всем необходимым для комфортного отдыха: удобная мебель, Wi-Fi, смарт-телевизоры, а также удобствами для некурящих. Мы предлагаем чистые и уютные пространства для вашего отдыха.",
+      "Наслаждайтесь современным дизайном в наших квартирах. Мы предлагаем уютные и светлые квартиры с высококачественной мебелью, современным оборудованием и удобствами для некурящих. Наши квартиры идеально подходят для долгосрочной аренды или краткосрочного отдыха."
+    ],
+    "publicDates": [
+      "2022-04-06T08:45:40.283Z",
+      "2022-05-15T12:30:00.000Z",
+      "2022-06-20T18:00:00.000Z",
+      "2022-07-25T09:30:00.000Z",
+      "2022-08-30T14:45:00.000Z",
+      "2022-09-15T10:00:00.000Z",
+      "2022-10-20T16:15:00.000Z",
+      "2022-11-25T08:30:00.000Z",
+      "2022-12-30T12:45:00.000Z",
+      "2023-01-15T14:00:00.000Z"
+    ],
+    "cities": [
+      "Paris",
+      "Cologne",
+      "Brussels",
+      "Amsterdam",
+      "Hamburg",
+      "Dusseldorf"
+    ],
+    "features": [
+      "Breakfast",
+      "AirConditioning",
+      "Workspace",
+      "BabySeat",
+      "Washer",
+      "Towels",
+      "Fridge"
+    ],
+    "previewImages": [
+      "https://images.app.goo.gl/jXNCqSVa7Fo8eaBw6",
+      "https://images.app.goo.gl/2pgmaG4MNpQTs18EA",
+      "https://images.app.goo.gl/aWcaK16XrW9ifGe37",
+      "https://images.app.goo.gl/QhjDEa4JQZ5bxKs27",
+      "https://images.app.goo.gl/tMU6JYroHcyJcAvq6"
+    ],
+    "photos": [
+      "https://images.app.goo.gl/jXNCqSVa7Fo8eaBw6",
+      "https://images.app.goo.gl/2pgmaG4MNpQTs18EA",
+      "https://images.app.goo.gl/aWcaK16XrW9ifGe37",
+      "https://images.app.goo.gl/QhjDEa4JQZ5bxKs27",
+      "https://images.app.goo.gl/tMU6JYroHcyJcAvq6",
+      "https://images.app.goo.gl/eNt6guU8dMWP5fdKA",
+      "https://images.app.goo.gl/khd6YV1bU2J8ZL9R8",
+      "https://images.app.goo.gl/YMNvqcpNdcab4X5RA",
+      "https://images.app.goo.gl/wfqPFzZXitLeszDw6",
+      "https://images.app.goo.gl/7KnSJEn9D5rQHzjv8",
+      "https://images.app.goo.gl/3aqoGLwBtyjr1sbaA",
+      "https://images.app.goo.gl/LEHq2gn7gNwTxp8c8",
+      "https://images.app.goo.gl/NG8f13NZzoafgSyq5",
+      "https://images.app.goo.gl/TWeC2rJVYDoccEdd6",
+      "https://images.app.goo.gl/TTzVpKHsab37EF459",
+      "https://images.app.goo.gl/23t7VdrnZf9GSmDJ6",
+      "https://images.app.goo.gl/44Yjm3x3az6xfn3M9",
+      "https://images.app.goo.gl/iQp9cJh1FStAmrme8",
+      "https://images.app.goo.gl/WxrNqBnJC8kz4x3WA",
+      "https://images.app.goo.gl/Am9r3LxA2p5vVmmx7",
+      "https://images.app.goo.gl/xfqhMPubWzYdaw3z6"
+    ],
+    "userNames": [
+      "Клод Моне",
+      "Якоб Борхерт",
+      "Ян Стеен",
+      "Макс Эрнст",
+      "Эмиль Нольде",
+      "Макс Либерман",
+      "Питер Пауль Рубенс",
+      "Эмиль Бернар",
+      "Эдгар Дега",
+      "Матиас Штирнер",
+      "Винсент ван Гог"
+    ],
+    "userEmails": [
+      "claude.monet@example.com",
+      "jacob.borkert@example.com",
+      "jan.steen@example.com",
+      "max.ernst@example.com",
+      "emil.nolde@example.com",
+      "max.liebermann@example.com",
+      "peter.paul.rubens@example.com",
+      "emile.bernard@example.com",
+      "edgar.degas@example.com",
+      "matthias.stirner@example.com",
+      "vincent.van.gogh@example.com"
+    ],
+    "avatars": [
+      "https://images.app.goo.gl/BDbuLPULwhQm2uHy8",
+      "https://images.app.goo.gl/iXNdWe3LEGUZpwg38",
+      "https://images.app.goo.gl/xMJDDZo8X35PPADE9",
+      "https://images.app.goo.gl/y9op4ndUJi1CqGSf7",
+      "https://images.app.goo.gl/ghNwCQ1WsoWU5SvZ9",
+      "https://images.app.goo.gl/rggBr5zKm2HSyBCLA",
+      "https://images.app.goo.gl/SHaZqoFFXs8rysKL6",
+      "https://images.app.goo.gl/pYKng58AYe19EjPF7",
+      "https://images.app.goo.gl/bYo2kodenKUiVHEq9"
+    ]
+  }
+}
