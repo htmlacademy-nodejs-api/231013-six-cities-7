@@ -54,42 +54,62 @@
       "https://images.app.goo.gl/Am9r3LxA2p5vVmmx7",
       "https://images.app.goo.gl/xfqhMPubWzYdaw3z6"
     ],
-    "userNames": [
-      "Клод Моне",
-      "Якоб Борхерт",
-      "Ян Стеен",
-      "Макс Эрнст",
-      "Эмиль Нольде",
-      "Макс Либерман",
-      "Питер Пауль Рубенс",
-      "Эмиль Бернар",
-      "Эдгар Дега",
-      "Матиас Штирнер",
-      "Винсент ван Гог"
-    ],
-    "userEmails": [
-      "claude.monet@example.com",
-      "jacob.borkert@example.com",
-      "jan.steen@example.com",
-      "max.ernst@example.com",
-      "emil.nolde@example.com",
-      "max.liebermann@example.com",
-      "peter.paul.rubens@example.com",
-      "emile.bernard@example.com",
-      "edgar.degas@example.com",
-      "matthias.stirner@example.com",
-      "vincent.van.gogh@example.com"
-    ],
-    "avatars": [
-      "https://images.app.goo.gl/BDbuLPULwhQm2uHy8",
-      "https://images.app.goo.gl/iXNdWe3LEGUZpwg38",
-      "https://images.app.goo.gl/xMJDDZo8X35PPADE9",
-      "https://images.app.goo.gl/y9op4ndUJi1CqGSf7",
-      "https://images.app.goo.gl/ghNwCQ1WsoWU5SvZ9",
-      "https://images.app.goo.gl/rggBr5zKm2HSyBCLA",
-      "https://images.app.goo.gl/SHaZqoFFXs8rysKL6",
-      "https://images.app.goo.gl/pYKng58AYe19EjPF7",
-      "https://images.app.goo.gl/bYo2kodenKUiVHEq9"
+    "user": [
+      {
+        "name": "Клод Моне",
+        "email": "claude.monet@example.com",
+        "avatar": "https://images.app.goo.gl/BDbuLPULwhQm2uHy8"
+      },
+      {
+        "name": "Якоб Борхерт",
+        "email": "jacob.borkert@example.com",
+        "avatar": ""
+      },
+      {
+        "name": "Ян Стеен",
+        "email": "jan.steen@example.com",
+        "avatar": "https://images.app.goo.gl/iXNdWe3LEGUZpwg38"
+      },
+      {
+        "name": "Макс Эрнст",
+        "email": "max.ernst@example.com",
+        "avatar": "https://images.app.goo.gl/xMJDDZo8X35PPADE9"
+      },
+      {
+        "name": "Эмиль Нольде",
+        "email": "emil.nolde@example.com",
+        "avatar": "https://images.app.goo.gl/y9op4ndUJi1CqGSf7"
+      },
+      {
+        "name": "Макс Либерман",
+        "email": "max.liebermann@example.com",
+        "avatar": "https://images.app.goo.gl/ghNwCQ1WsoWU5SvZ9"
+      },
+      {
+        "name": "Питер Пауль Рубенс",
+        "email": "peter.paul.rubens@example.com",
+        "avatar": "https://images.app.goo.gl/rggBr5zKm2HSyBCLA"
+      },
+      {
+        "name": "Эмиль Бернар",
+        "email": "emile.bernard@example.com",
+        "avatar": "https://images.app.goo.gl/SHaZqoFFXs8rysKL6"
+      },
+      {
+        "name": "Эдгар Дега",
+        "email": "edgar.degas@example.com",
+        "avatar": "https://images.app.goo.gl/pYKng58AYe19EjPF7"
+      },
+      {
+        "name": "Матиас Штирнер",
+        "email": "matthias.stirner@example.com",
+        "avatar": ""
+      },
+      {
+        "name": "Винсент ван Гог",
+        "email": "vincent.van.gogh@example.com",
+        "avatar": "https://images.app.goo.gl/bYo2kodenKUiVHEq9"
+      }
     ]
   }
 }

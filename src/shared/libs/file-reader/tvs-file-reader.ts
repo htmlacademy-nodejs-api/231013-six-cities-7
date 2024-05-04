@@ -2,7 +2,8 @@ import EventEmitter from 'node:events';
 import { createReadStream } from 'node:fs';
 
 import {FileReader} from './file-reader.interface.js';
-import {Offer, Feature, Location, OfferType, City, UserType} from '../../types/index.js';
+import {Offer, Location } from '../../types/index.js';
+import {Feature, OfferType, City, UserType} from '../../enum/index.js';
 
 export class TSVFileReader extends EventEmitter implements FileReader {
   private CHUNK_SIZE = 16384; // 16KB
@@ -40,23 +41,23 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       title,
       description,
       publicDate: new Date(publicDate),
-      city: city as City,
+      city: city as keyof typeof City,
       previewImg,
       photos: photos.split(';'),
       isPremium: JSON.parse(isPremium),
       isFavorite: JSON.parse(isFavorite),
       rating: Number(rating),
-      offerType: offerType as OfferType,
+      offerType: offerType as unknown as typeof OfferType,
       numberOfRooms: Number(numberOfRooms),
       numberOfGuests: Number(numberOfGuests),
       rentPrice: Number.parseInt(rentPrice, 10),
-      features: features.split(';').map((property: string) => Feature[property as keyof typeof Feature]) ?? [],
+      features: features.split(';').map((feature: string) => feature as unknown as typeof Feature) ?? [],
       user: {
         name: userName,
         email: userEmail,
         avatar: userAvatar,
         password: '',
-        type: userType as UserType,
+        type: userType as unknown as typeof UserType,
       },
       numberOfComments: Number.parseInt(numberOfComments, 10),
       location: this.parseLocation(location),
@@ -67,8 +68,8 @@ export class TSVFileReader extends EventEmitter implements FileReader {
     const [lt, ln] = location.split(';');
 
     return {
-      lt: Number.parseInt(lt, 10),
-      ln:  Number.parseInt(ln, 10),
+      lt: Number.parseFloat(lt),
+      ln:  Number.parseFloat(ln),
     };
   }
 

@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 
 import {OfferGenerator} from './offer-generator.interface.js';
-import {MockServerData, OfferType, City, Feature, UserType} from '../../types/index.js';
 import {generateRandomValue, getRandomItem, getRandomItems, getRandomBoolean} from '../../helpers/common.js';
+import {MockServerData} from '../../types/index.js';
+import {OfferType, City, Feature, UserType} from '../../enum/index.js';
 import {CITIES} from '../../constants/constants.js';
 
 const MIN_PRICE = 100;
@@ -40,16 +41,41 @@ export class TSVOfferGenerator implements OfferGenerator {
     const numberOfGuests = generateRandomValue(MIN_GUESTS, MAX_GUESTS);
     const rentPrice = generateRandomValue(MIN_PRICE, MAX_PRICE);
     const features = getRandomItems(Object.keys(Feature)).join(';');
-    const userName = getRandomItem(this.mockData.userNames);
-    const userEmail = getRandomItem(this.mockData.userEmails);
-    const userAvatar = getRandomItem(this.mockData.avatars);
+    const user = getRandomItem(this.mockData.user);
     const userType = getRandomItem(Object.keys(UserType));
     //ToDo: Генерация комментариев поменяется
     const numberOfComments = generateRandomValue(0, 15);
-    const location = CITIES[city as keyof typeof City];
+    const cityLocation = CITIES[city as keyof typeof City];
+
+    const generateLocation = (lt:number, ln:number) => {
+      const uncertaintyRadius = 0.005;
+      const newLt = Math.round((Math.random() * ((lt + uncertaintyRadius) - (lt - uncertaintyRadius)) + (lt - uncertaintyRadius)) * 100000) / 100000;
+      const newLn = Math.round(Math.random() * ((ln + uncertaintyRadius) - (ln - uncertaintyRadius)) + (ln - uncertaintyRadius) * 100000) / 100000;
+
+      return `${newLt};${newLn}`;
+    };
 
     return [
-      title, description, publicDate, city, previewImg, photos, isPremium, isFavorite, rating, offerType, numberOfRooms, numberOfGuests, rentPrice, features, userName, userEmail, userAvatar, userType, numberOfComments, `${location.lt};${location.ln}`
+      title,
+      description,
+      publicDate,
+      city,
+      previewImg,
+      photos,
+      isPremium,
+      isFavorite,
+      rating,
+      offerType,
+      numberOfRooms,
+      numberOfGuests,
+      rentPrice,
+      features,
+      user.name,
+      user.email,
+      user.avatar,
+      userType,
+      numberOfComments,
+      generateLocation(cityLocation.lt, cityLocation.ln)
     ].join('\t');
   }
 }
