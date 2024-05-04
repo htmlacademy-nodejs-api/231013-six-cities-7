@@ -1,5 +1,5 @@
 export const CITIES = {
-  Paris: {lt: 48.85661, lng: 2.351499},
+  Paris: {lt: 48.85661, ln: 2.351499},
   Cologne: {lt: 50.938361, ln: 6.959974},
   Brussels: {lt: 50.846557, ln: 4.351697},
   Amsterdam: {lt: 52.370216, ln: 4.895168},

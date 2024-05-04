@@ -1,7 +1,6 @@
 import {Location} from './location.type.js';
 import {User} from './user.type.js';
-import {OfferType} from './offer-type.enum.js';
-import {Feature} from './feature.enum.js';
+import {OfferType, Feature} from '../enum/index.js';
 
 export type Offer = {
   title: string;
@@ -13,11 +12,11 @@ export type Offer = {
   isPremium: boolean;
   isFavorite: boolean;
   rating: number;
-  offerType: OfferType;
+  offerType: typeof OfferType;
   numberOfRooms: number;
   numberOfGuests: number;
   rentPrice: number;
-  features: Feature[];
+  features: typeof Feature[];
   user: User;
   numberOfComments: number;
   location: Location;

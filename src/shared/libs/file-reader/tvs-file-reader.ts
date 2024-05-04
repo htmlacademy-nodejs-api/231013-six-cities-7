@@ -1,25 +1,16 @@
-import {readFileSync} from 'node:fs';
-import {FileReader} from './file-reader.interface.js';
-import {Offer, Feature, Location, OfferType, City, UserType} from '../../types/index.js';
+import EventEmitter from 'node:events';
+import { createReadStream } from 'node:fs';
 
-export class TSVFileReader implements FileReader {
-  private rawData = '';
+import {FileReader} from './file-reader.interface.js';
+import {Offer, Location } from '../../types/index.js';
+import {Feature, OfferType, City, UserType} from '../../enum/index.js';
+
+export class TSVFileReader extends EventEmitter implements FileReader {
+  private CHUNK_SIZE = 16384; // 16KB
   constructor(
     private readonly filename: string
-
-  ) {}
-
-  private validateRawData(): void {
-    if (! this.rawData) {
-      throw new Error('File was not read');
-    }
-  }
-
-  private parseRawDataToOffers(): Offer[] {
-    return this.rawData
-      .split('\n')
-      .filter((row) => row.trim().length > 0)
-      .map((line) => this.parseLineToOffer(line));
+  ) {
+    super();
   }
 
   private parseLineToOffer(line: string): Offer {
@@ -50,23 +41,23 @@ export class TSVFileReader implements FileReader {
       title,
       description,
       publicDate: new Date(publicDate),
-      city: city as City,
+      city: city as keyof typeof City,
       previewImg,
       photos: photos.split(';'),
       isPremium: JSON.parse(isPremium),
       isFavorite: JSON.parse(isFavorite),
       rating: Number(rating),
-      offerType: offerType as OfferType,
+      offerType: offerType as unknown as typeof OfferType,
       numberOfRooms: Number(numberOfRooms),
       numberOfGuests: Number(numberOfGuests),
       rentPrice: Number.parseInt(rentPrice, 10),
-      features: features.split(';').map((property: string) => Feature[property as keyof typeof Feature]) ?? [],
+      features: features.split(';').map((feature: string) => feature as unknown as typeof Feature) ?? [],
       user: {
         name: userName,
         email: userEmail,
         avatar: userAvatar,
         password: '',
-        type: userType as UserType,
+        type: userType as unknown as typeof UserType,
       },
       numberOfComments: Number.parseInt(numberOfComments, 10),
       location: this.parseLocation(location),
@@ -77,17 +68,34 @@ export class TSVFileReader implements FileReader {
     const [lt, ln] = location.split(';');
 
     return {
-      lt: Number.parseInt(lt, 10),
-      ln:  Number.parseInt(ln, 10),
+      lt: Number.parseFloat(lt),
+      ln:  Number.parseFloat(ln),
     };
   }
 
-  public read(): void {
-    this.rawData = readFileSync(this.filename, {encoding: 'utf-8'});
-  }
+  public async read(): Promise<void> {
+    const readStream = createReadStream(this.filename, {
+      highWaterMark: this.CHUNK_SIZE,
+      encoding: 'utf-8',
+    });
 
-  public toArray(): Offer[] {
-    this.validateRawData();
-    return this.parseRawDataToOffers();
+    let remainingData = '';
+    let nextLinePosition = -1;
+    let importedRowCount = 0;
+
+    for await (const chunk of readStream) {
+      remainingData += chunk.toString();
+
+      while ((nextLinePosition = remainingData.indexOf('\n')) >= 0) {
+        const completeRow = remainingData.slice(0, nextLinePosition + 1);
+        remainingData = remainingData.slice(++nextLinePosition);
+        importedRowCount++;
+
+        const parsedOffer = this.parseLineToOffer(completeRow);
+        this.emit('line', parsedOffer);
+      }
+    }
+
+    this.emit('end', importedRowCount);
   }
 }
