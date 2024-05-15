@@ -41,7 +41,7 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       title,
       description,
       publicDate: new Date(publicDate),
-      city: city as keyof typeof City,
+      city: city as unknown as typeof City,
       previewImg,
       photos: photos.split(';'),
       isPremium: JSON.parse(isPremium),
@@ -56,7 +56,6 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         name: userName,
         email: userEmail,
         avatar: userAvatar,
-        password: '',
         type: userType as unknown as typeof UserType,
       },
       numberOfComments: Number.parseInt(numberOfComments, 10),
@@ -92,7 +91,9 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         importedRowCount++;
 
         const parsedOffer = this.parseLineToOffer(completeRow);
-        this.emit('line', parsedOffer);
+        await new Promise((resolve) => {
+          this.emit('line', parsedOffer, resolve);
+        });
       }
     }
 
