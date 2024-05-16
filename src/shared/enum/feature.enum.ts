@@ -7,3 +7,5 @@ export const Feature = {
   Towels: 'Towels',
   Fridge: 'Fridge',
 } as const;
+
+export type Feature = typeof Feature[keyof typeof Feature];

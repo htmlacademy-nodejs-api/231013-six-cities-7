@@ -4,3 +4,5 @@ export const OfferType = {
   Room: 'room',
   Hotel: 'hotel',
 } as const;
+
+export type OfferType = typeof OfferType[keyof typeof OfferType];

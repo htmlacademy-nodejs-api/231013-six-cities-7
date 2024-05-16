@@ -4,6 +4,6 @@ export type User = {
   name: string;
   email: string;
   avatar: string;
-  type: typeof UserType;
+  type: UserType;
   //password?: string;
 }

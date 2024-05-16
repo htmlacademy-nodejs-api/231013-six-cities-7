@@ -28,6 +28,7 @@ export class DefaultOfferService implements OfferService {
     return this.offerModel.findById(offerId).exec();
   }
 
+  /* Пока лишнее
   public async update(offerId: string, updates: OfferUpdates): Promise<DocumentType<OfferEntity> | null> {
     const result = await this.offerModel.findByIdAndUpdate(offerId, updates, {new: true});
     this.logger.info(`Offer updated: ${offerId}`);
@@ -87,5 +88,5 @@ export class DefaultOfferService implements OfferService {
     const result = await this.offerModel.findByIdAndUpdate(offerId, {isFavorite: newFavoriteStatus}, {new: true});
 
     return result;
-  }
+  }*/
 }

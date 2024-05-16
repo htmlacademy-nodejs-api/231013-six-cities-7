@@ -43,15 +43,15 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
 
   @prop({
     required: true,
-    enum: Object.values(City),
+    enum: City,
   })
-  public city!: typeof City;
+  public city!: City;
 
   @prop({ required: true })
   public previewImg: string;
 
-  @prop({ required: true })
-  public photos: string[];
+  @prop({ required: true, type: () => [String] })
+  public photos!: string[];
 
   @prop({ required: true, default: false })
   public isPremium: boolean;
@@ -68,9 +68,10 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
 
   @prop({
     required: true,
-    enum: Object.values(OfferType),
+    enum: OfferType,
+    type: String,
   })
-  public offerType!: typeof OfferType;
+  public offerType!: OfferType;
 
   @prop({
     required: true,
@@ -93,10 +94,8 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
   })
   public rentPrice: number;
 
-  @prop({
-    enum: Object.values(Feature),
-  })
-  public features: typeof Feature[];
+  @prop()
+  public features: Feature[];
 
   @prop({
     ref: () => UserEntity,

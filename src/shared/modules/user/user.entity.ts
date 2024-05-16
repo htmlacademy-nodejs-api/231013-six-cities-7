@@ -41,14 +41,12 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 
   @prop({
     required: true,
-    enum: Object.values(UserType),
+    enum: UserType,
   })
-  public type: typeof UserType;
+  public type: UserType;
 
   @prop({
     required: true,
-    minlength: 6,
-    maxlength: 12,
     default: '',
   })
   private password?: string;
