@@ -5,10 +5,10 @@ import {OfferService} from './offer-service.interface.js';
 import {Logger} from '../../libs/logger/index.js';
 import {OfferEntity} from './offer.entity.js';
 import {CreateOfferDTO} from './dto/create-offer.dto.js';
-import {OfferUpdates} from '../../types/offer-updates.type.js';
-import {City, Component} from '../../enum/index.js';
+//import {OfferUpdates} from '../../types/offer-updates.type.js';
+import {Component} from '../../enum/index.js';
 
-const DEFAULT_OFFERS_LIMIT = 60;
+//const DEFAULT_OFFERS_LIMIT = 60;
 
 @injectable()
 export class DefaultOfferService implements OfferService {

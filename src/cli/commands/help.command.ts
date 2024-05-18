@@ -13,10 +13,10 @@ export class HelpCommand implements Command {
         ${chalk.magenta('Пример:')}
         ${chalk.blueBright('cli.js --<command> [--arguments]')}
         ${chalk.bold.magenta('Команды:')}
-            ${chalk.magentaBright('--version: ')}                      ${chalk.blueBright('# выводит номер версии')}
-            ${chalk.magentaBright('--help:    ')}                      ${chalk.blueBright('# печатает этот текст')}
-            ${chalk.magentaBright('--import <filepath>:     ')}        ${chalk.blueBright('# импортирует данные из TSV')}
-            ${chalk.magentaBright('--generate <count filepath url:')}  ${chalk.blueBright('# генерирует объявление')}
+            ${chalk.magentaBright('--version:                                                    ')}  ${chalk.blueBright('# выводит номер версии')}
+            ${chalk.magentaBright('--help:                                                       ')}  ${chalk.blueBright('# печатает этот текст')}
+            ${chalk.magentaBright('--import <filepath db-login db-password db-host db-name salt>:')}  ${chalk.blueBright('# импортирует данные из TSV')}
+            ${chalk.magentaBright('--generate <count filepath url>:                              ')}  ${chalk.blueBright('# генерирует объявление')}
     `);
   }
 }
