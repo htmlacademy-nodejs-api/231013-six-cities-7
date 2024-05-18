@@ -1,4 +1,4 @@
-import {User, Location} from '../../../types/index.js';
+import {Location} from '../../../types/index.js';
 import {OfferType, City, Feature} from '../../../enum/index.js';
 
 export class CreateOfferDTO {
@@ -16,7 +16,7 @@ export class CreateOfferDTO {
   public numberOfGuests: number;
   public rentPrice: number;
   public features: Feature[];
-  public user: User;
+  public userId: string;
   public numberOfComments: number;
   public location: Location;
 }

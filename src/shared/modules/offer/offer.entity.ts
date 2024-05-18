@@ -3,10 +3,11 @@ import {
   getModelForClass,
   prop,
   modelOptions,
+  Ref
 } from '@typegoose/typegoose';
 
 import {UserEntity} from '../user/index.js';
-import {Offer, Location} from '../../types/index.js';
+import {Location} from '../../types/index.js';
 import {OfferType, City, Feature} from '../../enum/index.js';
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
@@ -20,7 +21,7 @@ export interface OfferEntity extends defaultClasses.Base {}
 })
 
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
-export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
+export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
@@ -97,12 +98,12 @@ export class OfferEntity extends defaultClasses.TimeStamps implements Offer {
   @prop()
   public features: Feature[];
 
+
   @prop({
-    ref: () => UserEntity,
-    required: true,
+    ref: UserEntity,
+    required: true
   })
-  //Q: так как использовали не ссылку на пользователя, а пользователя полностью тип задается не так, как в учебном проекте. Надо ли переделать?
-  public user: UserEntity;
+  public userId!: Ref<UserEntity>;
 
   @prop({
     required: true,

@@ -56,7 +56,7 @@ export class ImportCommand implements Command {
       numberOfGuests: offer.numberOfGuests,
       rentPrice: offer.rentPrice,
       features: offer.features,
-      user: user,
+      userId: user.id,
       numberOfComments: offer.numberOfComments,
       location: offer.location,
     });

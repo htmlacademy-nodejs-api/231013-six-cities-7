@@ -37,7 +37,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   public name: string;
 
   @prop({required: false, default: ''})
-  public avatar: string;
+  public avatar?: string;
 
   @prop({
     required: true,
@@ -55,7 +55,7 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
     super();
 
     this.email = userData.email;
-    this.avatar = userData.avatar; //Q: стоит ли исправить тип данных, учитывая, что по ТЗ предусмотрена дефолтная картинка?
+    this.avatar = userData.avatar;
     this.name = userData.name;
     this.type = userData.type;
   }

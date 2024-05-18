@@ -6,8 +6,6 @@ import {Component} from '../shared/enum/index.js';
 import {DatabaseClient} from '../shared/libs/database-client/index.js';
 import {getMongoURI} from '../shared/helpers/database.js';
 
-import {UserModel} from '../shared/modules/user/index.js';
-
 @injectable()
 export class RestApplication {
   constructor(
@@ -35,9 +33,5 @@ export class RestApplication {
     this.logger.info('Init database...');
     await this.initDb();
     this.logger.info('Init database completed');
-
-    const user = await UserModel.create({name: 'test', email: 'test@test.tu', password: 'hgdhshhs', avatar:'', userType:'Pro'});
-
-    console.log(user);
   }
 }
