@@ -6,3 +6,5 @@ export const City = {
   Hamburg: 'Hamburg',
   Dusseldorf: 'Dusseldorf'
 } as const;
+
+export type City = typeof City[keyof typeof City];

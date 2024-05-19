@@ -41,23 +41,22 @@ export class TSVFileReader extends EventEmitter implements FileReader {
       title,
       description,
       publicDate: new Date(publicDate),
-      city: city as keyof typeof City,
+      city: city as City,
       previewImg,
       photos: photos.split(';'),
       isPremium: JSON.parse(isPremium),
       isFavorite: JSON.parse(isFavorite),
       rating: Number(rating),
-      offerType: offerType as unknown as typeof OfferType,
+      offerType: offerType as OfferType,
       numberOfRooms: Number(numberOfRooms),
       numberOfGuests: Number(numberOfGuests),
       rentPrice: Number.parseInt(rentPrice, 10),
-      features: features.split(';').map((feature: string) => feature as unknown as typeof Feature) ?? [],
+      features: features.split(';').map((feature: string) => feature as Feature) ?? [],
       user: {
         name: userName,
         email: userEmail,
         avatar: userAvatar,
-        password: '',
-        type: userType as unknown as typeof UserType,
+        type: userType as UserType,
       },
       numberOfComments: Number.parseInt(numberOfComments, 10),
       location: this.parseLocation(location),
@@ -92,7 +91,9 @@ export class TSVFileReader extends EventEmitter implements FileReader {
         importedRowCount++;
 
         const parsedOffer = this.parseLineToOffer(completeRow);
-        this.emit('line', parsedOffer);
+        await new Promise((resolve) => {
+          this.emit('line', parsedOffer, resolve);
+        });
       }
     }
 

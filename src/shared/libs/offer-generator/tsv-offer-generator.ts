@@ -30,19 +30,19 @@ export class TSVOfferGenerator implements OfferGenerator {
     const publicDate = dayjs()
       .subtract(generateRandomValue(FIRST_WEEK_DAY, LAST_WEEK_DAY), 'day')
       .toISOString();
-    const city = getRandomItem(Object.keys(City));
+    const city = getRandomItem(Object.values(City));
     const previewImg = getRandomItem(this.mockData.previewImages);
     const photos = getRandomItems(this.mockData.photos).join(';');
     const isPremium = getRandomBoolean();
     const isFavorite = getRandomBoolean();
     const rating = generateRandomValue(MIN_RATING, MAX_RATING);
-    const offerType = getRandomItem(Object.keys(OfferType));
+    const offerType = getRandomItem(Object.values(OfferType));
     const numberOfRooms = generateRandomValue(MIN_ROOMS, MAX_ROOMS);
     const numberOfGuests = generateRandomValue(MIN_GUESTS, MAX_GUESTS);
     const rentPrice = generateRandomValue(MIN_PRICE, MAX_PRICE);
-    const features = getRandomItems(Object.keys(Feature)).join(';');
+    const features = getRandomItems(Object.values(Feature)).join(';');
     const user = getRandomItem(this.mockData.user);
-    const userType = getRandomItem(Object.keys(UserType));
+    const userType = getRandomItem(Object.values(UserType));
     //ToDo: Генерация комментариев поменяется
     const numberOfComments = generateRandomValue(0, 15);
     const cityLocation = CITIES[city as keyof typeof City];
