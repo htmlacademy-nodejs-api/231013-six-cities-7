@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": "../Projects/231013-what-to-watch-9/project/src/store/films-process"
+		},
+		{
+			"path": "../Projects/231013-what-to-watch-9/project/src/store/film-process"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "film-process"
+	},
+	"extensions": {
+		"recommendations": [
+			"esbenp.prettier-vscode"
+		]
+	}
+}
