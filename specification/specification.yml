@@ -8,10 +8,10 @@ info:
     url: https://opensource.org/licenses/MIT
   version: 2.0.0
 tags:
-  - name: offers
-    description: Действия с объявлениями.
   - name: users
     description: Действия с пользователем.
+  - name: offers
+    description: Действия с объявлениями.
   - name: comments
     description: Действия с комментариями.
 
@@ -65,26 +65,23 @@ paths:
         "200":
           description: Пользователь авторизовался. Токен пользователя.
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
 
         "404":
           description: Пользователь с таким email не найден.
-          links:
-            create:
-              operationId: register
-              description: Создать нового пользователя
-              parameters:
-                  name: body
-                  in: body
-                  required: true
-                  schema:
-                    $ref: '#/components/schemas/createUser'
-        "403":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
+
+        "401":
           description: Пользователь ввел пароль неверно.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: '#/components/schemas/unauthorizedError'
 
     get:
       tags:
@@ -104,47 +101,42 @@ paths:
                     type: string
                     example: authorized
 
-        "403":
+        "401":
           description: Пользователь не авторизован.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: unauthorized
+                $ref: '#/components/schemas/unauthorizedError'
 
-  /users/{userId}/update:
-    post:
+        "404":
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
+
+  /users/logout:
+    get:
       tags:
         - users
-      summary: Изменения данных пользователя
-
-      requestBody:
-        description: Измененные данные пользователя.
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/updateUser'
-        required: true
+      summary: Выход пользователя из аккаунта.
 
       responses:
-        "201":
-          description: Данные пользователя изменены. Объект пользователя.
+        "204":
+          description: Пользователь разлогинен.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/user'
 
         "404":
-          description: Пользователь с таким ID не найден.
+          description: Пользователь с таким id не найден.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: '#/components/schemas/notFoundError'
 
-  /offers/create:
+  /offers:
     post:
       tags:
         - offers
@@ -161,20 +153,26 @@ paths:
 
       responses:
         "201":
-          description: Пользователь зарегистрирован. Объект пользователя.
+          description: Объявление создано. Объект оъявления.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: '#/components/schemas/offer'
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorizedError'
 
         "422":
           description: Неверные данные в запросе
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: '#/components/schemas/incorrectRequestError'
 
-  /offers:
     get:
       tags:
         - offers
@@ -191,7 +189,7 @@ paths:
 
       responses:
         "200":
-          description: Успешный ответ
+          description: Список объявлений
           content:
             application/json:
               schema:
@@ -201,22 +199,73 @@ paths:
                 items:
                   $ref: '#/components/schemas/offer'
 
-        "400":
+        "422":
           description: Неверный запрос
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: '#/components/schemas/incorrectRequestError'
 
-        "500":
-          description: Внутренняя ошибка сервера
+  /offers/{city}/premium:
+    get:
+      tags:
+        -offers
+      summary: Получение списка премиальных предложений для города
+
+      responses:
+        "200":
+          description: Список объявлений
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                type: array
+                maxItems: 3
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/offer'
+
+        "422":
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/incorrectRequestError'
+
+  /offers/favorites:
+    get:
+      tags:
+        -offers
+      summary: Получает список избранных объявлений
+
+      responses:
+        "200":
+          description: Список объявлений
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 3
+                minItems: 1
+                items:
+                  $ref: '#/components/schemas/offer'
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorizedError'
+
+        "404":
+          description: Пользователь с таким ID не найден.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
+
 
   /offers/{offerId}/update:
-    post:
+    patch:
       tags:
         - offers
       summary: Изменения данных объявления
@@ -237,12 +286,68 @@ paths:
               schema:
                 $ref: '#/components/schemas/offer'
 
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorizedError'
+        "403":
+          description: Пользователь не может удалить данное объявление.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbiddenError'
+
         "404":
           description:  Объявление с таким ID не найдено.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: '#/components/schemas/notFoundError'
+
+  /offers/{offerId}/deteils:
+    get:
+      tags:
+        - offers
+      summary: Получение детальной информации по объявлению
+
+      responses:
+        "200":
+          description: Детальная информация по объявлению.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/offerDetails'
+
+        "404":
+          description: Объявление с таким id не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
+
+  /offers/{offerId}/favorites:
+    get:
+      tags:
+        -offers
+      summary: Добавляет/удаляет объявление в список избранных
+
+      responses:
+        "201":
+          description: Объявление добавлено/удалено из избранного.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/favoriteOffer'
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/unauthorizedError'
+
 
   /offers/{offerId}/delete:
     get:
@@ -251,32 +356,33 @@ paths:
       summary: Удаляет объявление
 
       responses:
-        "200":
+        "204":
           description: Объявление удалено.
           content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: string
-                    example: delete
+            application/json: {}
 
-        "403":
-          description: Недостаточно прав для совершения операции.
+        "401":
+          description: Пользователь не авторизован
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: '#/components/schemas/unauthorizedError'
+
+        "403":
+          description: Пользователь не может удалить данное объявление.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/forbiddenError'
 
         "404":
           description: Объявление с таким ID не найдено.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: '#/components/schemas/notFoundError'
 
-  /comments/{offerId}/create:
+  /comments/{offerId}:
     post:
       tags:
         - comments
@@ -303,6 +409,26 @@ paths:
           description: Неверные данные в запросе
           content:
             application/json: {}
+
+    get:
+      tags:
+        - comments
+      summary: Получает список комментариев для объявления
+
+      responses:
+        "200":
+          description: Список комментариев
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commentContent'
+
+        "404":
+          description: Объявление с таким id не найдено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/notFoundError'
 
 components:
   schemas:
@@ -380,6 +506,22 @@ components:
           type: string
           example: 6329c3d6a04ab1061c6425ea
 
+    favoriteOffer:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Отель в историческом центре
+
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        isFavorite:
+          type: boolean
+          example: true
+
     createOffer:
       type: object
 
@@ -422,6 +564,119 @@ components:
           example: true
 
         isFavorite:
+          type: boolean
+          example: true
+
+        rating:
+          type: number
+          minimum: 1
+          maximum: 5
+          example: 1.45
+
+        offerType:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+          example: room
+
+        numberOfRooms:
+          type: integer
+          format: int32
+          maximum: 8
+          minimum: 1
+          example: 3
+
+        numberOfGuests:
+          type: integer
+          format: int32
+          maximum: 10
+          minimum: 1
+          example: 6
+
+        rentPrice:
+          type: integer
+          format: int32
+          maximum: 100000
+          minimum: 100
+          example: 32000
+
+        features:
+          type: array
+          enum:
+            - Breakfast
+            - Air conditioning
+            - Laptop friendly workspace
+            - Baby seat
+            - Washer
+            - Towels
+            - Fridge
+          example: [ "Breakfast", "Laptop friendly workspace"]
+
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        numberOfComments:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 6
+
+        location:
+          type: object
+          properties:
+            ln:
+              type: number
+              example: 52.23452
+            lt:
+              type: number
+              example: 43.56739
+
+    offerDetails:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Отель в историческом центре
+
+        description:
+          type: string
+          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
+
+        publicDate:
+          type: string
+          format: Date
+          example: 2023-01-08T06:24:40.283Z
+
+        city:
+          type: string
+          enum:
+            - Paris
+            - Cologne
+            - Brussels
+            - Amsterdam
+            - Hamburg
+            - Dusseldorf
+          example: Brussels
+
+        previewImg:
+          type: string
+          example: preview.jpg
+
+        photos:
+          type: array
+          maxItems: 6
+          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
+
+        isPremium:
+          type: boolean
+          example: true
+
+        isFavorite?:
           type: boolean
           example: true
 
@@ -586,25 +841,45 @@ components:
               type: number
               example: 43.56739
 
-    error:
+    unauthorizedError:
       type: object
 
       properties:
         status:
           type: string
-          example: error
+          example: Пользователь не авторизован
 
-        error:
-          type: object
+    notFoundError:
+      type: object
 
-          properties:
-            code:
-              type: string
-              example: "<код ошибки>"
+      properties:
+        status:
+          type: string
+          example: Запращиваемый ресурс не найден
 
-            message:
-              type: string
-              example: "<детали ошибки>"
+    conflictError:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: Пользователь с таким email уже существует
+
+    forbiddenError:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: У пользователя нет прав на совершения данного запроса
+
+    incorrectRequestError:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: Неверные данные в запросе
 
     createСomment:
       type: object
@@ -630,6 +905,10 @@ components:
           type: string
           example: 6329c3d6a04ab1061c6425ea
 
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
     comment:
       type: object
 
@@ -643,6 +922,29 @@ components:
           format: Date
           example: 2023-01-08T06:24:40.283Z
 
+    commentContent:
+      type: object
+
+      properties:
+        rating:
+          type: integer
+          format: int32
+          maximum: 1
+          minimum: 5
+          example: 4
+
+        content:
+          type: string
+          example: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+        publicDate:
+          type: string
+          format: Date
+          example: 2023-01-08T06:24:40.283Z
+
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
 
 
 
