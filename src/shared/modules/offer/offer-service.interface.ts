@@ -1,24 +1,19 @@
 import {DocumentType} from '@typegoose/typegoose';
 
 import {CreateOfferDTO} from './dto/create-offer.dto.js';
+import {UpdateOfferDTO} from './dto/update-offer.dto.js';
 import {OfferEntity} from './offer.entity.js';
-//import {OfferUpdates} from '../../types/offer-updates.type.js';
-//import {City} from '../../enum/index.js';
+import {City} from '../../enum/index.js';
 
 export interface OfferService {
   create(dto: CreateOfferDTO): Promise<DocumentType<OfferEntity>>;
   findById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
-
-  /* Пока лишнее
-  //Q: Как должны быть представлены апдейты?
-  update(offerId: string, updates: OfferUpdates): Promise<DocumentType<OfferEntity> | null>;
-  delete(offerId: string): Promise<DocumentType<OfferEntity> | null>;
-  getOffersList(limit: number): Promise<DocumentType<OfferEntity>[]>;
-  //Q: А может ли быть null в getDetails?
-  getDetails(offerId: string): Promise<DocumentType<OfferEntity> | null>;
-  getPremiumOffersByCity(city: typeof City): Promise<DocumentType<OfferEntity>[] | null>;
-  //Q: Тут как будто привязка к пользователю нужна
+  updateById(offerId: string, dto: UpdateOfferDTO): Promise<DocumentType<OfferEntity> | null>;
+  deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
+  getOffersList(limit: number, city?: City): Promise<DocumentType<OfferEntity>[]>;
+  getDetailsById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
+  getPremiumOffersByCity(city: City): Promise<DocumentType<OfferEntity>[] | null>;
+  incNumberOfComments(offerId: string, count?: number): Promise<DocumentType<OfferEntity> | null>;
   getFavoriteOffers(): Promise<DocumentType<OfferEntity>[] | null>;
   switchFavoriteOffer(offerId: string): Promise<DocumentType<OfferEntity> | null>;
-  */
 }
