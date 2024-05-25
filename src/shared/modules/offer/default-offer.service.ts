@@ -36,55 +36,27 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async updateById(offerId: string, dto: UpdateOfferDTO): Promise<DocumentType<OfferEntity> | null> {
-    const result = await this.offerModel
+    return this.offerModel
       .findByIdAndUpdate(offerId, dto, {new: true})
       .populate(['userId'])
       .exec();
-    this.logger.info(`Offer updated: ${offerId}`);
-
-    //Q: Как правильно обрабатывать ошибки? например, если документ не найден
-    if (!result) {
-      throw new Error(`No document found with id ${offerId}`);
-    }
-
-    return result;
   }
 
   public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    const result = await this.offerModel.findByIdAndDelete(offerId).exect();
-
-    this.logger.info(`Offer deleted: ${offerId}`);
-
-    return result;
+    return this.offerModel.findByIdAndDelete(offerId).exect();
   }
 
-  //Q: А нужен ли тут город?
-  public async getOffersList(limit: number = DEFAULT_OFFERS_COUNT, city?: City): Promise<DocumentType<OfferEntity>[]> {
-    /*const result = await this.offerModel
-      .find({city: city}, {}, {limit})
+  public async getOffersList(limit: number = DEFAULT_OFFERS_COUNT): Promise<DocumentType<OfferEntity>[]> {
+    const result = await this.offerModel
+      .find({}, {}, {limit})
       .populate(['userId'])
       .sort({publicDate: SortType.Down})
-      .exec();*/
-
-    const result = await this.offerModel
-      .aggregate([
-        {
-          $lookup: {
-            from: 'offers',
-            let: { userId: '$_id'},
-            pipeline: [
-              { $match: { $expr: { $in: ['$$userId', 'users']}}},
-              { $project: {_id: 1}}
-            ],
-            as: 'offers'
-          }
-        },
-      ]).exec();
+      .exec();
 
     return result;
   }
 
-  public async getDetails(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+  public async getDetailsById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
     return this.offerModel
       .findById(offerId)
       .populate(['userId'])
@@ -92,11 +64,9 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async getPremiumOffersByCity(city: City): Promise<DocumentType<OfferEntity>[] | null> {
-    const result = await this.offerModel
+    return this.offerModel
       .find({city: city, isPremium: true}, {}, {DEFAULT_PREMIUM_OFFERS_COUNT})
       .exec();
-
-    return result;
   }
 
   public async incNumberOfComments(offerId: string): Promise<DocumentType<OfferEntity>| null> {
@@ -106,25 +76,15 @@ export class DefaultOfferService implements OfferService {
       }}).exec();
   }
 
-  //Q:
-  public async getFavoriteOffers(): Promise<DocumentType<OfferEntity>[] | null> {
-    const result = await this.offerModel.find({
-      isFavorite: true
-    }).exec();
-
-    return result;
-  }
-
-  public async switchFavoriteOffer(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+  public async recalcRatingByOfferId(offerId: string, newRatingItem: number): Promise<DocumentType<OfferEntity> | null > {
     const offer = await this.offerModel.findById(offerId);
 
-    if (!offer) {
-      throw new Error(`No book found with id ${offerId}`);
+    if(!offer) {
+      throw new Error(`No document found with id ${offerId}`);
     }
 
-    const newFavoriteStatus = !offer;
-    const result = await this.offerModel.findByIdAndUpdate(offerId, {isFavorite: newFavoriteStatus}, {new: true});
-
-    return result;
+    return this.offerModel.findByIdAndUpdate(offerId, {rating: ((offer.rating * offer.numberOfComments + newRatingItem) / (offer.numberOfComments + 1))}).exec();
   }
+
+  //Not implemented yet getFavoriteOffers, switchFavoriteOffer
 }

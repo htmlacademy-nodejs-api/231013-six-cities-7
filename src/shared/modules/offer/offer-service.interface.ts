@@ -14,6 +14,5 @@ export interface OfferService {
   getDetailsById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   getPremiumOffersByCity(city: City): Promise<DocumentType<OfferEntity>[] | null>;
   incNumberOfComments(offerId: string, count?: number): Promise<DocumentType<OfferEntity> | null>;
-  getFavoriteOffers(): Promise<DocumentType<OfferEntity>[] | null>;
-  switchFavoriteOffer(offerId: string): Promise<DocumentType<OfferEntity> | null>;
+  recalcRatingByOfferId(offerId: string, newRatingItem: number): Promise<DocumentType<OfferEntity> | null >;
 }
