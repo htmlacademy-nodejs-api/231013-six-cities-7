@@ -5,10 +5,14 @@ import {OfferService} from './offer-service.interface.js';
 import {Logger} from '../../libs/logger/index.js';
 import {OfferEntity} from './offer.entity.js';
 import {CreateOfferDTO} from './dto/create-offer.dto.js';
-//import {OfferUpdates} from '../../types/offer-updates.type.js';
-import {Component} from '../../enum/index.js';
+import {UpdateOfferDTO} from './dto/update-offer.dto.js';
+import {
+  Component,
+  City,
+  SortType
+} from '../../enum/index.js';
+import {DEFAULT_OFFERS_COUNT, DEFAULT_PREMIUM_OFFERS_COUNT} from '../../constants/constants.js';
 
-//const DEFAULT_OFFERS_LIMIT = 60;
 
 @injectable()
 export class DefaultOfferService implements OfferService {
@@ -25,68 +29,62 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).exec();
+    return this.offerModel
+      .findById(offerId)
+      .populate(['userId'])
+      .exec();
   }
 
-  /* Пока лишнее
-  public async update(offerId: string, updates: OfferUpdates): Promise<DocumentType<OfferEntity> | null> {
-    const result = await this.offerModel.findByIdAndUpdate(offerId, updates, {new: true});
-    this.logger.info(`Offer updated: ${offerId}`);
+  public async updateById(offerId: string, dto: UpdateOfferDTO): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findByIdAndUpdate(offerId, dto, {new: true})
+      .populate(['userId'])
+      .exec();
+  }
 
-    //Q: Как правильно обрабатывать ошибки? например, если документ не найден
-    if (!result) {
+  public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel.findByIdAndDelete(offerId).exect();
+  }
+
+  public async getOffersList(limit: number = DEFAULT_OFFERS_COUNT): Promise<DocumentType<OfferEntity>[]> {
+    const result = await this.offerModel
+      .find({}, {}, {limit})
+      .populate(['userId'])
+      .sort({publicDate: SortType.Down})
+      .exec();
+
+    return result;
+  }
+
+  public async getDetailsById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
+    return this.offerModel
+      .findById(offerId)
+      .populate(['userId'])
+      .exec();
+  }
+
+  public async getPremiumOffersByCity(city: City): Promise<DocumentType<OfferEntity>[] | null> {
+    return this.offerModel
+      .find({city: city, isPremium: true}, {}, {DEFAULT_PREMIUM_OFFERS_COUNT})
+      .exec();
+  }
+
+  public async incNumberOfComments(offerId: string): Promise<DocumentType<OfferEntity>| null> {
+    return this.offerModel
+      .findByIdAndUpdate(offerId, {'$inc': {
+        numberOfComments: 1,
+      }}).exec();
+  }
+
+  public async recalcRatingByOfferId(offerId: string, newRatingItem: number): Promise<DocumentType<OfferEntity> | null > {
+    const offer = await this.offerModel.findById(offerId);
+
+    if(!offer) {
       throw new Error(`No document found with id ${offerId}`);
     }
 
-    return result;
+    return this.offerModel.findByIdAndUpdate(offerId, {rating: ((offer.rating * offer.numberOfComments + newRatingItem) / (offer.numberOfComments + 1))}).exec();
   }
 
-  public async delete(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    const result = await this.offerModel.findByIdAndDelete(offerId);
-
-    this.logger.info(`Offer deleted: ${offerId}`);
-
-    return result;
-  }
-
-  //Q: Как вернуть только нужные поля? пройтись map по полученному массиву?
-  public async getOffersList(limit: number = DEFAULT_OFFERS_LIMIT): Promise<DocumentType<OfferEntity>[]> {
-    const result = await this.offerModel.find().sort({publicDate: -1}).limit(limit).exec();
-
-    return result;
-  }
-
-  public async getDetails(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findById(offerId).exec();
-  }
-
-  public async getPremiumOffersByCity(city: typeof City): Promise<DocumentType<OfferEntity>[] | null> {
-    const result = await this.offerModel.find({
-      city: city,
-      isPremium: true
-    }).exec();
-
-    return result;
-  }
-
-  public async getFavoriteOffers(): Promise<DocumentType<OfferEntity>[] | null> {
-    const result = await this.offerModel.find({
-      isFavorite: true
-    }).exec();
-
-    return result;
-  }
-
-  public async switchFavoriteOffer(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    const offer = await this.offerModel.findById(offerId);
-
-    if (!offer) {
-      throw new Error(`No book found with id ${offerId}`);
-    }
-
-    const newFavoriteStatus = !offer.isFavorite;
-    const result = await this.offerModel.findByIdAndUpdate(offerId, {isFavorite: newFavoriteStatus}, {new: true});
-
-    return result;
-  }*/
+  //Not implemented yet getFavoriteOffers, switchFavoriteOffer
 }

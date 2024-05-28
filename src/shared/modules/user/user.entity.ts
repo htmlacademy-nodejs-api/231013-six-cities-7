@@ -2,7 +2,7 @@ import {
   defaultClasses,
   getModelForClass,
   prop,
-  modelOptions
+  modelOptions,
 } from '@typegoose/typegoose';
 
 import {User} from '../../types/index.js';
