@@ -1,0 +1,46 @@
+openapi: 3.0.2
+info:
+  title: Errors resources
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    unauthorizedErrorResponse:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: Пользователь не авторизован
+
+    notFoundErrorResponse:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: Запращиваемый ресурс не найден
+
+    conflictErrorResponse:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: Пользователь с таким email уже существует
+
+    forbiddenErrorResponse:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: У пользователя нет прав на совершения данного запроса
+
+    incorrectRequestErrorResponse:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: Неверные данные в запросе

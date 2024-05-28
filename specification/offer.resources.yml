@@ -1,0 +1,353 @@
+openapi: 3.0.2
+info:
+  title: Offer resources
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    offerResponse:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Отель в историческом центре
+
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+    favoriteOfferResponse:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Отель в историческом центре
+
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        isFavorite:
+          type: boolean
+          example: true
+
+    createOfferRequest:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Отель в историческом центре
+
+        description:
+          type: string
+          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
+
+        publicDate:
+          type: string
+          format: Date
+          example: 2023-01-08T06:24:40.283Z
+
+        city:
+          type: string
+          enum:
+            - Paris
+            - Cologne
+            - Brussels
+            - Amsterdam
+            - Hamburg
+            - Dusseldorf
+          example: Brussels
+
+        previewImg:
+          type: string
+          example: preview.jpg
+
+        photos:
+          type: array
+          maxItems: 6
+          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
+
+        isPremium:
+          type: boolean
+          example: true
+
+        isFavorite:
+          type: boolean
+          example: true
+
+        rating:
+          type: number
+          minimum: 1
+          maximum: 5
+          example: 1.45
+
+        offerType:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+          example: room
+
+        numberOfRooms:
+          type: integer
+          format: int32
+          maximum: 8
+          minimum: 1
+          example: 3
+
+        numberOfGuests:
+          type: integer
+          format: int32
+          maximum: 10
+          minimum: 1
+          example: 6
+
+        rentPrice:
+          type: integer
+          format: int32
+          maximum: 100000
+          minimum: 100
+          example: 32000
+
+        features:
+          type: array
+          enum:
+            - Breakfast
+            - Air conditioning
+            - Laptop friendly workspace
+            - Baby seat
+            - Washer
+            - Towels
+            - Fridge
+          example: [ "Breakfast", "Laptop friendly workspace"]
+
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        numberOfComments:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 6
+
+        location:
+          type: object
+          properties:
+            ln:
+              type: number
+              example: 52.23452
+            lt:
+              type: number
+              example: 43.56739
+
+    offerDetailsResponse:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Отель в историческом центре
+
+        description:
+          type: string
+          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
+
+        publicDate:
+          type: string
+          format: Date
+          example: 2023-01-08T06:24:40.283Z
+
+        city:
+          type: string
+          enum:
+            - Paris
+            - Cologne
+            - Brussels
+            - Amsterdam
+            - Hamburg
+            - Dusseldorf
+          example: Brussels
+
+        previewImg:
+          type: string
+          example: preview.jpg
+
+        photos:
+          type: array
+          maxItems: 6
+          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
+
+        isPremium:
+          type: boolean
+          example: true
+
+        isFavorite?:
+          type: boolean
+          example: true
+
+        rating:
+          type: number
+          minimum: 1
+          maximum: 5
+          example: 1.45
+
+        offerType:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+          example: room
+
+        numberOfRooms:
+          type: integer
+          format: int32
+          maximum: 8
+          minimum: 1
+          example: 3
+
+        numberOfGuests:
+          type: integer
+          format: int32
+          maximum: 10
+          minimum: 1
+          example: 6
+
+        rentPrice:
+          type: integer
+          format: int32
+          maximum: 100000
+          minimum: 100
+          example: 32000
+
+        features:
+          type: array
+          enum:
+            - Breakfast
+            - Air conditioning
+            - Laptop friendly workspace
+            - Baby seat
+            - Washer
+            - Towels
+            - Fridge
+          example: [ "Breakfast", "Laptop friendly workspace"]
+
+        userId:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        numberOfComments:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 6
+
+        location:
+          type: object
+          properties:
+            ln:
+              type: number
+              example: 52.23452
+            lt:
+              type: number
+              example: 43.56739
+
+    updateOfferRequest:
+      type: object
+
+      properties:
+        title?:
+          type: string
+          example: Отель в историческом центре
+
+        description?:
+          type: string
+          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
+
+        city?:
+          type: string
+          enum:
+            - Paris
+            - Cologne
+            - Brussels
+            - Amsterdam
+            - Hamburg
+            - Dusseldorf
+          example: Brussels
+
+        previewImg?:
+          type: string
+          example: preview.jpg
+
+        photos?:
+          type: array
+          maxItems: 6
+          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
+
+        isPremium?:
+          type: boolean
+          example: true
+
+        isFavorite?:
+          type: boolean
+          example: true
+
+        offerType?:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+          example: room
+
+        numberOfRooms?:
+          type: integer
+          format: int32
+          maximum: 8
+          minimum: 1
+          example: 3
+
+        numberOfGuests?:
+          type: integer
+          format: int32
+          maximum: 10
+          minimum: 1
+          example: 6
+
+        rentPrice?:
+          type: integer
+          format: int32
+          maximum: 100000
+          minimum: 100
+          example: 32000
+
+        features?:
+          type: array
+          maxItems: 7
+          enum:
+            - Breakfast
+            - Air conditioning
+            - Laptop friendly workspace
+            - Baby seat
+            - Washer
+            - Towels
+            - Fridge
+          example: [ "Breakfast", "Laptop friendly workspace"]
+
+        location?:
+          type: object
+          properties:
+            ln:
+              type: number
+              example: 52.23452
+            lt:
+              type: number
+              example: 43.56739

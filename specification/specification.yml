@@ -6,7 +6,7 @@ info:
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
-  version: 2.0.0
+  version: 1.0.0
 tags:
   - name: users
     description: Действия с пользователем.
@@ -28,7 +28,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createUser'
+              $ref: './user.resources.yml#/components/schemas/createUserRequest'
         required: true
 
       responses:
@@ -37,14 +37,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: './user.resources.yml#/components/schemas/userResponse'
 
         "409":
           description: Пользователь с таким email уже существует.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/error'
+                $ref: './error.resources.yml#/components/schemas/conflictErrorResponse'
 
   /users/login:
     post:
@@ -58,7 +58,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/user'
+              $ref: './user.resources.yml#/components/schemas/userRequest'
         required: true
 
       responses:
@@ -67,21 +67,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: './user.resources.yml#/components/schemas/userResponse'
 
         "404":
           description: Пользователь с таким email не найден.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
         "401":
           description: Пользователь ввел пароль неверно.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unauthorizedError'
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
     get:
       tags:
@@ -106,14 +106,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unauthorizedError'
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
         "404":
           description: Пользователь не найден
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
   /users/logout:
     get:
@@ -127,14 +127,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/user'
+                $ref: './user.resources.yml#/components/schemas/userResponse'
 
         "404":
           description: Пользователь с таким id не найден.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
   /offers:
     post:
@@ -148,7 +148,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createOffer'
+              $ref: './offer.resources.yml#/components/schemas/createOfferRequest'
         required: true
 
       responses:
@@ -157,21 +157,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offer'
+                $ref: './offer.resources.yml#/components/schemas/offerResponse'
 
         "401":
           description: Пользователь не авторизован
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unauthorizedError'
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
         "422":
           description: Неверные данные в запросе
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/incorrectRequestError'
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
 
     get:
       tags:
@@ -197,14 +197,14 @@ paths:
                 maxItems: 100
                 minItems: 1
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: './offer.resources.yml#/components/schemas/offerResponse'
 
         "422":
           description: Неверный запрос
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/incorrectRequestError'
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
 
   /offers/{city}/premium:
     get:
@@ -222,14 +222,14 @@ paths:
                 maxItems: 3
                 minItems: 1
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: './offer.resources.yml#/components/schemas/offerResponse'
 
         "422":
           description: Неверный запрос
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/incorrectRequestError'
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
 
   /offers/favorites:
     get:
@@ -247,21 +247,21 @@ paths:
                 maxItems: 3
                 minItems: 1
                 items:
-                  $ref: '#/components/schemas/offer'
+                  $ref: './offer.resources.yml#/components/schemas/offerResponse'
 
         "401":
           description: Пользователь не авторизован
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unauthorizedError'
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
         "404":
           description: Пользователь с таким ID не найден.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
 
   /offers/{offerId}/update:
@@ -275,7 +275,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/updateOffer'
+              $ref: './offer.resources.yml#/components/schemas/updateOfferRequest'
         required: true
 
       responses:
@@ -284,27 +284,27 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offer'
+                $ref: './offer.resources.yml#/components/schemas/offerResponse'
 
         "401":
           description: Пользователь не авторизован
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unauthorizedError'
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
         "403":
           description: Пользователь не может удалить данное объявление.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/forbiddenError'
+                $ref: './error.resources.yml#/components/schemas/forbiddenErrorResponse'
 
         "404":
           description:  Объявление с таким ID не найдено.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
   /offers/{offerId}/deteils:
     get:
@@ -318,14 +318,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/offerDetails'
+                $ref: './offer.resources.yml#/components/schemas/offerDetailsResponse'
 
         "404":
           description: Объявление с таким id не найдено
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
   /offers/{offerId}/favorites:
     get:
@@ -339,14 +339,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/favoriteOffer'
+                $ref: './offer.resources.yml#/components/schemas/favoriteOfferResponse'
 
         "401":
           description: Пользователь не авторизован
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unauthorizedError'
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
 
   /offers/{offerId}/delete:
@@ -366,21 +366,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/unauthorizedError'
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
         "403":
           description: Пользователь не может удалить данное объявление.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/forbiddenError'
+                $ref: './error.resources.yml#/components/schemas/forbiddenErrorResponse'
 
         "404":
           description: Объявление с таким ID не найдено.
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
   /comments/{offerId}:
     post:
@@ -394,7 +394,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/createСomment'
+              $ref: './comment.resources.yml#/components/schemas/createСommentRequest'
         required: true
 
       responses:
@@ -403,12 +403,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/comment'
+                $ref: './comment.resources.yml#/components/schemas/commentResponse'
 
         "422":
           description: Неверные данные в запросе
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
 
     get:
       tags:
@@ -421,530 +423,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/commentContent'
+                $ref: './comment.resources.yml#/components/schemas/commentContentResponse'
 
         "404":
           description: Объявление с таким id не найдено
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/notFoundError'
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
-components:
-  schemas:
-    createUser:
-      type: object
-
-      properties:
-        email:
-          type: string
-          example: keks@htmlacademy.ru
-
-        name:
-          type: string
-          example: Keks
-
-        type:
-          type: string
-          example: Pro
-          enum:
-            - Ordinary
-            - Pro
-
-        avatar:
-          type: string
-          example: avatar.jpg
-
-        password:
-          type: string
-          example: 123456
-
-    user:
-      type: object
-
-      properties:
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        email:
-          type: string
-          example: mail@example.com
-
-    updateUser:
-      type: object
-
-      properties:
-        name?:
-          type: string
-          example: Клод Моне
-
-        avatar?:
-          type: string
-          example: avatar.jpg
-
-        type?:
-          type: string
-          enum:
-            - Pro
-            - Ordinary
-          example: Pro
-
-        password?:
-          type: string
-          example: 123456
-
-    offer:
-      type: object
-
-      properties:
-        title:
-          type: string
-          example: Отель в историческом центре
-
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-    favoriteOffer:
-      type: object
-
-      properties:
-        title:
-          type: string
-          example: Отель в историческом центре
-
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        isFavorite:
-          type: boolean
-          example: true
-
-    createOffer:
-      type: object
-
-      properties:
-        title:
-          type: string
-          example: Отель в историческом центре
-
-        description:
-          type: string
-          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
-
-        publicDate:
-          type: string
-          format: Date
-          example: 2023-01-08T06:24:40.283Z
-
-        city:
-          type: string
-          enum:
-            - Paris
-            - Cologne
-            - Brussels
-            - Amsterdam
-            - Hamburg
-            - Dusseldorf
-          example: Brussels
-
-        previewImg:
-          type: string
-          example: preview.jpg
-
-        photos:
-          type: array
-          maxItems: 6
-          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
-
-        isPremium:
-          type: boolean
-          example: true
-
-        isFavorite:
-          type: boolean
-          example: true
-
-        rating:
-          type: number
-          minimum: 1
-          maximum: 5
-          example: 1.45
-
-        offerType:
-          type: string
-          enum:
-            - apartment
-            - house
-            - room
-            - hotel
-          example: room
-
-        numberOfRooms:
-          type: integer
-          format: int32
-          maximum: 8
-          minimum: 1
-          example: 3
-
-        numberOfGuests:
-          type: integer
-          format: int32
-          maximum: 10
-          minimum: 1
-          example: 6
-
-        rentPrice:
-          type: integer
-          format: int32
-          maximum: 100000
-          minimum: 100
-          example: 32000
-
-        features:
-          type: array
-          enum:
-            - Breakfast
-            - Air conditioning
-            - Laptop friendly workspace
-            - Baby seat
-            - Washer
-            - Towels
-            - Fridge
-          example: [ "Breakfast", "Laptop friendly workspace"]
-
-        userId:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        numberOfComments:
-          type: integer
-          format: int32
-          minimum: 0
-          example: 6
-
-        location:
-          type: object
-          properties:
-            ln:
-              type: number
-              example: 52.23452
-            lt:
-              type: number
-              example: 43.56739
-
-    offerDetails:
-      type: object
-
-      properties:
-        title:
-          type: string
-          example: Отель в историческом центре
-
-        description:
-          type: string
-          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
-
-        publicDate:
-          type: string
-          format: Date
-          example: 2023-01-08T06:24:40.283Z
-
-        city:
-          type: string
-          enum:
-            - Paris
-            - Cologne
-            - Brussels
-            - Amsterdam
-            - Hamburg
-            - Dusseldorf
-          example: Brussels
-
-        previewImg:
-          type: string
-          example: preview.jpg
-
-        photos:
-          type: array
-          maxItems: 6
-          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
-
-        isPremium:
-          type: boolean
-          example: true
-
-        isFavorite?:
-          type: boolean
-          example: true
-
-        rating:
-          type: number
-          minimum: 1
-          maximum: 5
-          example: 1.45
-
-        offerType:
-          type: string
-          enum:
-            - apartment
-            - house
-            - room
-            - hotel
-          example: room
-
-        numberOfRooms:
-          type: integer
-          format: int32
-          maximum: 8
-          minimum: 1
-          example: 3
-
-        numberOfGuests:
-          type: integer
-          format: int32
-          maximum: 10
-          minimum: 1
-          example: 6
-
-        rentPrice:
-          type: integer
-          format: int32
-          maximum: 100000
-          minimum: 100
-          example: 32000
-
-        features:
-          type: array
-          enum:
-            - Breakfast
-            - Air conditioning
-            - Laptop friendly workspace
-            - Baby seat
-            - Washer
-            - Towels
-            - Fridge
-          example: [ "Breakfast", "Laptop friendly workspace"]
-
-        userId:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        numberOfComments:
-          type: integer
-          format: int32
-          minimum: 0
-          example: 6
-
-        location:
-          type: object
-          properties:
-            ln:
-              type: number
-              example: 52.23452
-            lt:
-              type: number
-              example: 43.56739
-
-    updateOffer:
-      type: object
-
-      properties:
-        title?:
-          type: string
-          example: Отель в историческом центре
-
-        description?:
-          type: string
-          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
-
-        city?:
-          type: string
-          enum:
-            - Paris
-            - Cologne
-            - Brussels
-            - Amsterdam
-            - Hamburg
-            - Dusseldorf
-          example: Brussels
-
-        previewImg?:
-          type: string
-          example: preview.jpg
-
-        photos?:
-          type: array
-          maxItems: 6
-          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
-
-        isPremium?:
-          type: boolean
-          example: true
-
-        isFavorite?:
-          type: boolean
-          example: true
-
-        offerType?:
-          type: string
-          enum:
-            - apartment
-            - house
-            - room
-            - hotel
-          example: room
-
-        numberOfRooms?:
-          type: integer
-          format: int32
-          maximum: 8
-          minimum: 1
-          example: 3
-
-        numberOfGuests?:
-          type: integer
-          format: int32
-          maximum: 10
-          minimum: 1
-          example: 6
-
-        rentPrice?:
-          type: integer
-          format: int32
-          maximum: 100000
-          minimum: 100
-          example: 32000
-
-        features?:
-          type: array
-          maxItems: 7
-          enum:
-            - Breakfast
-            - Air conditioning
-            - Laptop friendly workspace
-            - Baby seat
-            - Washer
-            - Towels
-            - Fridge
-          example: [ "Breakfast", "Laptop friendly workspace"]
-
-        location?:
-          type: object
-          properties:
-            ln:
-              type: number
-              example: 52.23452
-            lt:
-              type: number
-              example: 43.56739
-
-    unauthorizedError:
-      type: object
-
-      properties:
-        status:
-          type: string
-          example: Пользователь не авторизован
-
-    notFoundError:
-      type: object
-
-      properties:
-        status:
-          type: string
-          example: Запращиваемый ресурс не найден
-
-    conflictError:
-      type: object
-
-      properties:
-        status:
-          type: string
-          example: Пользователь с таким email уже существует
-
-    forbiddenError:
-      type: object
-
-      properties:
-        status:
-          type: string
-          example: У пользователя нет прав на совершения данного запроса
-
-    incorrectRequestError:
-      type: object
-
-      properties:
-        status:
-          type: string
-          example: Неверные данные в запросе
-
-    createСomment:
-      type: object
-
-      properties:
-        rating:
-          type: integer
-          format: int32
-          maximum: 1
-          minimum: 5
-          example: 4
-
-        content:
-          type: string
-          example: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-        publicDate:
-          type: string
-          format: Date
-          example: 2023-01-08T06:24:40.283Z
-
-        offerId:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        userId:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-    comment:
-      type: object
-
-      properties:
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        publicDate:
-          type: string
-          format: Date
-          example: 2023-01-08T06:24:40.283Z
-
-    commentContent:
-      type: object
-
-      properties:
-        rating:
-          type: integer
-          format: int32
-          maximum: 1
-          minimum: 5
-          example: 4
-
-        content:
-          type: string
-          example: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-        publicDate:
-          type: string
-          format: Date
-          example: 2023-01-08T06:24:40.283Z
-
-        userId:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-
-
+components: {}
