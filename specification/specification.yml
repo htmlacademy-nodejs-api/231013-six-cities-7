@@ -1,0 +1,435 @@
+openapi: '3.0.2'
+info:
+  title: API сервер для проекта «Шесть городов».
+  description: |-
+    * Список ресурсов и маршрутов сервера «Шесть городов».
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  version: 1.0.0
+tags:
+  - name: users
+    description: Действия с пользователем.
+  - name: offers
+    description: Действия с объявлениями.
+  - name: comments
+    description: Действия с комментариями.
+
+paths:
+  /users/register:
+    post:
+      tags:
+        - users
+      summary: Регистрация пользователя
+      description: Регистрирует нового пользователя.
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: './user.resources.yml#/components/schemas/createUserRequest'
+        required: true
+
+      responses:
+        "201":
+          description: Пользователь зарегистрирован. Объект пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: './user.resources.yml#/components/schemas/userResponse'
+
+        "409":
+          description: Пользователь с таким email уже существует.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/conflictErrorResponse'
+
+  /users/login:
+    post:
+      tags:
+        - users
+      summary: Авторизация пользователя
+      description: Авторизует пользователя на основе логина и пароля
+
+      requestBody:
+        description: Информация для создания нового пользователя.
+        content:
+          application/json:
+            schema:
+              $ref: './user.resources.yml#/components/schemas/userRequest'
+        required: true
+
+      responses:
+        "200":
+          description: Пользователь авторизовался. Токен пользователя.
+          content:
+            application/json:
+              schema:
+                $ref: './user.resources.yml#/components/schemas/userResponse'
+
+        "404":
+          description: Пользователь с таким email не найден.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+        "401":
+          description: Пользователь ввел пароль неверно.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
+
+    get:
+      tags:
+        - users
+      summary: Проверка состояния пользователя
+      description: Возвращает информацию по авторизованному пользователю
+
+      responses:
+        "200":
+          description: Пользователь авторизован.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: authorized
+
+        "401":
+          description: Пользователь не авторизован.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
+
+        "404":
+          description: Пользователь не найден
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+  /users/logout:
+    get:
+      tags:
+        - users
+      summary: Выход пользователя из аккаунта.
+
+      responses:
+        "204":
+          description: Пользователь разлогинен.
+          content:
+            application/json:
+              schema:
+                $ref: './user.resources.yml#/components/schemas/userResponse'
+
+        "404":
+          description: Пользователь с таким id не найден.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+  /offers:
+    post:
+      tags:
+        - offers
+      summary: Создание объявления
+      description: Создает новое объявление.
+
+      requestBody:
+        description: Информация для создания нового объявления.
+        content:
+          application/json:
+            schema:
+              $ref: './offer.resources.yml#/components/schemas/createOfferRequest'
+        required: true
+
+      responses:
+        "201":
+          description: Объявление создано. Объект оъявления.
+          content:
+            application/json:
+              schema:
+                $ref: './offer.resources.yml#/components/schemas/offerResponse'
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
+
+        "422":
+          description: Неверные данные в запросе
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
+
+    get:
+      tags:
+        - offers
+      summary: Получение списка офферов
+      parameters:
+        - name: limit
+          in: query
+          description: Максимальное количество офферов для возврата
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+
+      responses:
+        "200":
+          description: Список объявлений
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 100
+                minItems: 1
+                items:
+                  $ref: './offer.resources.yml#/components/schemas/offerResponse'
+
+        "422":
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
+
+  /offers/{city}/premium:
+    get:
+      tags:
+        -offers
+      summary: Получение списка премиальных предложений для города
+
+      responses:
+        "200":
+          description: Список объявлений
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 3
+                minItems: 1
+                items:
+                  $ref: './offer.resources.yml#/components/schemas/offerResponse'
+
+        "422":
+          description: Неверный запрос
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
+
+  /offers/favorites:
+    get:
+      tags:
+        -offers
+      summary: Получает список избранных объявлений
+
+      responses:
+        "200":
+          description: Список объявлений
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 3
+                minItems: 1
+                items:
+                  $ref: './offer.resources.yml#/components/schemas/offerResponse'
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
+
+        "404":
+          description: Пользователь с таким ID не найден.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+
+  /offers/{offerId}/update:
+    patch:
+      tags:
+        - offers
+      summary: Изменения данных объявления
+
+      requestBody:
+        description: Измененные данные объявления.
+        content:
+          application/json:
+            schema:
+              $ref: './offer.resources.yml#/components/schemas/updateOfferRequest'
+        required: true
+
+      responses:
+        "201":
+          description: Данные объявлени изменены. Объект объявления.
+          content:
+            application/json:
+              schema:
+                $ref: './offer.resources.yml#/components/schemas/offerResponse'
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
+        "403":
+          description: Пользователь не может удалить данное объявление.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/forbiddenErrorResponse'
+
+        "404":
+          description:  Объявление с таким ID не найдено.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+  /offers/{offerId}/deteils:
+    get:
+      tags:
+        - offers
+      summary: Получение детальной информации по объявлению
+
+      responses:
+        "200":
+          description: Детальная информация по объявлению.
+          content:
+            application/json:
+              schema:
+                $ref: './offer.resources.yml#/components/schemas/offerDetailsResponse'
+
+        "404":
+          description: Объявление с таким id не найдено
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+  /offers/{offerId}/favorites:
+    get:
+      tags:
+        -offers
+      summary: Добавляет/удаляет объявление в список избранных
+
+      responses:
+        "201":
+          description: Объявление добавлено/удалено из избранного.
+          content:
+            application/json:
+              schema:
+                $ref: './offer.resources.yml#/components/schemas/favoriteOfferResponse'
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
+
+
+  /offers/{offerId}/delete:
+    get:
+      tags:
+        - offers
+      summary: Удаляет объявление
+
+      responses:
+        "204":
+          description: Объявление удалено.
+          content:
+            application/json: {}
+
+        "401":
+          description: Пользователь не авторизован
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
+
+        "403":
+          description: Пользователь не может удалить данное объявление.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/forbiddenErrorResponse'
+
+        "404":
+          description: Объявление с таким ID не найдено.
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+  /comments/{offerId}:
+    post:
+      tags:
+        - comments
+      summary: Создает новый комментарий
+      description: Создает новый комментарий.
+
+      requestBody:
+        description: Информация для создания нового комментария.
+        content:
+          application/json:
+            schema:
+              $ref: './comment.resources.yml#/components/schemas/createСommentRequest'
+        required: true
+
+      responses:
+        "201":
+          description: Комментарий создан. Объект комментария.
+          content:
+            application/json:
+              schema:
+                $ref: './comment.resources.yml#/components/schemas/commentResponse'
+
+        "422":
+          description: Неверные данные в запросе
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/incorrectRequestErrorResponse'
+
+    get:
+      tags:
+        - comments
+      summary: Получает список комментариев для объявления
+
+      responses:
+        "200":
+          description: Список комментариев
+          content:
+            application/json:
+              schema:
+                $ref: './comment.resources.yml#/components/schemas/commentContentResponse'
+
+        "404":
+          description: Объявление с таким id не найдено
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
+
+components: {}

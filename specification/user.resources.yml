@@ -1,0 +1,81 @@
+openapi: 3.0.2
+info:
+  title: User resources
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    createUserRequest:
+      type: object
+
+      properties:
+        email:
+          type: string
+          example: keks@htmlacademy.ru
+
+        name:
+          type: string
+          example: Keks
+
+        type:
+          type: string
+          example: Pro
+          enum:
+            - Ordinary
+            - Pro
+
+        avatar:
+          type: string
+          example: avatar.jpg
+
+        password:
+          type: string
+          example: 123456
+
+    userRequest:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        email:
+          type: string
+          example: mail@example.com
+
+    updateUserRequest:
+      type: object
+
+      properties:
+        name?:
+          type: string
+          example: Клод Моне
+
+        avatar?:
+          type: string
+          example: avatar.jpg
+
+        type?:
+          type: string
+          enum:
+            - Pro
+            - Ordinary
+          example: Pro
+
+        password?:
+          type: string
+          example: 123456
+
+    userResponse:
+      type: object
+
+      properties:
+        id:
+          type: string
+          example: 6329c3d6a04ab1061c6425ea
+
+        email:
+          type: string
+          example: mail@example.com
+
