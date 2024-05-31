@@ -2,7 +2,7 @@ import { Expose } from 'class-transformer';
 import {Location} from '../../../types/index.js';
 import {OfferType, City} from '../../../enum/index.js';
 
-export class OfferRdo {
+export class OfferRDO {
   @Expose()
   public id: string;
 

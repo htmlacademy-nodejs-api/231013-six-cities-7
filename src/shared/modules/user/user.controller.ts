@@ -13,7 +13,7 @@ import {Config, RestSchema} from '../../libs/config/index.js';
 import {fillDTO} from '../../helpers/index.js';
 import {CreateUserRequest} from './create-user-request.type.js';
 import {UserService} from './user-service.interface.js';
-import {UserResponseRdo} from './rdo/user-response.rdo.js';
+import {UserRDO} from './rdo/user.rdo.js';
 import {LoginUserRequest} from './login-user-request.type.js';
 
 @injectable()
@@ -52,7 +52,7 @@ export class UserController extends BaseController {
     }
 
     const result = await this.userService.create(body, this.configService.get('SALT'));
-    this.created(res, fillDTO(UserResponseRdo, result));
+    this.created(res, fillDTO(UserRDO, result));
   }
 
   public async login(
@@ -76,7 +76,11 @@ export class UserController extends BaseController {
     );
   }
 
-  public logout(_req: Request, _res: Response): void {
-    // Код обработчика
+  public async logout(_req: Request, _res: Response): Promise<void> {
+    throw new HttpError(
+      StatusCodes.NOT_IMPLEMENTED,
+      'Not implemented',
+      'UserController',
+    );
   }
 }
