@@ -14,16 +14,14 @@ export class CommentController extends BaseController {
 
     this.logger.info('Register routes for CommnetController...');
 
-
-    //(!) Тут должны быть путь comments/OfferId
     this.addRoute({
-      path: '/',
+      path: '/:offerId',
       method: HttpMethod.Get,
       handler: this.index
     });
 
     this.addRoute({
-      path: '/',
+      path: '/:offerId',
       method: HttpMethod.Post,
       handler: this.create
     });
@@ -36,4 +34,4 @@ export class CommentController extends BaseController {
   public create(_req: Request, _res: Response): void {
     //Код обработчика
   }
-};
+}

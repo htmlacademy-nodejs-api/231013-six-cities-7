@@ -65,7 +65,7 @@ export class RestApplication {
 
     this.logger.info('Init app-level middleware');
     await this._initMiddleware();
-    this.logger.info('App-level middleware initialization completed')
+    this.logger.info('App-level middleware initialization completed');
 
     this.logger.info('Init controllers');
     await this._initControllers();
