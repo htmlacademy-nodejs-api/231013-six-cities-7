@@ -263,7 +263,6 @@ paths:
               schema:
                 $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
-
   /offers/{offerId}/update:
     patch:
       tags:
@@ -306,7 +305,7 @@ paths:
               schema:
                 $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
-  /offers/{offerId}/deteils:
+  /offers/{offerId}/details:
     get:
       tags:
         - offers
@@ -347,7 +346,6 @@ paths:
             application/json:
               schema:
                 $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
-
 
   /offers/{offerId}/delete:
     get:
