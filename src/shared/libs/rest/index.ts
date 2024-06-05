@@ -12,3 +12,4 @@ export {ValidateObjectIdMiddleware} from './middleware/validate-object-id.middle
 export {ValidateDtoMiddleware} from './middleware/validate-dto.middleware.js';
 export {DocumentExistsMiddleware} from './middleware/document-exists.middleware.js';
 export {DocumentExists} from './types/document-exists.interface.js';
+export {UploadFileMiddleware} from './middleware/upload-file.middleware.js';

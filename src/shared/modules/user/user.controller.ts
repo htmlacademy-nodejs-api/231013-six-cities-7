@@ -6,6 +6,7 @@ import {
   BaseController,
   HttpMethod,
   HttpError,
+  UploadFileMiddleware,
   ValidateDtoMiddleware,
   DocumentExistsMiddleware,
 } from '../../libs/rest/index.js';
@@ -34,7 +35,10 @@ export class UserController extends BaseController {
     this.addRoute({
       path: '/register', method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateUserDTO)]
+      middlewares: [
+        new ValidateDtoMiddleware(CreateUserDTO),
+        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
+      ]
     });
     this.addRoute({
       path: '/login',
