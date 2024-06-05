@@ -11,7 +11,7 @@ import {
   City,
   SortType
 } from '../../enum/index.js';
-import {DEFAULT_OFFERS_COUNT, DEFAULT_PREMIUM_OFFERS_COUNT} from '../../constants/constants.js';
+import {DEFAULT_PREMIUM_OFFERS_COUNT} from '../../constants/constants.js';
 
 
 @injectable()
@@ -43,10 +43,13 @@ export class DefaultOfferService implements OfferService {
   }
 
   public async deleteById(offerId: string): Promise<DocumentType<OfferEntity> | null> {
-    return this.offerModel.findByIdAndDelete(offerId).exect();
+    return this.offerModel
+      .findByIdAndDelete(offerId)
+      .populate(['userId'])
+      .exec();
   }
 
-  public async getOffersList(limit: number = DEFAULT_OFFERS_COUNT): Promise<DocumentType<OfferEntity>[]> {
+  public async getOffersList(limit: number): Promise<DocumentType<OfferEntity>[]> {
     const result = await this.offerModel
       .find({}, {}, {limit})
       .populate(['userId'])
@@ -84,6 +87,11 @@ export class DefaultOfferService implements OfferService {
     }
 
     return this.offerModel.findByIdAndUpdate(offerId, {rating: ((offer.rating * offer.numberOfComments + newRatingItem) / (offer.numberOfComments + 1))}).exec();
+  }
+
+  public async exists(documentId: string): Promise<boolean> {
+    return (await this.offerModel
+      .exists({_id: documentId})) !== null;
   }
 
   //Not implemented yet getFavoriteOffers, switchFavoriteOffer

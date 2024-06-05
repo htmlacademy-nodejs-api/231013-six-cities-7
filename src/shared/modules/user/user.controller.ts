@@ -5,15 +5,19 @@ import {StatusCodes} from 'http-status-codes';
 import {
   BaseController,
   HttpMethod,
-  HttpError
+  HttpError,
+  ValidateDtoMiddleware,
+  DocumentExistsMiddleware,
 } from '../../libs/rest/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {Component} from '../../enum/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {fillDTO} from '../../helpers/index.js';
 import {CreateUserRequest} from './create-user-request.type.js';
+import {LoginUserDTO} from './dto/login-user.dto.js';
 import {UserService} from './user-service.interface.js';
 import {UserRDO} from './rdo/user.rdo.js';
+import {CreateUserDTO} from './dto/create-user.dto.js';
 import {LoginUserRequest} from './login-user-request.type.js';
 
 @injectable()
@@ -27,8 +31,20 @@ export class UserController extends BaseController {
 
     this.logger.info('Register routes for OfferController...');
 
-    this.addRoute({ path: '/register', method: HttpMethod.Post, handler: this.create });
-    this.addRoute({ path: '/login', method: HttpMethod.Post, handler: this.login });
+    this.addRoute({
+      path: '/register', method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateUserDTO)]
+    });
+    this.addRoute({
+      path: '/login',
+      method: HttpMethod.Post,
+      handler: this.login,
+      middlewares: [
+        new ValidateDtoMiddleware(LoginUserDTO),
+        new DocumentExistsMiddleware(this.userService, 'User', 'userId ')
+      ]
+    });
     this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.index });
     this.addRoute({ path: '/logout', method: HttpMethod.Get, handler: this.logout });
   }

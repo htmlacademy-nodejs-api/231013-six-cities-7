@@ -1,7 +1,7 @@
 # Предложения
 
 ## Получить список предложений
-GET http://localhost:4000/offers HTTP/1.1
+GET http://localhost:4000/offers/ HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -23,11 +23,37 @@ Content-Type: application/json
   "numberOfRooms": 3,
   "numberOfGuests": 6,
   "rentPrice": 32000,
-  "features":[ "Breakfast", "Laptop friendly workspace"],
-  "userId": "6329c3d6a04ab1061c6425ea",
+  "features": ["Breakfast", "Laptop friendly workspace"],
+  "userId": "664645a12e3b0cc6c86b9307",
   "numberOfComments": 0,
   "location": {
-    "ln": 52.23452,
-    "lt": 43.56739,
-  },
+    "ln": "52.23452",
+    "lt": "43.56739"
+  }
 }
+
+###
+
+## Получить детали объявления
+
+GET http://localhost:4000/offers/664645a12e3b0cc6c86b9309 HTTP/1.1
+Content-Type: application/json
+
+###
+
+## Изменить объявление
+
+PATCH http://localhost:4000/offers/665af431fa15c77e6a0e503f/update HTTP/1.1
+Content-Type: application/json
+
+{
+  "description": "Update Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности",
+  "offerType": "hotel"
+}
+
+###
+
+## Удаляет объявление
+
+DELETE http://localhost:4000/offers/665af431fa15c77e6a0e503f/delete HTTP/1.1
+Content-Type: application/json

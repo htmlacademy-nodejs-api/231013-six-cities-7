@@ -5,7 +5,7 @@ import {
   City,
   Feature
 } from '../../../enum/index.js';
-import { UserResponseRdo } from '../../user/rdo/user-response.rdo.js';
+import { UserRDO } from '../../user/rdo/user.rdo.js';
 
 export class DetailsOfferRDO {
   @Expose()
@@ -51,8 +51,8 @@ export class DetailsOfferRDO {
   public features: Feature[];
 
   @Expose({name: 'userId'})
-  @Type(() => UserResponseRdo)
-  public user: UserResponseRdo;
+  @Type(() => UserRDO)
+  public user: UserRDO;
 
   @Expose()
   public numberOfComments: number;
