@@ -3,7 +3,7 @@ import {
   MaxLength,
   MinLength,
   IsEmail,
-  IsMimeType,
+  IsOptional,
 } from 'class-validator';
 
 import {UserType} from '../../../enum/index.js';
@@ -13,7 +13,8 @@ export class CreateUserDTO {
   @IsEmail({}, {message: UserValidationMessage.email.invalid})
   public email: string;
 
-  @IsMimeType({message: UserValidationMessage.avatar.invalid})
+  @IsOptional()
+  @MaxLength(256, {message: UserValidationMessage.avatar.maxLength})
   public avatar?: string;
 
   @MinLength(1, {message: UserValidationMessage.name.minLength})

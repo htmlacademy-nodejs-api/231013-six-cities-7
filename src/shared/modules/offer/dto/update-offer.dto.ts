@@ -7,7 +7,7 @@ import {
   MaxLength,
   Min,
   MinLength,
-  IsMimeType,
+  IsObject,
 } from 'class-validator';
 
 import {Location} from '../../../types/index.js';
@@ -15,32 +15,26 @@ import {OfferType, City, Feature} from '../../../enum/index.js';
 import {OfferValidationMessage} from './offer-validation.message.js';
 
 export class UpdateOfferDTO {
-  @MinLength(10, { message: OfferValidationMessage.title.minLength })
-  @MaxLength(100, { message: OfferValidationMessage.title.maxLength })
+  @MinLength(10, {message: OfferValidationMessage.title.minLength})
+  @MaxLength(100, {message: OfferValidationMessage.title.maxLength})
   public title?: string;
 
-  @MinLength(20, { message: OfferValidationMessage.description.minLength })
-  @MaxLength(1024, { message: OfferValidationMessage.description.maxLength })
+  @MinLength(20, {message: OfferValidationMessage.description.minLength})
+  @MaxLength(1024, {message: OfferValidationMessage.description.maxLength})
   public description?: string;
 
-  @IsDateString({}, { message: OfferValidationMessage.publicDate.invalidFormat })
+  @IsDateString({}, {message: OfferValidationMessage.publicDate.invalidFormat})
   public publicDate?: Date;
 
-  @IsEnum(City, { message: OfferValidationMessage.city.invalid })
+  @IsEnum(City, { message: OfferValidationMessage.city.invalid})
   public city?: City;
 
-  @IsMimeType(['image/jpeg', 'image/png'], { message: OfferValidationMessage.previewImg.invalidType })
-  @MaxLength(256, { message: OfferValidationMessage.previewImg.maxLength })
+  @MaxLength(256, {message: OfferValidationMessage.previewImg.maxLength})
   public previewImg?: string;
 
-  @IsArray({ message: OfferValidationMessage.photos.invalidFormat })
-  @MinLength(6, { message: OfferValidationMessage.photos.invalidLength})
-  @MaxLength(6, { message: OfferValidationMessage.photos.invalidLength})
-  @IsMimeType(
-    ['image/jpeg', 'image/png'], {
-    message: OfferValidationMessage.photos.invalidType,
-    each: true,
-  })
+  @IsArray({message: OfferValidationMessage.photos.invalidFormat })
+  @MinLength(6, {message: OfferValidationMessage.photos.invalidLength})
+  @MaxLength(6, {message: OfferValidationMessage.photos.invalidLength})
   public photos?: string[];
 
   public isPremium?: boolean;
@@ -64,12 +58,13 @@ export class UpdateOfferDTO {
   @Max(100000, {message: OfferValidationMessage.rentPrice.maxValue})
   public rentPrice?: number;
 
-  @IsArray({ message: OfferValidationMessage.features.invalidFormat })
-  @IsEnum(Feature, { message: OfferValidationMessage.features.invalid })
+  @IsArray({message: OfferValidationMessage.features.invalidFormat})
+  @IsEnum(Feature, {message: OfferValidationMessage.features.invalid, each: true})
   public features?: Feature[];
 
   @IsInt({message: OfferValidationMessage.numberOfComments.invalidFormat})
   public numberOfComments?: number;
 
+  @IsObject({message: OfferValidationMessage.location.invalidFormat})
   public location?: Location;
 }

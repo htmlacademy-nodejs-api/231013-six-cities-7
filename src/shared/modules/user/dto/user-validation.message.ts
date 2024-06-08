@@ -3,7 +3,7 @@ export const UserValidationMessage = {
     invalid: 'It must be email',
   },
   avatar: {
-    invalid: 'It must be png or jpeg file',
+    maxLength: 'Too long for field «image»',
   },
   name: {
     minLength: 'Minimum name length must be 1',

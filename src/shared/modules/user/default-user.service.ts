@@ -28,7 +28,7 @@ export class DefaultUserService implements UserService {
     return this.userModel
       .findOne({email})
       .populate(['favoriteOffers'])
-      .exact();
+      .exec();
   }
 
   public async findOrCreate(dto: CreateUserDTO, salt: string): Promise<DocumentType<UserEntity>> {

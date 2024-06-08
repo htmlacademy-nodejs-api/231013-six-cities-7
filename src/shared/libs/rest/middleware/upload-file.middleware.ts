@@ -26,7 +26,7 @@ export class UploadFileMiddleware implements Middleware {
       }
     });
 
-    const uploadSingleFileMiddleware = multer({ storage })
+    const uploadSingleFileMiddleware = multer({storage})
       .single(this.fieldName);
 
     uploadSingleFileMiddleware(req, res, next);

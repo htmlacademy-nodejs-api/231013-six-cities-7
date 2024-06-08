@@ -14,13 +14,11 @@ export const OfferValidationMessage = {
     invalid: 'City must be Paris, Cologne, Brussels, Amsterdam, Hamburg, Dusseldorf',
   },
   previewImg: {
-    maxLength: 'Too short for field «image»',
-    invalidType: 'It must be png or jpg file',
+    maxLength: 'Too long for field «image»',
   },
   photos: {
     invalidFormat: 'Field photos must be an array',
     invalidLength: 'Array`s length must be 6',
-    invalidType: 'It must be png or jpg file',
   },
   offerType: {
     invalid: 'offerType must be house, room, hotel apartment',
@@ -42,6 +40,9 @@ export const OfferValidationMessage = {
     minValue: 'Minimum price is 100',
     maxValue: 'Maximum price is 100000',
   },
+  isPremium: {
+    invalid: 'It must be boolean value',
+  },
   features: {
     invalidFormat: 'Field features must be an array',
     invalid: 'Invalid value for field features',
@@ -51,5 +52,8 @@ export const OfferValidationMessage = {
   },
   numberOfComments: {
     invalidFormat: 'Price must be an integer',
+  },
+  location: {
+    invalidFormat: 'It must be oblect Location'
   }
 } as const;

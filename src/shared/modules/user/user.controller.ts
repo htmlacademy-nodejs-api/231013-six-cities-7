@@ -38,7 +38,6 @@ export class UserController extends BaseController {
       handler: this.create,
       middlewares: [
         new ValidateDtoMiddleware(CreateUserDTO),
-        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'avatar'),
       ]
     });
     this.addRoute({
