@@ -5,7 +5,11 @@ import {StatusCodes} from 'http-status-codes';
 import {
   BaseController,
   HttpMethod,
-  HttpError} from '../../libs/rest/index.js';
+  HttpError,
+  ValidateObjectIdMiddleware,
+  ValidateDtoMiddleware,
+  DocumentExistsMiddleware,
+} from '../../libs/rest/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {City, Component} from '../../enum/index.js';
 import {fillDTO} from '../../helpers/index.js';
@@ -15,6 +19,7 @@ import {OfferRDO} from './rdo/offer.rdo.js';
 import {DetailsOfferRDO} from './rdo/details-offer.rdo.js';
 import {CreateOfferDTO} from './dto/create-offer.dto.js';
 import {UpdateOfferDTO} from './dto/update-offer.dto.js';
+import {DEFAULT_OFFERS_COUNT} from '../../constants/constants.js';
 
 
 @injectable()
@@ -28,18 +33,57 @@ export class OfferController extends BaseController {
 
     this.logger.info('Register routes for OfferController...');
 
-    this.addRoute({ path: '/', method: HttpMethod.Get, handler: this.index });
-    this.addRoute({ path: '/', method: HttpMethod.Post, handler: this.create });
+    this.addRoute({path: '/', method: HttpMethod.Get, handler: this.index });
+    this.addRoute({
+      path: '/',
+      method: HttpMethod.Post,
+      handler: this.create,
+      middlewares: [new ValidateDtoMiddleware(CreateOfferDTO)]
+    });
     this.addRoute({ path: '/favorites', method: HttpMethod.Get, handler: this.favorites });
-    this.addRoute({ path: '/:offerId/update', method: HttpMethod.Post, handler: this.update });
-    this.addRoute({ path: '/:offerId/details', method: HttpMethod.Post, handler: this.details });
-    this.addRoute({ path: '/:offerId/favorites', method: HttpMethod.Post, handler: this.changeFavorite });
-    this.addRoute({ path: '/:offerId/delete', method: HttpMethod.Post, handler: this.delete });
+    this.addRoute({
+      path: '/:offerId/update',
+      method: HttpMethod.Patch,
+      handler: this.update,
+      middlewares: [
+        new ValidateDtoMiddleware(UpdateOfferDTO),
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+      ]
+    });
+    this.addRoute({
+      path: '/:offerId/details',
+      method: HttpMethod.Post,
+      handler: this.details,
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+      ]
+    });
+    this.addRoute({
+      path: '/:offerId/favorites',
+      method: HttpMethod.Post,
+      handler: this.changeFavorite,
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+      ]
+    });
+    this.addRoute({
+      path: '/:offerId/delete',
+      method: HttpMethod.Delete,
+      handler: this.delete,
+      middlewares: [
+        new ValidateObjectIdMiddleware('offerId'),
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+      ]
+    });
     this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.premium });
   }
 
-  public async index(_req: Request, res: Response): Promise<void> {
-    const offers = await this.offerService.getOffersList(60);
+  public async index(req: Request, res: Response): Promise<void> {
+    const limit = req.query.limit ? Number(req.query.limit) : DEFAULT_OFFERS_COUNT;
+    const offers = await this.offerService.getOffersList(limit);
     const responseData = fillDTO(OfferRDO, offers);
     this.ok(res, responseData);
   }
