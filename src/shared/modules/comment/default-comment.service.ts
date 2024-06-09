@@ -5,6 +5,7 @@ import {CommentService} from './comment-service.interface.js';
 import {Component} from '../../enum/index.js';
 import {CommentEntity} from './comment.entity.js';
 import {CreateCommentDTO} from './dto/create-comment.dto.js';
+import {DEFAULT_MAX_COMMENT_COUNT} from '../../constants/constants.js';
 
 @injectable()
 export class DefaultCommentService implements CommentService {
@@ -18,7 +19,11 @@ export class DefaultCommentService implements CommentService {
   }
 
   public async findByOfferId(offerId: string): Promise<DocumentType<CommentEntity>[]> {
-    return this.commentModel.find({offerId}).populate('userId');
+    return this.commentModel
+      .find({offerId})
+      .limit(DEFAULT_MAX_COMMENT_COUNT)
+      .populate('userId')
+      .exec();
   }
 
   public async deleteByOfferId(offerId: string): Promise<number | null> {

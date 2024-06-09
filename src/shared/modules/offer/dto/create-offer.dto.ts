@@ -5,11 +5,12 @@ import {
   IsObject,
   IsEnum,
   IsInt,
-  IsMongoId,
   Max,
   MaxLength,
   Min,
   MinLength,
+  ArrayMinSize,
+  ArrayMaxSize,
 } from 'class-validator';
 
 import {Location} from '../../../types/index.js';
@@ -35,8 +36,8 @@ export class CreateOfferDTO {
   public previewImg: string;
 
   @IsArray({message: OfferValidationMessage.photos.invalidFormat})
-  @MinLength(6, {message: OfferValidationMessage.photos.invalidLength})
-  @MaxLength(6, {message: OfferValidationMessage.photos.invalidLength})
+  @ArrayMinSize(6, {message: OfferValidationMessage.photos.invalidLength})
+  @ArrayMaxSize(6, {message: OfferValidationMessage.photos.invalidLength})
   public photos: string[];
 
   @IsBoolean({message: OfferValidationMessage.isPremium.invalid})
@@ -63,10 +64,9 @@ export class CreateOfferDTO {
   public rentPrice: number;
 
   @IsArray({ message: OfferValidationMessage.features.invalidFormat })
-  @IsEnum(Feature, { message: OfferValidationMessage.features.invalid })
+  @IsEnum(Feature, { message: OfferValidationMessage.features.invalid, each: true })
   public features: Feature[];
 
-  @IsMongoId({message: OfferValidationMessage.userId.invalidId})
   public userId: string;
 
   @IsInt({message: OfferValidationMessage.numberOfComments.invalidFormat})

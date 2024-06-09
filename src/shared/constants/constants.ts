@@ -9,3 +9,4 @@ export const CITIES = {
 
 export const DEFAULT_OFFERS_COUNT = 60;
 export const DEFAULT_PREMIUM_OFFERS_COUNT = 3;
+export const DEFAULT_MAX_COMMENT_COUNT = 50;
