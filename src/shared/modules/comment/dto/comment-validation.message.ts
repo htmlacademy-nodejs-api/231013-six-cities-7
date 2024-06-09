@@ -17,4 +17,4 @@ export const CommentValidationMessage = {
   userId: {
     invalidId: 'userId field must be a valid id'
   }
-}
+};
