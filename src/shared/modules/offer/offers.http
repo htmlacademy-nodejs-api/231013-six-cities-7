@@ -36,7 +36,7 @@ Content-Type: application/json
 
 ## Получить детали объявления
 
-GET http://localhost:4000/offers/664645b22e3b0cc6c86bb027/details HTTP/1.1
+GET http://localhost:4000/offers/664645a52e3b0cc6c86b993e/details HTTP/1.1
 Content-Type: application/json
 
 ###
@@ -63,6 +63,6 @@ Content-Type: application/json
 
 ## Удаляет объявление
 
-DELETE http://localhost:4000/offers/66656c73c2e7e6ecf6399527/delete HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Iml2YW4uU2hpc2tpbkBtYWlsLmNvbSIsIm5hbWUiOiLQmNCy0LDQvSDQqNC40YjQutC40L0iLCJpZCI6IjY2NjUyZGUyODNiMDIyZmYxOTg0MjA3MiIsImlhdCI6MTcxNzkwOTU2NiwiZXhwIjoxNzE4MDgyMzY2fQ.Pr79zr1V1oJvIaWdLhg45QpFaOvx-H3ku6kBrJ25zA8
+DELETE http://localhost:4000/offers/6665f7ed954dda374a7fbb69/delete HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imgtb2xpdmVyQG1haWwuY29tIiwibmFtZSI6Ik9saXZlciBIIiwiaWQiOiI2NjY1ZjkzNzk1NGRkYTM3NGE3ZmJiNmMiLCJpYXQiOjE3MTc5NTg5ODMsImV4cCI6MTcxODEzMTc4M30.UywWDYpZ1iMjEi-2OYVOmDhlAjCLtC2nsd7k_z2E8pM
 Content-Type: application/json

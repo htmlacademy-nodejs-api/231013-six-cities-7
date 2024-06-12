@@ -10,6 +10,7 @@ import {
   ValidateDtoMiddleware,
   DocumentExistsMiddleware,
   PrivateRouteMiddleware,
+  AllowingAccessMiddleware,
 } from '../../libs/rest/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {City, Component} from '../../enum/index.js';
@@ -46,7 +47,14 @@ export class OfferController extends BaseController {
         new ValidateDtoMiddleware(CreateOfferDTO)
       ]
     });
-    this.addRoute({ path: '/favorites', method: HttpMethod.Get, handler: this.favorites });
+    this.addRoute({
+      path: '/favorites',
+      method: HttpMethod.Get,
+      handler: this.favorites,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+      ]
+    });
     this.addRoute({
       path: '/:offerId/update',
       method: HttpMethod.Patch,
@@ -55,7 +63,7 @@ export class OfferController extends BaseController {
         new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(UpdateOfferDTO),
         new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+        new AllowingAccessMiddleware(this.offerService, 'offerId')
       ]
     });
     this.addRoute({
@@ -74,7 +82,7 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+
       ]
     });
     this.addRoute({
@@ -83,8 +91,7 @@ export class OfferController extends BaseController {
       handler: this.delete,
       middlewares: [
         new PrivateRouteMiddleware(),
-        new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
+        new AllowingAccessMiddleware(this.offerService, 'offerId')
       ]
     });
     this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.premium });
@@ -144,16 +151,8 @@ export class OfferController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async delete({ params, tokenPayload }: Request<Record<string, unknown>, Record<string, unknown>>,
+  public async delete({ params }: Request<Record<string, unknown>, Record<string, unknown>>,
     res: Response): Promise<void> {
-    const deleteOfferCreator = await this.offerService.findById(params.offerId as string).then((data) => data?.userId.id);
-    if (String(deleteOfferCreator) !== tokenPayload.id as string) {
-      throw new HttpError(
-        StatusCodes.FORBIDDEN,
-        `User ${deleteOfferCreator} is not authorized to perform this operation`,
-        'OfferController'
-      );
-    }
     const deleteOffer = await this.offerService.deleteById(params.offerId as string);
     await this.commentServise.deleteByOfferId(params.offerId as string);
 

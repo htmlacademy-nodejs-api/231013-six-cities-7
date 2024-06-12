@@ -9,6 +9,7 @@ import {
   UploadFileMiddleware,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
+  PrivateRouteMiddleware
 } from '../../libs/rest/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {Component} from '../../enum/index.js';
@@ -55,6 +56,7 @@ export class UserController extends BaseController {
       method: HttpMethod.Post,
       handler: this.uploadAvatar,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('userId'),
         new UploadFileMiddleware(
           this.configService.get('UPLOAD_DIRECTORY'),
@@ -62,8 +64,12 @@ export class UserController extends BaseController {
         )
       ]
     });
-    this.addRoute({ path: '/login', method: HttpMethod.Get, handler: this.checkAuthenticate });
-    this.addRoute({ path: '/logout', method: HttpMethod.Get, handler: this.logout });
+    this.addRoute({
+      path: '/login',
+      method: HttpMethod.Get,
+      handler: this.checkAuthenticate,
+      middlewares: [new PrivateRouteMiddleware()]
+    });
   }
 
   public async checkAuthenticate({ tokenPayload: { email }}: Request, res: Response) {
@@ -81,9 +87,16 @@ export class UserController extends BaseController {
   }
 
   public async create(
-    { body }: CreateUserRequest,
+    {body, tokenPayload}: CreateUserRequest,
     res: Response,
   ): Promise<void> {
+    if(tokenPayload) {
+      throw new HttpError(
+        StatusCodes.FORBIDDEN,
+        'Registration not available to authorized users',
+        'UserController',
+      );
+    }
     const existsUser = await this.userService.findByEmail(body.email);
 
     if (existsUser) {
@@ -99,7 +112,7 @@ export class UserController extends BaseController {
   }
 
   public async login(
-    { body }: LoginUserRequest,
+    {body}: LoginUserRequest,
     res: Response,
   ): Promise<void> {
     const user = await this.authService.verify(body);
@@ -111,17 +124,7 @@ export class UserController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async logout(_req: Request, _res: Response): Promise<void> {
-    throw new HttpError(
-      StatusCodes.NOT_IMPLEMENTED,
-      'Not implemented',
-      'UserController',
-    );
-  }
-
-  public async uploadAvatar(req: Request, res: Response) {
-    this.created(res, {
-      filepath: req.file?.path
-    });
+  public async uploadAvatar(req: Request, _res: Response) {
+    return this.userService.updateAvatar(req.params.userId, req.file?.path as string);
   }
 }

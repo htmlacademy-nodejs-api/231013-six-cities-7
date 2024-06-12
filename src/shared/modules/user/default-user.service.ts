@@ -31,6 +31,13 @@ export class DefaultUserService implements UserService {
       .exec();
   }
 
+  public async updateAvatar(userId: string, avatarPath: string): Promise<DocumentType<UserEntity> | null> {
+    return this.userModel
+      .findByIdAndUpdate(userId, {avatar: avatarPath}, {new: true})
+      .populate(['favoriteOffersId'])
+      .exec();
+  }
+
   public async findOrCreate(dto: CreateUserDTO, salt: string): Promise<DocumentType<UserEntity>> {
     const existedUser = await this.findByEmail(dto.email);
 
