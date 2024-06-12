@@ -1,14 +1,30 @@
 # Пользователь
 
+## Создать пользователя (при наличии токена)
+POST http://localhost:4000/users/register HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Iml2YW4uU2hpc2tpbkBtYWlsLmNvbSIsIm5hbWUiOiLQmNCy0LDQvSDQqNC40YjQutC40L0iLCJpZCI6IjY2NjUyZGUyODNiMDIyZmYxOTg0MjA3MiIsImlhdCI6MTcxNzkwOTU2NiwiZXhwIjoxNzE4MDgyMzY2fQ.Pr79zr1V1oJvIaWdLhg45QpFaOvx-H3ku6kBrJ25zA8
+Content-Type: application/json
+
+{
+  "email": "h-oliver@mail.com",
+  "name": "Oliver H",
+  "type": "Ordinary",
+  "avatar": "",
+  "password": "gjjrjs45"
+}
+
+###
+
 ## Создать пользователя
 POST http://localhost:4000/users/register HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "john.doe@mail.com",
-  "name": "John Doe",
+  "email": "defaultuser@mail.com",
+  "name": "default user",
   "type": "Ordinary",
-  "password": "gjjrjs45"
+  "avatar": "",
+  "password": "password"
 }
 
 ###
@@ -29,26 +45,70 @@ Content-Type: application/json
 
 ## Авторизация пользователя
 
-POST http://localhost:4000/users/Login HTTP/1.1
+POST http://localhost:4000/users/login HTTP/1.1
 Content-Type: application/json
 
 {
-  "email": "john.doe@mail.com",
+  "email": "h-oliver@mail.com",
   "password": "gjjrjs45"
 }
 
 ###
 
+## Авторизация пользователя (неверный пароль)
+
+POST http://localhost:4000/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "h-oliver@mail.com",
+  "password": "gjjrjs5"
+}
+
+###
+
+## Авторизация пользователя (неверный имейл)
+
+POST http://localhost:4000/users/login HTTP/1.1
+Content-Type: application/json
+
+{
+  "email": "oliver@mail.com",
+  "password": "gjjrjs45"
+}
+
+###
+
+## Проверить токен пользователя
+
+GET http://localhost:4000/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Iml2YW4uU2hpc2tpbkBtYWlsLmNvbSIsIm5hbWUiOiLQmNCy0LDQvSDQqNC40YjQutC40L0iLCJpZCI6IjY2NjUyZGUyODNiMDIyZmYxOTg0MjA3MiIsImlhdCI6MTcxNzkwOTU2NiwiZXhwIjoxNzE4MDgyMzY2fQ.Pr79zr1V1oJvIaWdLhg45QpFaOvx-H3ku6kBrJ25zA8
+
+###
+
+## Проверить токен пользователя (неверный токен)
+
+GET http://localhost:4000/users/login HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ.eyJlbWFpbCI6Iml2YW4uU2hpc2tpbkBtYWlsLmNvbSIsIm5hbWUiOiLQmNCy0LDQvSDQqNC40YjQutC40L0iLCJpZCI6IjY2NjUyZGUyODNiMDIyZmYxOTg0MjA3MiIsImlhdCI6MTcxNzkwOTU2NiwiZXhwIjoxNzE4MDgyMzY2fQ.Pr79zr1V1oJvIaWdLhg45QpFaOvx-H3ku6kBrJ25zA8
+
+###
+
+## Проверить токен пользователя (токен отсутствует)
+
+GET http://localhost:4000/users/login HTTP/1.1
+###
+
 ## Поменять аватар
 
-POST http://localhost:4000/users/664645a12e3b0cc6c86b9307/avatar HTTP/1.1
+POST http://localhost:4000/users/6665f937954dda374a7fbb6c/avatar HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Iml2YW4uU2hpc2tpbkBtYWlsLmNvbSIsIm5hbWUiOiLQmNCy0LDQvSDQqNC40YjQutC40L0iLCJpZCI6IjY2NjUyZGUyODNiMDIyZmYxOTg0MjA3MiIsImlhdCI6MTcxNzkwOTU2NiwiZXhwIjoxNzE4MDgyMzY2fQ.Pr79zr1V1oJvIaWdLhg45QpFaOvx-H3ku6kBrJ25zA8
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="avatar"; filename="screen.png"
 Content-Type: image/png
 
-< C:\Users\марина\Desktop\photo_2024-04-27_18-27-38.jpg
+< C:\Users\марина\Desktop\photo_2024-04-27_18-27-38.jpg >
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ##

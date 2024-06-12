@@ -9,11 +9,14 @@ import {
   ValidateObjectIdMiddleware,
   ValidateDtoMiddleware,
   DocumentExistsMiddleware,
+  PrivateRouteMiddleware,
+  AllowingAccessMiddleware,
 } from '../../libs/rest/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {City, Component} from '../../enum/index.js';
 import {fillDTO} from '../../helpers/index.js';
-import {CommentService} from '../comment/comment-service.interface.js';
+import {CommentService} from '../comment/index.js';
+import {UserService} from '../user/index.js';
 import {OfferService} from './offer-service.interface.js';
 import {OfferRDO} from './rdo/offer.rdo.js';
 import {DetailsOfferRDO} from './rdo/details-offer.rdo.js';
@@ -28,6 +31,7 @@ export class OfferController extends BaseController {
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.OfferService) private readonly offerService: OfferService,
     @inject(Component.CommentService) private readonly commentServise: CommentService,
+    @inject(Component.UserService) private readonly userServise: UserService,
   ) {
     super(logger);
 
@@ -38,26 +42,37 @@ export class OfferController extends BaseController {
       path: '/',
       method: HttpMethod.Post,
       handler: this.create,
-      middlewares: [new ValidateDtoMiddleware(CreateOfferDTO)]
+      middlewares: [
+        new PrivateRouteMiddleware(),
+        new ValidateDtoMiddleware(CreateOfferDTO)
+      ]
     });
-    this.addRoute({ path: '/favorites', method: HttpMethod.Get, handler: this.favorites });
+    this.addRoute({
+      path: '/favorites',
+      method: HttpMethod.Get,
+      handler: this.favorites,
+      middlewares: [
+        new PrivateRouteMiddleware(),
+      ]
+    });
     this.addRoute({
       path: '/:offerId/update',
       method: HttpMethod.Patch,
       handler: this.update,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(UpdateOfferDTO),
         new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+        new AllowingAccessMiddleware(this.offerService, 'offerId')
       ]
     });
     this.addRoute({
       path: '/:offerId/details',
-      method: HttpMethod.Post,
+      method: HttpMethod.Get,
       handler: this.details,
       middlewares: [
         new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId')
       ]
     });
     this.addRoute({
@@ -65,8 +80,9 @@ export class OfferController extends BaseController {
       method: HttpMethod.Post,
       handler: this.changeFavorite,
       middlewares: [
+        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+
       ]
     });
     this.addRoute({
@@ -74,8 +90,8 @@ export class OfferController extends BaseController {
       method: HttpMethod.Delete,
       handler: this.delete,
       middlewares: [
-        new ValidateObjectIdMiddleware('offerId'),
-        new DocumentExistsMiddleware(this.offerService, 'Offer', 'offerId ')
+        new PrivateRouteMiddleware(),
+        new AllowingAccessMiddleware(this.offerService, 'offerId')
       ]
     });
     this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.premium });
@@ -89,10 +105,10 @@ export class OfferController extends BaseController {
   }
 
   public async create(
-    { body }: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDTO>,
+    { body, tokenPayload }: Request<Record<string, unknown>, Record<string, unknown>, CreateOfferDTO>,
     res: Response
   ): Promise<void> {
-    const newOffer = await this.offerService.create(body);
+    const newOffer = await this.offerService.create({...body, userId: tokenPayload.id });
     this.created(res, fillDTO(DetailsOfferRDO, newOffer));
   }
 
@@ -119,10 +135,19 @@ export class OfferController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async details({ params }: Request<Record<string, unknown>, Record<string, unknown>>,
+  public async details({ params, tokenPayload }: Request<Record<string, unknown>, Record<string, unknown>>,
     res: Response): Promise<void> {
     const detailsOffer = await this.offerService.getDetailsById(params.offerId as string);
-    const responseData = fillDTO(DetailsOfferRDO, detailsOffer);
+    let responseData: DetailsOfferRDO & {isFavorite?: boolean} = fillDTO(DetailsOfferRDO, detailsOffer);
+
+    if(tokenPayload){
+      const favoriteOffersId = await this.userServise
+        .findByEmail(tokenPayload.email)
+        .then((data) => data?.favoriteOffersId);
+      console.log(favoriteOffersId?.includes(params.offerId as string));
+      responseData = {...responseData, isFavorite: favoriteOffersId?.includes(params.offerId as string)};
+    }
+
     this.ok(res, responseData);
   }
 

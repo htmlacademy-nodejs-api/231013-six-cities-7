@@ -46,6 +46,12 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   public type: UserType;
 
   @prop({
+    default: [],
+    required: false,
+  })
+  public favoriteOffersId?: string[];
+
+  @prop({
     required: true,
     default: '',
   })
@@ -67,7 +73,11 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
   public getPassword() {
     return this.password;
   }
+
+  public verifyPassword(password: string, salt: string) {
+    const hashPassword = createSHA256(password, salt);
+    return hashPassword === this.password;
+  }
 }
 
 export const UserModel = getModelForClass(UserEntity);
-
