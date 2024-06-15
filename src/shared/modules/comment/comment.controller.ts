@@ -60,7 +60,7 @@ export class CommentController extends BaseController {
       userId: tokenPayload.id,
       offerId: params.offerId as string
     });
-    await this.offerService.incNumberOfComments(params.offerId as string);
+    await this.offerService.updateOfferStatistic(params.offerId as string, body.rating);
     this.created(res, fillDTO(CommentRDO, comment));
   }
 }

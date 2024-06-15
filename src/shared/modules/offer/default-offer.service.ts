@@ -72,6 +72,7 @@ export class DefaultOfferService implements OfferService {
       .exec();
   }
 
+  /*
   public async incNumberOfComments(offerId: string): Promise<DocumentType<OfferEntity>| null> {
     return this.offerModel
       .findByIdAndUpdate(offerId, {'$inc': {
@@ -82,11 +83,20 @@ export class DefaultOfferService implements OfferService {
   public async recalcRatingByOfferId(offerId: string, newRatingItem: number): Promise<DocumentType<OfferEntity> | null > {
     const offer = await this.offerModel.findById(offerId);
 
-    if(!offer) {
-      throw new Error(`No document found with id ${offerId}`);
-    }
-
     return this.offerModel.findByIdAndUpdate(offerId, {rating: ((offer.rating * offer.numberOfComments + newRatingItem) / (offer.numberOfComments + 1))}).exec();
+  }
+    */
+
+  //Вместо incNumberOfComments и recalcRatingByOfferId
+  public async updateOfferStatistic(offerId: string, newRatingItem: number): Promise<DocumentType<OfferEntity> | null > {
+    const offer = await this.offerModel.findById(offerId);
+    return this.offerModel.findByIdAndUpdate(offerId, {
+      '$inc': {
+        numberOfComments: 1,
+        totalRating: newRatingItem,
+      },
+      overageRating: ((offer!.totalRating + newRatingItem) / (offer!.numberOfComments + 1))
+    }).exec();
   }
 
   public async exists(documentId: string): Promise<boolean> {

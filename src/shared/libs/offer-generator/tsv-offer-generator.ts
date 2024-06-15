@@ -1,7 +1,12 @@
 import dayjs from 'dayjs';
 
 import {OfferGenerator} from './offer-generator.interface.js';
-import {generateRandomValue, getRandomItem, getRandomItems, getRandomBoolean} from '../../helpers/common.js';
+import {
+  generateRandomValue,
+  getRandomItem,
+  getRandomItems,
+  getRandomBoolean
+} from '../../helpers/common.js';
 import {MockServerData} from '../../types/index.js';
 import {OfferType, City, Feature, UserType} from '../../enum/index.js';
 import {CITIES} from '../../constants/constants.js';
@@ -21,6 +26,8 @@ const MAX_RATING = 5;
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
 
+const REQUIRED_NUMBERS_OF_PHOTO = 6;
+
 export class TSVOfferGenerator implements OfferGenerator {
   constructor(private readonly mockData: MockServerData) {}
 
@@ -32,7 +39,7 @@ export class TSVOfferGenerator implements OfferGenerator {
       .toISOString();
     const city = getRandomItem(Object.values(City));
     const previewImg = getRandomItem(this.mockData.previewImages);
-    const photos = getRandomItems(this.mockData.photos).join(';');
+    const photos = getRandomItems(this.mockData.photos, REQUIRED_NUMBERS_OF_PHOTO).join(';');
     const isPremium = getRandomBoolean();
     const isFavorite = getRandomBoolean();
     const rating = generateRandomValue(MIN_RATING, MAX_RATING);
@@ -43,7 +50,6 @@ export class TSVOfferGenerator implements OfferGenerator {
     const features = getRandomItems(Object.values(Feature)).join(';');
     const user = getRandomItem(this.mockData.user);
     const userType = getRandomItem(Object.values(UserType));
-    //ToDo: Генерация комментариев поменяется
     const numberOfComments = generateRandomValue(0, 15);
     const cityLocation = CITIES[city as keyof typeof City];
 

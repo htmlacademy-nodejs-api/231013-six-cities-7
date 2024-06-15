@@ -15,4 +15,7 @@ export {DocumentExists} from './types/document-exists.interface.js';
 export {UploadFileMiddleware} from './middleware/upload-file.middleware.js';
 export {ParseTokenMiddleware} from './middleware/parse-token.middleware.js';
 export {PrivateRouteMiddleware} from './middleware/private-route.middleware.js';
-export {AllowingAccessMiddleware} from './middleware/allowing-access.middleware.js';
+export {CheckUserAccessMiddleware} from './middleware/check-user-access.middleware.js';
+export {ValidationErrorField} from './types/validation-error-fields.type.js';
+export {ApplicationError} from './types/application-error.enum.js';
+export {ValidateExceptionFilter} from './exception-filter/validation.exception-filter.js';

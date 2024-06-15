@@ -14,7 +14,6 @@ export interface OfferService extends DocumentExists {
   getOffersList(limit: number): Promise<DocumentType<OfferEntity>[]>;
   getDetailsById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   getPremiumOffersByCity(city: City): Promise<DocumentType<OfferEntity>[] | null>;
-  incNumberOfComments(offerId: string, count?: number): Promise<DocumentType<OfferEntity> | null>;
-  recalcRatingByOfferId(offerId: string, newRatingItem: number): Promise<DocumentType<OfferEntity> | null >;
+  updateOfferStatistic(offerId: string, newRatingItem: number): Promise<DocumentType<OfferEntity> | null >;
   exists(documentId: string): Promise<boolean>;
 }
