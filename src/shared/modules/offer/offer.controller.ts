@@ -66,7 +66,6 @@ export class OfferController extends BaseController {
       middlewares: [
         new PrivateRouteMiddleware(),
         new ValidateDtoMiddleware(UpdateOfferDTO),
-        new ValidateObjectIdMiddleware('offerId'),
         new CheckUserAccessMiddleware(this.offerService, 'offerId')
       ]
     });
@@ -112,7 +111,7 @@ export class OfferController extends BaseController {
 
   public async index(req: Request, res: Response): Promise<void> {
     const limit = req.query.limit ? Number(req.query.limit) : DEFAULT_OFFERS_COUNT;
-    const offers = await this.offerService.getOffersList(limit);
+    const offers = await this.offerService.find(limit);
     const responseData = fillDTO(OfferRDO, offers);
     this.ok(res, responseData);
   }
@@ -145,6 +144,7 @@ export class OfferController extends BaseController {
 
   public async update({ params, body }: Request<Record<string, unknown>, Record<string, unknown>, UpdateOfferDTO>,
     res: Response): Promise<void> {
+    console.log(body);
     const updateOffer = await this.offerService.updateById(params.offerId as string, body);
 
     const responseData = fillDTO(DetailsOfferRDO, updateOffer);
@@ -153,7 +153,7 @@ export class OfferController extends BaseController {
 
   public async details({ params, tokenPayload }: Request<Record<string, unknown>, Record<string, unknown>>,
     res: Response): Promise<void> {
-    const detailsOffer = await this.offerService.getDetailsById(params.offerId as string);
+    const detailsOffer = await this.offerService.findById(params.offerId as string);
     let responseData: DetailsOfferRDO & {isFavorite?: boolean} = fillDTO(DetailsOfferRDO, detailsOffer);
 
     if(tokenPayload){

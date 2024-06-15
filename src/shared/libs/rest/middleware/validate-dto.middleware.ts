@@ -7,8 +7,8 @@ import {ClassConstructor, plainToInstance} from 'class-transformer';
 import {validate} from 'class-validator';
 
 import {Middleware} from './middleware.interface.js';
-import { ValidationError } from '../errors/index.js';
-import { reduceValidationErrors } from '../../../helpers/index.js';
+import {ValidationError} from '../errors/index.js';
+import {reduceValidationErrors} from '../../../helpers/index.js';
 
 export class ValidateDtoMiddleware implements Middleware {
   constructor(private dto: ClassConstructor<object>) {}
@@ -18,6 +18,7 @@ export class ValidateDtoMiddleware implements Middleware {
     _res: Response,
     next: NextFunction
   ): Promise<void> {
+    console.log(body);
     const dtoInstance = plainToInstance(this.dto, body);
     const errors = await validate(dtoInstance);
 
