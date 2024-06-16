@@ -59,10 +59,17 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
+    default: 0,
+  })
+  public totalRating: number;
+
+  @prop({
+    required: true,
+    default: 5,
     max: 5,
     min: 1,
   })
-  public rating: number;
+  public overageRating: number;
 
   @prop({
     required: true,
@@ -94,7 +101,6 @@ export class OfferEntity extends defaultClasses.TimeStamps {
 
   @prop()
   public features: Feature[];
-
 
   @prop({
     ref: UserEntity,

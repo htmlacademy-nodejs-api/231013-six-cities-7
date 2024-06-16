@@ -15,5 +15,9 @@ export const UserValidationMessage = {
   password: {
     minLength: 'Minimum password length must be 6',
     maxLength: 'Maximum password length must be 12',
+  },
+  favotiteOffersId: {
+    invalidType: 'favotiteOffersId must be array',
+    invalid: 'favotiteOffersId must be Mongo Id',
   }
 };

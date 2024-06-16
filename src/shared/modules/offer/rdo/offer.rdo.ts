@@ -1,4 +1,4 @@
-import { Expose } from 'class-transformer';
+import {Expose} from 'class-transformer';
 import {Location} from '../../../types/index.js';
 import {OfferType, City} from '../../../enum/index.js';
 
@@ -21,7 +21,7 @@ export class OfferRDO {
   @Expose()
   public isPremium: boolean;
 
-  @Expose()
+  @Expose({name: 'overageRating'})
   public rating: number;
 
   @Expose()

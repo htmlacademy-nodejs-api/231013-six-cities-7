@@ -12,4 +12,7 @@ export class UserRDO {
 
   @Expose()
   public id: string;
+
+  @Expose()
+  public favoriteOffersId: string[];
 }

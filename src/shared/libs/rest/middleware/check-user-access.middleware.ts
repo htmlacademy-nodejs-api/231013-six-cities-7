@@ -5,35 +5,42 @@ import {
 } from 'express';
 import {StatusCodes} from 'http-status-codes';
 
-import {AllowingAccess} from '../types/allowing-access.interface.js';
+import {ServiceInterface} from '../service/service.interface.js';
 import {Middleware} from './middleware.interface.js';
 import {HttpError} from '../errors/index.js';
 
-export class AllowingAccessMiddleware implements Middleware {
+type RequiredType = {
+  userId: {
+    id: Uint8Array;
+  }
+};
+
+export class CheckUserAccessMiddleware implements Middleware {
   constructor(
-    private readonly service: AllowingAccess,
+    private readonly service: ServiceInterface<RequiredType>,
     private readonly paramName: string,
   ) {}
 
   public async execute({ params, tokenPayload }: Request, _res: Response, next: NextFunction): Promise<void> {
     const documentId = params[this.paramName];
-    console.log(params[this.paramName]);
-    const documentOwnerId = await this.service.findById(documentId).then((data) => data?.userId.id);
 
-    if(documentOwnerId === undefined) {
+    const document = await this.service.findById(documentId);
+
+    if(document === undefined) {
       throw new HttpError(
         StatusCodes.NOT_FOUND,
         `Document with ${documentId} not found.`,
-        'AllowingAccessMiddleware'
+        'CheckUserAccessMiddleware'
       );
     }
 
+    const documentOwnerId = document?.userId.id;
 
     if(String(documentOwnerId) !== tokenPayload.id as string) {
       throw new HttpError(
         StatusCodes.FORBIDDEN,
         `User ${tokenPayload.id} is not authorized to perform this operation`,
-        'AllowingAccessMiddleware'
+        'CheckUserAccessMiddleware'
       );
     }
 

@@ -43,10 +43,6 @@ export class CreateOfferDTO {
   @IsBoolean({message: OfferValidationMessage.isPremium.invalid})
   public isPremium: boolean;
 
-  @Min(1, {message: OfferValidationMessage.rating.minValue})
-  @Max(5, {message: OfferValidationMessage.rating.maxValue})
-  public rating: number;
-
   @IsEnum(OfferType, {message: OfferValidationMessage.offerType.invalid})
   public offerType: OfferType;
 
@@ -68,9 +64,6 @@ export class CreateOfferDTO {
   public features: Feature[];
 
   public userId: string;
-
-  @IsInt({message: OfferValidationMessage.numberOfComments.invalidFormat})
-  public numberOfComments: number;
 
   @IsObject({message: OfferValidationMessage.location.invalidFormat})
   public location: Location;

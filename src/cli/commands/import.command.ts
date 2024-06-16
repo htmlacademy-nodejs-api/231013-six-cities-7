@@ -49,14 +49,12 @@ export class ImportCommand implements Command {
       previewImg: offer.previewImg,
       photos: offer.photos,
       isPremium: offer.isPremium,
-      rating: offer.rating,
       offerType: offer.offerType,
       numberOfRooms: offer.numberOfRooms,
       numberOfGuests: offer.numberOfGuests,
       rentPrice: offer.rentPrice,
       features: offer.features,
       userId: user.id,
-      numberOfComments: offer.numberOfComments,
       location: offer.location,
     });
 
