@@ -6,6 +6,7 @@ import {
   Severity,
 } from '@typegoose/typegoose';
 
+import {MIN_NAME_LENGTH, MAX_NAME_LENGTH} from '../../constants/constants.js';
 import {User} from '../../types/index.js';
 import {UserType} from '../../enum/index.js';
 import {createSHA256} from '../../helpers/index.js';
@@ -34,8 +35,8 @@ export class UserEntity extends defaultClasses.TimeStamps implements User {
 
   @prop({
     required: true,
-    minlength: 1,
-    maxlength: 15,
+    minlength: MIN_NAME_LENGTH,
+    maxlength: MAX_NAME_LENGTH,
     default: ''
   })
   public name: string;

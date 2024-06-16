@@ -1,9 +1,5 @@
 import {StatusCodes} from 'http-status-codes';
-import {
-  NextFunction,
-  Request,
-  Response
-} from 'express';
+import {NextFunction, Request, Response} from 'express';
 
 import {Middleware} from './middleware.interface.js';
 import { BaseUserException } from '../../../modules/auth/errors/base-user.exception.js';

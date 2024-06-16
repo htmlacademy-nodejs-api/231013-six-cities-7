@@ -9,24 +9,21 @@ import {
 } from '../../helpers/common.js';
 import {MockServerData} from '../../types/index.js';
 import {OfferType, City, Feature, UserType} from '../../enum/index.js';
-import {CITIES} from '../../constants/constants.js';
-
-const MIN_PRICE = 100;
-const MAX_PRICE = 100000;
-
-const MIN_ROOMS = 1;
-const MAX_ROOMS = 8;
-
-const MIN_GUESTS = 1;
-const MAX_GUESTS = 10;
-
-const MIN_RATING = 1;
-const MAX_RATING = 5;
+import {
+  CITIES,
+  REQUIRED_NUMBER_OF_PHOTO,
+  MIN_RATING,
+  MAX_RATING,
+  MIN_ROOMS,
+  MAX_ROOMS,
+  MIN_GUESTS,
+  MAX_GUESTS,
+  MIN_PRICE,
+  MAX_PRICE,
+} from '../../constants/constants.js';
 
 const FIRST_WEEK_DAY = 1;
 const LAST_WEEK_DAY = 7;
-
-const REQUIRED_NUMBERS_OF_PHOTO = 6;
 
 export class TSVOfferGenerator implements OfferGenerator {
   constructor(private readonly mockData: MockServerData) {}
@@ -39,7 +36,7 @@ export class TSVOfferGenerator implements OfferGenerator {
       .toISOString();
     const city = getRandomItem(Object.values(City));
     const previewImg = getRandomItem(this.mockData.previewImages);
-    const photos = getRandomItems(this.mockData.photos, REQUIRED_NUMBERS_OF_PHOTO).join(';');
+    const photos = getRandomItems(this.mockData.photos, REQUIRED_NUMBER_OF_PHOTO).join(';');
     const isPremium = getRandomBoolean();
     const isFavorite = getRandomBoolean();
     const rating = generateRandomValue(MIN_RATING, MAX_RATING);
@@ -54,7 +51,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     const cityLocation = CITIES[city as keyof typeof City];
 
     const generateLocation = (lt:number, ln:number) => {
-      const uncertaintyRadius = 0.5;
+      const uncertaintyRadius = 0.01;
       const newLt = Math.round((Math.random() * ((lt + uncertaintyRadius) - (lt - uncertaintyRadius)) + (lt - uncertaintyRadius)) * 100000) / 100000;
       const newLn = Math.round(Math.random() * ((ln + uncertaintyRadius) - (ln - uncertaintyRadius)) + (ln - uncertaintyRadius) * 100000) / 100000;
 

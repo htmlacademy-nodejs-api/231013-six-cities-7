@@ -12,6 +12,8 @@ import {
   PrivateRouteMiddleware,
   CheckUserAccessMiddleware,
 } from '../../libs/rest/index.js';
+
+import {DEFAULT_OFFERS_COUNT} from '../../constants/constants.js';
 import {Logger} from '../../libs/logger/index.js';
 import {City, Component} from '../../enum/index.js';
 import {fillDTO} from '../../helpers/index.js';
@@ -22,7 +24,6 @@ import {OfferRDO} from './rdo/offer.rdo.js';
 import {DetailsOfferRDO} from './rdo/details-offer.rdo.js';
 import {CreateOfferDTO} from './dto/create-offer.dto.js';
 import {UpdateOfferDTO} from './dto/update-offer.dto.js';
-import {DEFAULT_OFFERS_COUNT} from '../../constants/constants.js';
 
 
 @injectable()

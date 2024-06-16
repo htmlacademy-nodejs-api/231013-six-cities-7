@@ -24,21 +24,17 @@ components:
             - Ordinary
             - Pro
 
-        avatar:
-          type: string
-          example: avatar.jpg
-
         password:
           type: string
           example: 123456
 
-    userRequest:
+    loginUserRequest:
       type: object
 
       properties:
-        id:
+        password:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 123456
 
         email:
           type: string
@@ -63,19 +59,46 @@ components:
             - Ordinary
           example: Pro
 
-        password?:
-          type: string
-          example: 123456
+        favoriteOffersId:
+          type: array
+          example: ['666f5c9294cdd4c101970b17', '446f5c9294cdgtc101970b87']
 
     userResponse:
       type: object
 
       properties:
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
         email:
           type: string
-          example: mail@example.com
+          example: keks@htmlacademy.ru
+
+        name:
+          type: string
+          example: Keks
+
+        type:
+          type: string
+          example: Pro
+          enum:
+            - Ordinary
+            - Pro
+
+        avatar:
+          type: string
+          example: avatar.jpg
+
+        id:
+          type: string
+          example: 666f5c9294cdd4c101970b17
+
+        favoriteOffersId:
+          type: array
+          example: ['666f5c9294cdd4c101970b17', '446f5c9294cdgtc101970b87']
+
+    uploadAvatarResponse:
+      type: object
+
+      properties:
+        avatar:
+          type: string
+          example: avatar.jpg
 

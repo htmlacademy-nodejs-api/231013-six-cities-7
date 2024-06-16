@@ -13,6 +13,14 @@ components:
           type: string
           example: Пользователь не авторизован
 
+    registrationNotAvalibleError:
+      type: object
+
+      properties:
+        status:
+          type: string
+          example: Registration not available to authorized users
+
     notFoundErrorResponse:
       type: object
 
@@ -27,7 +35,7 @@ components:
       properties:
         status:
           type: string
-          example: Пользователь с таким email уже существует
+          example: User with email <email> exists
 
     forbiddenErrorResponse:
       type: object

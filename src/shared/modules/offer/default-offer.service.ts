@@ -15,7 +15,7 @@ import {CreateOfferDTO} from './dto/create-offer.dto.js';
 import {UpdateOfferDTO} from './dto/update-offer.dto.js';
 
 @injectable()
-export class DefaultOfferService extends AbstractService<OfferEntity, CreateOfferDTO, UpdateOfferDTO> implements OfferService {
+export class DefaultOfferService extends AbstractService<OfferEntity> implements OfferService {
   constructor(
     @inject(Component.Logger) private readonly logger: Logger,
     @inject(Component.OfferModel) private readonly offerModel: types.ModelType<OfferEntity>
@@ -23,7 +23,7 @@ export class DefaultOfferService extends AbstractService<OfferEntity, CreateOffe
     super();
   }
 
-  public async create(dto: CreateOfferDTO) {
+  public async create(dto: CreateOfferDTO): Promise<DocumentType<OfferEntity>> {
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.title}`);
 

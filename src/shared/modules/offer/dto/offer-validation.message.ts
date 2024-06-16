@@ -1,11 +1,27 @@
+import {
+  MIN_OFFER_TITLE_LENGTH,
+  MAX_OFFER_TITLE_LENGTH,
+  MIN_OFFER_DESCRIPTION_LENGTH,
+  MAX_OFFER_DESCRIPTION_LENGTH,
+  REQUIRED_NUMBER_OF_PHOTO,
+  MIN_RATING,
+  MAX_RATING,
+  MIN_ROOMS,
+  MAX_ROOMS,
+  MIN_PRICE,
+  MAX_PRICE,
+  MIN_GUESTS,
+  MAX_GUESTS
+} from '../../../constants/constants.js';
+
 export const OfferValidationMessage = {
   title: {
-    minLength: 'Minimum title length must be 10',
-    maxLength: 'Maximum title length must be 100',
+    minLength: `Minimum title length must be ${MIN_OFFER_TITLE_LENGTH}`,
+    maxLength: `Maximum title length must be ${MAX_OFFER_TITLE_LENGTH}`,
   },
   description: {
-    minLength: 'Minimum description length must be 20',
-    maxLength: 'Maximum description length must be 1024',
+    minLength: `Minimum description length must be ${MIN_OFFER_DESCRIPTION_LENGTH}`,
+    maxLength: `Maximum description length must be ${MAX_OFFER_DESCRIPTION_LENGTH}`,
   },
   publicDate: {
     invalidFormat: 'PostDate must be a valid ISO date',
@@ -18,27 +34,27 @@ export const OfferValidationMessage = {
   },
   photos: {
     invalidFormat: 'Field photos must be an array',
-    invalidLength: 'Array`s length must be 6',
+    invalidLength: `Array's length must be ${REQUIRED_NUMBER_OF_PHOTO}`,
   },
   offerType: {
     invalid: 'offerType must be house, room, hotel apartment',
   },
   rating: {
-    minValue: 'Minimum rating must be 1',
-    maxValue: 'Maximum rating must be 5',
+    minValue: `Minimum rating must be ${MIN_RATING}`,
+    maxValue: `Maximum rating must be ${MAX_RATING}`,
   },
   numberOfRooms: {
-    minValue: 'Minimum number of rooms in offer must be 1',
-    maxValue: 'Maximum number of rooms in offer must be 8',
+    minValue: `Minimum number of rooms in offer must be ${MIN_ROOMS}`,
+    maxValue: `Maximum number of rooms in offer must be ${MAX_ROOMS}`,
   },
   numberOfGuests: {
-    minValue: 'Minimum number of guests in offer must be 1',
-    maxValue: 'Maximum number of guests in offer must be 10',
+    minValue: `Minimum number of guests in offer must be ${MIN_GUESTS}`,
+    maxValue: `Maximum number of guests in offer must be ${MAX_GUESTS}`,
   },
   rentPrice: {
     invalidFormat: 'Price must be an integer',
-    minValue: 'Minimum price is 100',
-    maxValue: 'Maximum price is 100000',
+    minValue: `Minimum price is ${MIN_PRICE}`,
+    maxValue: `Maximum price is ${MAX_PRICE}`,
   },
   isPremium: {
     invalid: 'It must be boolean value',

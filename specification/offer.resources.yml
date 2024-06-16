@@ -5,45 +5,21 @@ info:
 paths: {}
 components:
   schemas:
-    offerResponse:
+    detailOfferfferResponse:
       type: object
 
       properties:
-        title:
-          type: string
-          example: Отель в историческом центре
-
         id:
           type: string
-          example: 6329c3d6a04ab1061c6425ea
+          example: 666f5c9294cdd4c101970b17
 
-    favoriteOfferResponse:
-      type: object
-
-      properties:
-        title:
-          type: string
-          example: Отель в историческом центре
-
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        isFavorite:
-          type: boolean
-          example: true
-
-    createOfferRequest:
-      type: object
-
-      properties:
         title:
           type: string
           example: Отель в историческом центре
 
         description:
           type: string
-          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
+          example: Прекасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
 
         publicDate:
           type: string
@@ -126,9 +102,11 @@ components:
             - Fridge
           example: [ "Breakfast", "Laptop friendly workspace"]
 
-        userId:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
+        user:
+          type: object
+          properties:
+            schema:
+              $ref: './user.resources.yml#/components/schemas/userResponse'
 
         numberOfComments:
           type: integer
@@ -146,17 +124,21 @@ components:
               type: number
               example: 43.56739
 
-    offerDetailsResponse:
+    offerResponse:
       type: object
 
       properties:
+        id:
+          type: string
+          example: 666f5c9294cdd4c101970b17
+
         title:
           type: string
           example: Отель в историческом центре
 
         description:
           type: string
-          example: Перкасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
+          example: Прекасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
 
         publicDate:
           type: string
@@ -177,11 +159,6 @@ components:
         previewImg:
           type: string
           example: preview.jpg
-
-        photos:
-          type: array
-          maxItems: 6
-          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
 
         isPremium:
           type: boolean
@@ -206,6 +183,85 @@ components:
             - hotel
           example: room
 
+        rentPrice:
+          type: integer
+          format: int32
+          maximum: 100000
+          minimum: 100
+          example: 32000
+
+        user:
+          type: object
+          properties:
+            schema:
+              $ref: './user.resources.yml#/components/schemas/userResponse'
+
+        numberOfComments:
+          type: integer
+          format: int32
+          minimum: 0
+          example: 6
+
+        location:
+          type: object
+          properties:
+            ln:
+              type: number
+              example: 52.23452
+            lt:
+              type: number
+              example: 43.56739
+
+    createOfferRequest:
+      type: object
+
+      properties:
+        title:
+          type: string
+          example: Отель в историческом центре
+
+        description:
+          type: string
+          example: Прекасный отель в историческом центре Брюсселя. Рядом все основые достопримечательности
+
+        publicDate:
+          type: string
+          format: Date
+          example: 2023-01-08T06:24:40.283Z
+
+        city:
+          type: string
+          enum:
+            - Paris
+            - Cologne
+            - Brussels
+            - Amsterdam
+            - Hamburg
+            - Dusseldorf
+          example: Brussels
+
+        previewImg:
+          type: string
+          example: preview.jpg
+
+        photos:
+          type: array
+          maxItems: 6
+          example: ["pic1.jpg", "pic2.jpg", "pic3.jpg", "pic4.jpg", "pic5.jpg", "pic6.jpg"]
+
+        isPremium:
+          type: boolean
+          example: true
+
+        offerType:
+          type: string
+          enum:
+            - apartment
+            - house
+            - room
+            - hotel
+          example: room
+
         numberOfRooms:
           type: integer
           format: int32
@@ -242,12 +298,6 @@ components:
         userId:
           type: string
           example: 6329c3d6a04ab1061c6425ea
-
-        numberOfComments:
-          type: integer
-          format: int32
-          minimum: 0
-          example: 6
 
         location:
           type: object

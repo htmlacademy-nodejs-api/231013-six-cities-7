@@ -7,6 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
+import {MIN_RATING, MAX_RATING} from '../../../constants/constants.js';
 import {CommentValidationMessage} from './comment-validation.message.js';
 
 export class CreateCommentDTO {
@@ -15,8 +16,8 @@ export class CreateCommentDTO {
   public content: string;
 
   @IsInt({message: CommentValidationMessage.rating.invalidFormat})
-  @Min(1, {message: CommentValidationMessage.rating.minValue})
-  @Max(5, {message: CommentValidationMessage.rating.maxValue})
+  @Min(MIN_RATING, {message: CommentValidationMessage.rating.minValue})
+  @Max(MAX_RATING, {message: CommentValidationMessage.rating.maxValue})
   public rating: number;
 
   @IsDateString({}, {message: CommentValidationMessage.date.invalidFormat})

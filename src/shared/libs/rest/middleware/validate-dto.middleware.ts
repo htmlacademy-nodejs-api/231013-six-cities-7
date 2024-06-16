@@ -1,8 +1,5 @@
 
-import {
-  NextFunction,
-  Request,
-  Response} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import {ClassConstructor, plainToInstance} from 'class-transformer';
 import {validate} from 'class-validator';
 

@@ -128,7 +128,6 @@ export const fetchUserStatus = createAsyncThunk<UserAuth['email'], undefined, { 
   Action.FETCH_USER_STATUS,
   async (_, { extra }) => {
     const { api } = extra;
-
     try {
       const { data } = await api.get<UserRDO>(ApiRoute.Login);
       const responseData = adaptUserToClient(data);

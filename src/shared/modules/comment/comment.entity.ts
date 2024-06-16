@@ -6,6 +6,7 @@ import {
   Ref
 } from '@typegoose/typegoose';
 
+import {MIN_RATING, MAX_RATING} from '../../constants/constants.js';
 import {OfferEntity} from '../offer/offer.entity.js';
 import {UserEntity} from '../user/user.entity.js';
 
@@ -37,8 +38,8 @@ export class CommentEntity extends defaultClasses.TimeStamps {
 
   @prop({
     required: true,
-    max: 5,
-    min: 1,
+    max: MAX_RATING,
+    min: MIN_RATING,
   })
   public rating: number;
 }

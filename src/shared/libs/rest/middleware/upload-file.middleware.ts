@@ -1,11 +1,6 @@
-import {
-  NextFunction,
-  Request,
-  Response
-} from 'express';
+import {NextFunction, Request, Response} from 'express';
 import multer, {diskStorage} from 'multer';
 import {extension} from 'mime-types';
-
 import * as crypto from 'node:crypto';
 
 import {Middleware} from './middleware.interface.js';
@@ -25,7 +20,6 @@ export class UploadFileMiddleware implements Middleware {
         callback(null, `${filename}.${fileExtention}`);
       }
     });
-    console.log(storage)
     const uploadSingleFileMiddleware = multer({storage})
       .single(this.fieldName);
 
