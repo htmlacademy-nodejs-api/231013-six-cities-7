@@ -27,7 +27,7 @@ export class DefaultOfferService extends AbstractService<OfferEntity, CreateOffe
     const result = await this.offerModel.create(dto);
     this.logger.info(`New offer created: ${dto.title}`);
 
-    return result;
+    return await result.populate('userId');
   }
 
   public async findById(offerId: string): Promise<DocumentType<OfferEntity> | null> {

@@ -3,6 +3,7 @@ import {
   getModelForClass,
   prop,
   modelOptions,
+  Severity,
 } from '@typegoose/typegoose';
 
 import {User} from '../../types/index.js';
@@ -13,6 +14,9 @@ import {createSHA256} from '../../helpers/index.js';
 export interface UserEntity extends defaultClasses.Base {}
 
 @modelOptions({
+  options: {
+    allowMixed: Severity.ALLOW,
+  },
   schemaOptions: {
     collection: 'users',
     timestamps: true,

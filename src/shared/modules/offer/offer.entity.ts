@@ -3,7 +3,8 @@ import {
   getModelForClass,
   prop,
   modelOptions,
-  Ref
+  Ref,
+  Severity,
 } from '@typegoose/typegoose';
 
 import {UserEntity} from '../user/index.js';
@@ -14,6 +15,9 @@ import {OfferType, City, Feature} from '../../enum/index.js';
 export interface OfferEntity extends defaultClasses.Base {}
 
 @modelOptions({
+  options: {
+    allowMixed: Severity.ALLOW,
+  },
   schemaOptions: {
     collection: 'offers',
     timestamps: true,

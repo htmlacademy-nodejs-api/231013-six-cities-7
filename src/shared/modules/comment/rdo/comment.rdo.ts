@@ -10,6 +10,9 @@ export class CommentRDO {
   public content: string;
 
   @Expose()
+  public rating: number;
+
+  @Expose({ name: 'createdAt'})
   public date: string;
 
   @Expose({ name: 'userId'})

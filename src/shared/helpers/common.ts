@@ -8,7 +8,7 @@ export function generateRandomValue(min:number, max: number, numAfterDigit = 0) 
 }
 
 export function getRandomItems<T>(items: T[], fixedLength?: number):T[] {
-  const startPosition = generateRandomValue(0, items.length - 1);
+  const startPosition = fixedLength ? generateRandomValue(0, (items.length - 1 - fixedLength)) : generateRandomValue(0, items.length - 1);
   const endPosition = fixedLength ? startPosition + fixedLength : startPosition + generateRandomValue(startPosition, items.length);
   return items.slice(startPosition, endPosition);
 }

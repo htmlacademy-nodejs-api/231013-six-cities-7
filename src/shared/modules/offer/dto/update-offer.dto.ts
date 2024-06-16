@@ -8,7 +8,9 @@ import {
   Min,
   MinLength,
   IsObject,
-  IsOptional
+  IsOptional,
+  ArrayMinSize,
+  ArrayMaxSize
 } from 'class-validator';
 
 import {Location} from '../../../types/index.js';
@@ -40,8 +42,8 @@ export class UpdateOfferDTO {
 
   @IsOptional()
   @IsArray({message: OfferValidationMessage.photos.invalidFormat })
-  @MinLength(6, {message: OfferValidationMessage.photos.invalidLength})
-  @MaxLength(6, {message: OfferValidationMessage.photos.invalidLength})
+  @ArrayMinSize(6, {message: OfferValidationMessage.photos.invalidLength})
+  @ArrayMaxSize(6, {message: OfferValidationMessage.photos.invalidLength})
   public photos?: string[];
 
   @IsOptional()

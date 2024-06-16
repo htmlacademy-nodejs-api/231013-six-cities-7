@@ -54,7 +54,7 @@ export class TSVOfferGenerator implements OfferGenerator {
     const cityLocation = CITIES[city as keyof typeof City];
 
     const generateLocation = (lt:number, ln:number) => {
-      const uncertaintyRadius = 0.005;
+      const uncertaintyRadius = 0.5;
       const newLt = Math.round((Math.random() * ((lt + uncertaintyRadius) - (lt - uncertaintyRadius)) + (lt - uncertaintyRadius)) * 100000) / 100000;
       const newLn = Math.round(Math.random() * ((ln + uncertaintyRadius) - (ln - uncertaintyRadius)) + (ln - uncertaintyRadius) * 100000) / 100000;
 

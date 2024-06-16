@@ -11,6 +11,9 @@ export class UserRDO {
   public type: string ;
 
   @Expose()
+  public email: string ;
+
+  @Expose()
   public id: string;
 
   @Expose()

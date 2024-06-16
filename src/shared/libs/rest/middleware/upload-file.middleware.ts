@@ -25,7 +25,7 @@ export class UploadFileMiddleware implements Middleware {
         callback(null, `${filename}.${fileExtention}`);
       }
     });
-
+    console.log(storage)
     const uploadSingleFileMiddleware = multer({storage})
       .single(this.fieldName);
 

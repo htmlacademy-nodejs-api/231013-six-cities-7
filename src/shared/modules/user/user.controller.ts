@@ -57,7 +57,6 @@ export class UserController extends BaseController {
       method: HttpMethod.Post,
       handler: this.uploadAvatar,
       middlewares: [
-        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('userId'),
         new UploadFileMiddleware(
           this.configService.get('UPLOAD_DIRECTORY'),
@@ -116,6 +115,7 @@ export class UserController extends BaseController {
     {body}: LoginUserRequest,
     res: Response,
   ): Promise<void> {
+    console.log(body);
     const user = await this.authService.verify(body);
     const token = await this.authService.authenticate(user);
     const responseData = fillDTO(LoggedUserRDO, user);
@@ -126,6 +126,6 @@ export class UserController extends BaseController {
     const {userId} = params;
     const uploadFile = { avatar: file?.filename };
     await this.userService.updateById(userId, uploadFile);
-    this.created(res, fillDTO(UploadUserAvatarRDO, { filepath: uploadFile.avatar }));
+    this.created(res, fillDTO(UploadUserAvatarRDO, { avatar: uploadFile.avatar }));
   }
 }

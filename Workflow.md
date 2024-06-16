@@ -53,10 +53,13 @@ npm run lint
 #### Запустить ts-модуль без компиляции
 
 ```bash
-npm run ts -- <Путь к модулю с ts-кодом>
+npm run ts <Путь к модулю с ts-кодом>
 ```
 
 Пакет `ts-node` позволяет выполнить TS-код в Node.js без предварительной компиляции. Используется только на этапе разработки.
+
+Запустить генерацию 100 объявлений: npm run ts ./src/main.cli.ts -- --generate 100 ./mocks/server-mocks.tsv http://localhost:3123/api
+Запустить импорт объвлений в базу: npm run ts ./src/main.cli.ts -- --import ./mocks/server-mocks.tsv admin test localhost six-cities 1W^*545j?4jj43#32
 
 #### Запустить проект
 
