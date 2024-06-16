@@ -1,8 +1,4 @@
-import {
-  NextFunction,
-  Response,
-  Request,
-} from 'express';
+import {NextFunction, Response, Request} from 'express';
 import {jwtVerify} from 'jose';
 import {StatusCodes} from 'http-status-codes';
 

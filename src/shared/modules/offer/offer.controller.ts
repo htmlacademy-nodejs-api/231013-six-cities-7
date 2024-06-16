@@ -11,8 +11,9 @@ import {
   DocumentExistsMiddleware,
   PrivateRouteMiddleware,
   CheckUserAccessMiddleware,
-  UploadFileMiddleware,
 } from '../../libs/rest/index.js';
+
+import {DEFAULT_OFFERS_COUNT} from '../../constants/constants.js';
 import {Logger} from '../../libs/logger/index.js';
 import {City, Component} from '../../enum/index.js';
 import {fillDTO} from '../../helpers/index.js';
@@ -23,9 +24,6 @@ import {OfferRDO} from './rdo/offer.rdo.js';
 import {DetailsOfferRDO} from './rdo/details-offer.rdo.js';
 import {CreateOfferDTO} from './dto/create-offer.dto.js';
 import {UpdateOfferDTO} from './dto/update-offer.dto.js';
-import {DEFAULT_OFFERS_COUNT} from '../../constants/constants.js';
-import {Config, RestSchema} from '../../libs/config/index.js';
-import {UploadPreviewImgRDO} from './rdo/upload-preview-img.rdo.js';
 
 
 @injectable()
@@ -35,7 +33,6 @@ export class OfferController extends BaseController {
     @inject(Component.OfferService) private readonly offerService: OfferService,
     @inject(Component.CommentService) private readonly commentServise: CommentService,
     @inject(Component.UserService) private readonly userService: UserService,
-    @inject(Component.Config) private readonly configService: Config<RestSchema>,
   ) {
     super(logger);
 
@@ -97,16 +94,6 @@ export class OfferController extends BaseController {
       ]
     });
     this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.premium });
-    this.addRoute({
-      path:'/:offerId/uploadImage',
-      method: HttpMethod.Post,
-      handler: this.uploadImage,
-      middlewares: [
-        new PrivateRouteMiddleware(),
-        new CheckUserAccessMiddleware(this.offerService, 'offerId'),
-        new UploadFileMiddleware(this.configService.get('UPLOAD_DIRECTORY'), 'image'),
-      ]
-    });
   }
 
   public async index(req: Request, res: Response): Promise<void> {
@@ -124,6 +111,7 @@ export class OfferController extends BaseController {
       ...body,
       userId: tokenPayload.id,
     });
+
     this.created(res, fillDTO(DetailsOfferRDO, newOffer));
   }
 
@@ -220,10 +208,4 @@ export class OfferController extends BaseController {
     this.ok(res, responseData);
   }
 
-  public async uploadImage({params, file}: Request<Record<string, unknown>>, res: Response) {
-    const {offerId} = params;
-    const uploadPreviewImgDTO = {previewImg: file?.filename};
-    await this.offerService.updateById(offerId as string, uploadPreviewImgDTO);
-    this.created(res, fillDTO(UploadPreviewImgRDO, uploadPreviewImgDTO));
-  }
 }

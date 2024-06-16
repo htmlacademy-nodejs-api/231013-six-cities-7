@@ -8,22 +8,38 @@ import {
   Min,
   MinLength,
   IsObject,
-  IsOptional
+  IsOptional,
+  ArrayMinSize,
+  ArrayMaxSize
 } from 'class-validator';
 
+import {
+  MIN_OFFER_TITLE_LENGTH,
+  MAX_OFFER_TITLE_LENGTH,
+  MIN_OFFER_DESCRIPTION_LENGTH,
+  MAX_OFFER_DESCRIPTION_LENGTH,
+  MAX_PICTURE_URL_LENGTH,
+  REQUIRED_NUMBER_OF_PHOTO,
+  MIN_ROOMS,
+  MAX_ROOMS,
+  MIN_PRICE,
+  MAX_PRICE,
+  MIN_GUESTS,
+  MAX_GUESTS
+} from '../../../constants/constants.js';
 import {Location} from '../../../types/index.js';
 import {OfferType, City, Feature} from '../../../enum/index.js';
 import {OfferValidationMessage} from './offer-validation.message.js';
 
 export class UpdateOfferDTO {
   @IsOptional()
-  @MinLength(10, {message: OfferValidationMessage.title.minLength})
-  @MaxLength(100, {message: OfferValidationMessage.title.maxLength})
+  @MinLength(MIN_OFFER_TITLE_LENGTH, {message: OfferValidationMessage.title.minLength})
+  @MaxLength(MAX_OFFER_TITLE_LENGTH, {message: OfferValidationMessage.title.maxLength})
   public title?: string;
 
   @IsOptional()
-  @MinLength(20, {message: OfferValidationMessage.description.minLength})
-  @MaxLength(1024, {message: OfferValidationMessage.description.maxLength})
+  @MinLength(MIN_OFFER_DESCRIPTION_LENGTH, {message: OfferValidationMessage.description.minLength})
+  @MaxLength(MAX_OFFER_DESCRIPTION_LENGTH, {message: OfferValidationMessage.description.maxLength})
   public description?: string;
 
   @IsOptional()
@@ -35,13 +51,13 @@ export class UpdateOfferDTO {
   public city?: City;
 
   @IsOptional()
-  @MaxLength(256, {message: OfferValidationMessage.previewImg.maxLength})
+  @MaxLength(MAX_PICTURE_URL_LENGTH, {message: OfferValidationMessage.previewImg.maxLength})
   public previewImg?: string;
 
   @IsOptional()
   @IsArray({message: OfferValidationMessage.photos.invalidFormat })
-  @MinLength(6, {message: OfferValidationMessage.photos.invalidLength})
-  @MaxLength(6, {message: OfferValidationMessage.photos.invalidLength})
+  @ArrayMinSize(REQUIRED_NUMBER_OF_PHOTO, {message: OfferValidationMessage.photos.invalidLength})
+  @ArrayMaxSize(REQUIRED_NUMBER_OF_PHOTO, {message: OfferValidationMessage.photos.invalidLength})
   public photos?: string[];
 
   @IsOptional()
@@ -51,19 +67,19 @@ export class UpdateOfferDTO {
   public offerType?: OfferType;
 
   @IsOptional()
-  @Min(1, {message: OfferValidationMessage.numberOfRooms.minValue})
-  @Max(8, {message: OfferValidationMessage.numberOfRooms.maxValue})
+  @Min(MIN_ROOMS, {message: OfferValidationMessage.numberOfRooms.minValue})
+  @Max(MAX_ROOMS, {message: OfferValidationMessage.numberOfRooms.maxValue})
   public numberOfRooms?: number;
 
   @IsOptional()
-  @Min(1, {message: OfferValidationMessage.numberOfGuests.minValue})
-  @Max(10, {message: OfferValidationMessage.numberOfGuests.maxValue})
+  @Min(MIN_GUESTS, {message: OfferValidationMessage.numberOfGuests.minValue})
+  @Max(MAX_GUESTS, {message: OfferValidationMessage.numberOfGuests.maxValue})
   public numberOfGuests?: number;
 
   @IsOptional()
   @IsInt({message: OfferValidationMessage.rentPrice.invalidFormat})
-  @Min(100, {message: OfferValidationMessage.rentPrice.minValue})
-  @Max(100000, {message: OfferValidationMessage.rentPrice.maxValue})
+  @Min(MIN_PRICE, {message: OfferValidationMessage.rentPrice.minValue})
+  @Max(MAX_PRICE, {message: OfferValidationMessage.rentPrice.maxValue})
   public rentPrice?: number;
 
   @IsOptional()

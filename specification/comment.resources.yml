@@ -37,19 +37,6 @@ components:
       type: object
 
       properties:
-        id:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
-
-        publicDate:
-          type: string
-          format: Date
-          example: 2023-01-08T06:24:40.283Z
-
-    commentContentResponse:
-      type: object
-
-      properties:
         rating:
           type: integer
           format: int32
@@ -66,6 +53,8 @@ components:
           format: Date
           example: 2023-01-08T06:24:40.283Z
 
-        userId:
-          type: string
-          example: 6329c3d6a04ab1061c6425ea
+        user:
+          type: object
+          properties:
+            schema:
+              $ref: './user.resources.yml#/components/schemas/userResponse'

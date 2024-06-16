@@ -1,6 +1,5 @@
 import {Container} from 'inversify';
 
-import {RestApplication} from './rest.application.js';
 import {Component} from '../shared/enum/index.js';
 import {Logger, PinoLogger} from '../shared/libs/logger/index.js';
 import {Config, RestConfig, RestSchema} from '../shared/libs/config/index.js';
@@ -12,6 +11,7 @@ import {
 } from '../shared/libs/rest/index.js';
 import {HttpErrorExceptionFilter} from '../shared/libs/rest/exception-filter/http-error.exception-filter.js';
 import {PathTransformer} from '../shared/libs/rest/transform/path-transformer.js';
+import {RestApplication} from './rest.application.js';
 
 export function createRestApplicationContainer() {
   const restApplicationContainer = new Container();

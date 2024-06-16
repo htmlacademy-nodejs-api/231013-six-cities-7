@@ -8,7 +8,7 @@ Content-Type: application/json
 
 ## Создать новое объявление
 POST http://localhost:4000/offers HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imphbi5zdGVlbkBleGFtcGxlLmNvbSIsIm5hbWUiOiLQr9C9INCh0YLQtdC10L0iLCJpZCI6IjY2NDY0NWExMmUzYjBjYzZjODZiOTMwNyIsImlhdCI6MTcxODQzMzEyOCwiZXhwIjoxNzE4NjA1OTI4fQ.e3rJ1OkbhWvQ6Yx5wc9H_R4Zvf4VbBItpaWkM_r-hRU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
 Content-Type: application/json
 
 {
@@ -34,14 +34,14 @@ Content-Type: application/json
 
 ## Получить детали объявления
 
-GET http://localhost:4000/offers/666d23bcabb75eb7ff90317c/details HTTP/1.1
+GET http://localhost:4000/offers/666f3a825452ec71d7deed1e/details HTTP/1.1
 Content-Type: application/json
 
 ###
 
 ## Получить детали объявления авторизованный
 
-GET http://localhost:4000/offers/666d7e7e5459bebab4e0fd78/details HTTP/1.1
+GET http://localhost:4000/offers/666f3a825452ec71d7deed1e/details HTTP/1.1
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imphbi5zdGVlbkBleGFtcGxlLmNvbSIsIm5hbWUiOiLQr9C9INCh0YLQtdC10L0iLCJpZCI6IjY2NDY0NWExMmUzYjBjYzZjODZiOTMwNyIsImlhdCI6MTcxODQzMzEyOCwiZXhwIjoxNzE4NjA1OTI4fQ.e3rJ1OkbhWvQ6Yx5wc9H_R4Zvf4VbBItpaWkM_r-hRU
 Content-Type: application/json
 
@@ -49,8 +49,8 @@ Content-Type: application/json
 
 ## Изменить объявление
 
-PATCH http://localhost:4000/offers/666d7f335459bebab4e0fd83/update HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imgtb2xpdmVyQG1haWwuY29tIiwibmFtZSI6Ik9saXZlciBIIiwiaWQiOiI2NjY1ZjkzNzk1NGRkYTM3NGE3ZmJiNmMiLCJpYXQiOjE3MTgzMDY3NTcsImV4cCI6MTcxODQ3OTU1N30.vz9CtjpVfctxc025KosP2B6iZma2CoGGoBB9EmLK5Mo
+PATCH http://localhost:4000/offers/666f59a694cdd4c101970aec/update HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
 Content-Type: application/json
 
 {
@@ -62,22 +62,32 @@ Content-Type: application/json
 
 ## Удаляет объявление
 
-DELETE http://localhost:4000/offers/666d7e7e5459bebab4e0fd78/delete HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imphbi5zdGVlbkBleGFtcGxlLmNvbSIsIm5hbWUiOiLQr9C9INCh0YLQtdC10L0iLCJpZCI6IjY2NDY0NWExMmUzYjBjYzZjODZiOTMwNyIsImlhdCI6MTcxODQzMzEyOCwiZXhwIjoxNzE4NjA1OTI4fQ.e3rJ1OkbhWvQ6Yx5wc9H_R4Zvf4VbBItpaWkM_r-hRU
+DELETE http://localhost:4000/offers/666f59a694cdd4c101970aec/delete HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
 Content-Type: application/json
 
 ###
 
 ## Добавляет объявление в избранное
 
-PATCH http://localhost:4000/offers/666d23bcabb75eb7ff90317c/favorites HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imphbi5zdGVlbkBleGFtcGxlLmNvbSIsIm5hbWUiOiLQr9C9INCh0YLQtdC10L0iLCJpZCI6IjY2NDY0NWExMmUzYjBjYzZjODZiOTMwNyIsImlhdCI6MTcxODQzMzEyOCwiZXhwIjoxNzE4NjA1OTI4fQ.e3rJ1OkbhWvQ6Yx5wc9H_R4Zvf4VbBItpaWkM_r-hRU
+PATCH http://localhost:4000/offers/666f3a825452ec71d7deed1e/favorites HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
 Content-Type: application/json
 
 ###
 
-## Получает избранные
+## Получить избранные у пользователя
 
 GET http://localhost:4000/offers/favorites HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imphbi5zdGVlbkBleGFtcGxlLmNvbSIsIm5hbWUiOiLQr9C9INCh0YLQtdC10L0iLCJpZCI6IjY2NDY0NWExMmUzYjBjYzZjODZiOTMwNyIsImlhdCI6MTcxODQzMzEyOCwiZXhwIjoxNzE4NjA1OTI4fQ.e3rJ1OkbhWvQ6Yx5wc9H_R4Zvf4VbBItpaWkM_r-hRU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
+Content-Type: application/json
+
+###
+
+## Получить премиум объявления
+
+## Получить избранные у пользователя
+
+GET http://localhost:4000/offers/Pas/premium HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
 Content-Type: application/json

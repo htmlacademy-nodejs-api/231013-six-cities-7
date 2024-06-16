@@ -4,10 +4,10 @@ import {Response, Router} from 'express';
 import asyncHandler from 'express-async-handler';
 
 import {Logger} from '../../logger/index.js';
-import {Controller} from './controller.interface.js';
 import {Route} from '../types/route.interface.js';
 import {PathTransformer} from '../transform/path-transformer.js';
 import {Component} from '../../../enum/index.js';
+import {Controller} from './controller.interface.js';
 
 @injectable()
 export abstract class BaseController implements Controller {

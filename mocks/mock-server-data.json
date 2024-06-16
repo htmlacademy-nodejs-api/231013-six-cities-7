@@ -1,114 +1,168 @@
 {
   "api": {
     "titles": [
-      "Меблированные комнаты и квартиры в центре города",
-      "Сезонная аренда квартир с удобствами",
-      "Комфортная гостиница с высоким качеством обслуживания",
-      "Квартира с видом на парк",
-      "Комнаты с мебелью и удобствами",
-      "Пансионаты и дома отдыха: аренда на отдых",
-      "Квартиры с высоким качеством интерьера",
-      "Гостиницы с бесплатным Wi-Fi: аренда на отдых",
-      "Комнаты с удобствами для некурящих",
-      "Квартиры с современным дизайном"
+      "Cozy Urban Apartment in Downtown Area",
+      "Spacious Family Home with Garden View",
+      "Modern Loft in the Heart of the City",
+      "Beachfront Condo with Stunning Ocean Views",
+      "Charming Cottage in a Quiet Neighborhood",
+      "Luxurious Penthouse Suite with Cityscape Panorama",
+      "Stylish Studio Near Popular Attractions",
+      "Elegant Townhouse with Private Patio",
+      "Comfortable Room in Shared House Near University",
+      "Serene Country House with Scenic Surroundings",
+      "Affordable Room for Rent in Vibrant Area",
+      "Deluxe Hotel Room with All Amenities Included",
+      "Beautifully Furnished Flat with Balcony",
+      "Contemporary Suite in Boutique Hotel Downtown"
     ],
     "descriptions": [
-      "Наслаждайтесь удобством и комфортом в наших меблированных квартирах и комнатах, расположенных в самом сердце города. Мы предлагаем уютные пространства с современной мебелью, идеально подходящие для долгосрочной аренды или краткосрочного отдыха.",
-      "Ищите идеальное место для сезонной аренды? Наши квартиры оборудованы всем необходимым для комфортного проживания: Wi-Fi, смарт-телевизоры, кухня с необходимой посудой и приборами. Мы предлагаем удобные и чистые пространства для вашего отдыха.",
-      "Приезжайте в нашу гостиницу и насладитесь высоким качеством обслуживания и комфортом. Мы предлагаем уютные номера с современным оборудованием, бесплатным Wi-Fi, а также удобствами для некурящих. Наша команда готовы помочь вам в любое время суток.",
-      "Наслаждайтесь прекрасным видом на парк из вашей квартиры. Мы предлагаем уютные и светлые квартиры с высококачественной мебелью и современным оборудованием. Наши квартиры идеально подходят для долгосрочной аренды или краткосрочного отдыха.",
-      "Ищите комфортное место для проживания? Наши комнаты оборудованы всем необходимым для комфортного отдыха: удобная мебель, Wi-Fi, смарт-телевизоры. Мы предлагаем чистые и уютные пространства для вашего отдыха.",
-      "Приезжайте в наш пансионат или дом отдыха и насладитесь уютным и комфортным проживанием. Мы предлагаем удобные номера с высококачественной мебелью, современным оборудованием и удобствами для некурящих. Наша команда готовы помочь вам в любое время суток.",
-      "Наслаждайтесь высоким качеством интерьера в наших квартирах. Мы предлагаем уютные и светлые квартиры с современной мебелью, идеально подходящие для долгосрочной аренды или краткосрочного отдыха. Наши квартиры оборудованы всем необходимым для комфортного проживания.",
-      "Приезжайте в нашу гостиницу и насладитесь бесплатным Wi-Fi, удобными номерами и высоким качеством обслуживания. Мы предлагаем чистые и уютные пространства для вашего отдыха. Наша команда готовы помочь вам в любое время суток.",
-      "Ищите комфортное место для проживания? Наши комнаты оборудованы всем необходимым для комфортного отдыха: удобная мебель, Wi-Fi, смарт-телевизоры, а также удобствами для некурящих. Мы предлагаем чистые и уютные пространства для вашего отдыха.",
-      "Наслаждайтесь современным дизайном в наших квартирах. Мы предлагаем уютные и светлые квартиры с высококачественной мебелью, современным оборудованием и удобствами для некурящих. Наши квартиры идеально подходят для долгосрочной аренды или краткосрочного отдыха."
+      "Enjoy the bustling city life in this charming one-bedroom apartment, featuring modern furnishings, a fully equipped kitchen, and easy access to public transportation, restaurants, and shopping centers.",
+      "This beautiful three-bedroom home offers a spacious living area, a fully fenced backyard with a garden view, and a quiet neighborhood setting, perfect for families seeking comfort and tranquility.",
+      "Modern Loft in the Heart of the City: Experience contemporary living in this stylish loft with an open floor plan, high ceilings, and large windows that provide plenty of natural light. Located just steps away from trendy cafes, shops, and nightlife.",
+      "Wake up to breathtaking ocean views in this luxurious beachfront condo. Features include a private balcony, modern appliances, and access to exclusive amenities like a swimming pool and fitness center.",
+      "Nestled in a serene area, this two-bedroom cottage combines rustic charm with modern comforts. Enjoy the cozy fireplace, well-equipped kitchen, and a lovely garden perfect for relaxation.",
+      "Indulge in luxury with this exquisite penthouse suite offering panoramic views of the city skyline. This elegant space includes top-notch amenities, a private terrace, and concierge services.",
+      "This chic studio apartment is ideal for solo travelers or couples, featuring a sleek design, compact kitchenette, and a prime location near popular tourist attractions and public transport.",
+      "Elegant Townhouse with Private Patio: Make yourself at home in this elegant townhouse boasting three bedrooms, a spacious living area, and a private patio perfect for outdoor dining and entertaining. Located in a friendly, walkable community.",
+      "Comfortable Room in Shared House Near University: Perfect for students, this comfortable room in a shared house offers convenience and affordability. Features include a shared kitchen, living area, and proximity to university campuses and local amenities.",
+      "Deluxe Hotel Room with All Amenities Included: Relax and unwind in this deluxe hotel room equipped with all the necessary amenities for a comfortable stay. Enjoy complimentary breakfast, high-speed internet, and access to the hotel’s fitness center and spa."
     ],
     "previewImages": [
-      "https://images.app.goo.gl/jXNCqSVa7Fo8eaBw6",
-      "https://images.app.goo.gl/2pgmaG4MNpQTs18EA",
-      "https://images.app.goo.gl/aWcaK16XrW9ifGe37",
-      "https://images.app.goo.gl/QhjDEa4JQZ5bxKs27",
-      "https://images.app.goo.gl/tMU6JYroHcyJcAvq6"
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg",
+      "https://habrastorage.org/webt/vq/zy/3y/vqzy3y0apbfahi7hc7iqrgco4k8.jpeg",
+      "https://habrastorage.org/webt/yj/6a/ky/yj6akympksdaaq4tjsoaudgs5c8.jpeg",
+      "https://habrastorage.org/webt/14/mo/kp/14mokpb9o3vhz_hg-fau-bijikg.jpeg",
+      "https://habrastorage.org/webt/zy/yf/0g/zyyf0g5dgknxtxqx1jtirnqypbc.jpeg",
+      "https://habrastorage.org/webt/6z/fz/x1/6zfzx1fdp7d29uajdx6bwcphai4.jpeg",
+      "https://habrastorage.org/webt/2q/yd/w8/2qydw8jyo2c3kh0wxrwo5xiivvm.jpeg",
+      "https://habrastorage.org/webt/78/2a/8p/782a8p7foxceuuckd_w7icr8ygu.jpeg",
+      "https://habrastorage.org/webt/7g/5z/iw/7g5ziwtsdxshocq4yignzmtphau.jpeg",
+      "https://habrastorage.org/webt/dx/ym/dd/dxymdduuvukfxqpwth6fx2sajs8.jpeg",
+      "https://habrastorage.org/webt/d9/sl/fn/d9slfn5dbgiwoxpfnf-6t4zqrqu.jpeg",
+      "https://habrastorage.org/webt/gh/hr/eg/ghhregtb2mbg2crxefmnvfrlt30.jpeg"
     ],
     "photos": [
-      "https://images.app.goo.gl/jXNCqSVa7Fo8eaBw6",
-      "https://images.app.goo.gl/2pgmaG4MNpQTs18EA",
-      "https://images.app.goo.gl/aWcaK16XrW9ifGe37",
-      "https://images.app.goo.gl/QhjDEa4JQZ5bxKs27",
-      "https://images.app.goo.gl/tMU6JYroHcyJcAvq6",
-      "https://images.app.goo.gl/eNt6guU8dMWP5fdKA",
-      "https://images.app.goo.gl/khd6YV1bU2J8ZL9R8",
-      "https://images.app.goo.gl/YMNvqcpNdcab4X5RA",
-      "https://images.app.goo.gl/wfqPFzZXitLeszDw6",
-      "https://images.app.goo.gl/7KnSJEn9D5rQHzjv8",
-      "https://images.app.goo.gl/3aqoGLwBtyjr1sbaA",
-      "https://images.app.goo.gl/LEHq2gn7gNwTxp8c8",
-      "https://images.app.goo.gl/NG8f13NZzoafgSyq5",
-      "https://images.app.goo.gl/TWeC2rJVYDoccEdd6",
-      "https://images.app.goo.gl/TTzVpKHsab37EF459",
-      "https://images.app.goo.gl/23t7VdrnZf9GSmDJ6",
-      "https://images.app.goo.gl/44Yjm3x3az6xfn3M9",
-      "https://images.app.goo.gl/iQp9cJh1FStAmrme8",
-      "https://images.app.goo.gl/WxrNqBnJC8kz4x3WA",
-      "https://images.app.goo.gl/Am9r3LxA2p5vVmmx7",
-      "https://images.app.goo.gl/xfqhMPubWzYdaw3z6"
+      "https://habrastorage.org/webt/ed/2p/it/ed2pitzyoibyjtcjldc87tf3s1o.jpeg",
+      "https://habrastorage.org/webt/gt/ct/bp/gtctbpsmcamnhpptp4lne7sicug.jpeg",
+      "https://habrastorage.org/webt/sw/is/l0/swisl0omo-bkvfs2mz35ibmxuqi.jpeg",
+      "https://habrastorage.org/webt/rx/hj/sn/rxhjsnfrq3srx8l8gqlj-c-r3wc.jpeg",
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg",
+      "https://habrastorage.org/webt/vq/zy/3y/vqzy3y0apbfahi7hc7iqrgco4k8.jpeg",
+      "https://habrastorage.org/webt/yj/6a/ky/yj6akympksdaaq4tjsoaudgs5c8.jpeg",
+      "https://habrastorage.org/webt/14/mo/kp/14mokpb9o3vhz_hg-fau-bijikg.jpeg",
+      "https://habrastorage.org/webt/zy/yf/0g/zyyf0g5dgknxtxqx1jtirnqypbc.jpeg",
+      "https://habrastorage.org/webt/6z/fz/x1/6zfzx1fdp7d29uajdx6bwcphai4.jpeg",
+      "https://habrastorage.org/webt/2q/yd/w8/2qydw8jyo2c3kh0wxrwo5xiivvm.jpeg",
+      "https://habrastorage.org/webt/sw/is/l0/swisl0omo-bkvfs2mz35ibmxuqi.jpeg",
+      "https://habrastorage.org/webt/rx/hj/sn/rxhjsnfrq3srx8l8gqlj-c-r3wc.jpeg",
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg",
+      "https://habrastorage.org/webt/vq/zy/3y/vqzy3y0apbfahi7hc7iqrgco4k8.jpeg",
+      "https://habrastorage.org/webt/xz/rb/qe/xzrbqe34kwgqczbkyeq4xtp6xbe.jpeg",
+      "https://habrastorage.org/webt/ba/td/fv/batdfvtqsatvc37tmsku8ttahxo.jpeg",
+      "https://habrastorage.org/webt/4b/de/d4/4bded4ymjsy-9bnh7mgsb9qvsno.jpeg",
+      "https://habrastorage.org/webt/fd/zj/j9/fdzjj92z30pmrudcwsnkgy41mys.jpeg",
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg",
+      "https://habrastorage.org/webt/vq/zy/3y/vqzy3y0apbfahi7hc7iqrgco4k8.jpeg",
+      "https://habrastorage.org/webt/yj/6a/ky/yj6akympksdaaq4tjsoaudgs5c8.jpeg",
+      "https://habrastorage.org/webt/14/mo/kp/14mokpb9o3vhz_hg-fau-bijikg.jpeg",
+      "https://habrastorage.org/webt/zy/yf/0g/zyyf0g5dgknxtxqx1jtirnqypbc.jpeg",
+      "https://habrastorage.org/webt/78/2a/8p/782a8p7foxceuuckd_w7icr8ygu.jpeg",
+      "https://habrastorage.org/webt/7g/5z/iw/7g5ziwtsdxshocq4yignzmtphau.jpeg",
+      "https://habrastorage.org/webt/dx/ym/dd/dxymdduuvukfxqpwth6fx2sajs8.jpeg",
+      "https://habrastorage.org/webt/d9/sl/fn/d9slfn5dbgiwoxpfnf-6t4zqrqu.jpeg",
+      "https://habrastorage.org/webt/gh/hr/eg/ghhregtb2mbg2crxefmnvfrlt30.jpeg",
+      "https://habrastorage.org/webt/rf/h1/na/rfh1naogdninfei0oo1wnpg7es8.jpeg",
+      "https://habrastorage.org/webt/sw/is/l0/swisl0omo-bkvfs2mz35ibmxuqi.jpeg",
+      "https://habrastorage.org/webt/rx/hj/sn/rxhjsnfrq3srx8l8gqlj-c-r3wc.jpeg",
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg",
+      "https://habrastorage.org/webt/vq/zy/3y/vqzy3y0apbfahi7hc7iqrgco4k8.jpeg",
+      "https://habrastorage.org/webt/yj/6a/ky/yj6akympksdaaq4tjsoaudgs5c8.jpeg",
+      "https://habrastorage.org/webt/2j/ft/rg/2jftrgpfwm4r-dpate7qs7wyfim.jpeg",
+      "https://habrastorage.org/webt/dx/ym/dd/dxymdduuvukfxqpwth6fx2sajs8.jpeg",
+      "https://habrastorage.org/webt/d9/sl/fn/d9slfn5dbgiwoxpfnf-6t4zqrqu.jpeg",
+      "https://habrastorage.org/webt/gh/hr/eg/ghhregtb2mbg2crxefmnvfrlt30.jpeg",
+      "https://habrastorage.org/webt/rf/h1/na/rfh1naogdninfei0oo1wnpg7es8.jpeg",
+      "https://habrastorage.org/webt/sw/is/l0/swisl0omo-bkvfs2mz35ibmxuqi.jpeg",
+      "https://habrastorage.org/webt/rx/hj/sn/rxhjsnfrq3srx8l8gqlj-c-r3wc.jpeg",
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg",
+      "https://habrastorage.org/webt/vq/zy/3y/vqzy3y0apbfahi7hc7iqrgco4k8.jpeg",
+      "https://habrastorage.org/webt/xz/rb/qe/xzrbqe34kwgqczbkyeq4xtp6xbe.jpeg",
+      "https://habrastorage.org/webt/ba/td/fv/batdfvtqsatvc37tmsku8ttahxo.jpeg",
+      "https://habrastorage.org/webt/4b/de/d4/4bded4ymjsy-9bnh7mgsb9qvsno.jpeg",
+      "https://habrastorage.org/webt/fd/zj/j9/fdzjj92z30pmrudcwsnkgy41mys.jpeg",
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg",
+      "https://habrastorage.org/webt/vq/zy/3y/vqzy3y0apbfahi7hc7iqrgco4k8.jpeg",
+      "https://habrastorage.org/webt/yj/6a/ky/yj6akympksdaaq4tjsoaudgs5c8.jpeg",
+      "https://habrastorage.org/webt/14/mo/kp/14mokpb9o3vhz_hg-fau-bijikg.jpeg",
+      "https://habrastorage.org/webt/zy/yf/0g/zyyf0g5dgknxtxqx1jtirnqypbc.jpeg",
+      "https://habrastorage.org/webt/6z/fz/x1/6zfzx1fdp7d29uajdx6bwcphai4.jpeg",
+      "https://habrastorage.org/webt/2q/yd/w8/2qydw8jyo2c3kh0wxrwo5xiivvm.jpeg",
+      "https://habrastorage.org/webt/78/2a/8p/782a8p7foxceuuckd_w7icr8ygu.jpeg",
+      "https://habrastorage.org/webt/7g/5z/iw/7g5ziwtsdxshocq4yignzmtphau.jpeg",
+      "https://habrastorage.org/webt/dx/ym/dd/dxymdduuvukfxqpwth6fx2sajs8.jpeg",
+      "https://habrastorage.org/webt/d9/sl/fn/d9slfn5dbgiwoxpfnf-6t4zqrqu.jpeg",
+      "https://habrastorage.org/webt/gh/hr/eg/ghhregtb2mbg2crxefmnvfrlt30.jpeg",
+      "https://habrastorage.org/webt/rf/h1/na/rfh1naogdninfei0oo1wnpg7es8.jpeg",
+      "https://habrastorage.org/webt/sw/is/l0/swisl0omo-bkvfs2mz35ibmxuqi.jpeg",
+      "https://habrastorage.org/webt/rx/hj/sn/rxhjsnfrq3srx8l8gqlj-c-r3wc.jpeg",
+      "https://habrastorage.org/webt/s8/a-/jx/s8a-jx2r2z3ufu7r5jpxfucckqw.jpeg"
     ],
     "user": [
       {
-        "name": "Клод Моне",
+        "name": "Claude Monet",
         "email": "claude.monet@example.com",
-        "avatar": "https://images.app.goo.gl/BDbuLPULwhQm2uHy8"
+        "avatar": ""
       },
       {
-        "name": "Якоб Борхерт",
+        "name": "Jacob Borkert",
         "email": "jacob.borkert@example.com",
         "avatar": ""
       },
       {
-        "name": "Ян Стеен",
+        "name": "Jan Steen",
         "email": "jan.steen@example.com",
-        "avatar": "https://images.app.goo.gl/iXNdWe3LEGUZpwg38"
+        "avatar": ""
       },
       {
-        "name": "Макс Эрнст",
+        "name": "Max Ernst",
         "email": "max.ernst@example.com",
-        "avatar": "https://images.app.goo.gl/xMJDDZo8X35PPADE9"
+        "avatar": ""
       },
       {
-        "name": "Эмиль Нольде",
+        "name": "Emil Nolde",
         "email": "emil.nolde@example.com",
-        "avatar": "https://images.app.goo.gl/y9op4ndUJi1CqGSf7"
+        "avatar": ""
       },
       {
-        "name": "Макс Либерман",
+        "name": "Max Liebermann",
         "email": "max.liebermann@example.com",
-        "avatar": "https://images.app.goo.gl/ghNwCQ1WsoWU5SvZ9"
+        "avatar": ""
       },
       {
-        "name": "Питер Рубенс",
+        "name": "Peter Rubens",
         "email": "peter.paul.rubens@example.com",
-        "avatar": "https://images.app.goo.gl/rggBr5zKm2HSyBCLA"
+        "avatar": ""
       },
       {
-        "name": "Эмиль Бернар",
+        "name": "Emile Bernard",
         "email": "emile.bernard@example.com",
-        "avatar": "https://images.app.goo.gl/SHaZqoFFXs8rysKL6"
+        "avatar": ""
       },
       {
-        "name": "Эдгар Дега",
+        "name": "Edgar Degas",
         "email": "edgar.degas@example.com",
-        "avatar": "https://images.app.goo.gl/pYKng58AYe19EjPF7"
+        "avatar": ""
       },
       {
-        "name": "Матиас Штирнер",
+        "name": "Matt Stirner",
         "email": "matthias.stirner@example.com",
         "avatar": ""
       },
       {
-        "name": "Винсент ван Гог",
+        "name": "Vincent VanGogh",
         "email": "vincent.van.gogh@example.com",
-        "avatar": "https://images.app.goo.gl/bYo2kodenKUiVHEq9"
+        "avatar": ""
       }
     ]
   }

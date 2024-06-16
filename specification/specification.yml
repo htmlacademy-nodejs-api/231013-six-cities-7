@@ -46,6 +46,13 @@ paths:
               schema:
                 $ref: './error.resources.yml#/components/schemas/conflictErrorResponse'
 
+        "403":
+          description: Запрет регистрации для авторизованных пользователей
+          content:
+            application/json:
+              schema:
+                $ref: './error.resources.yml#/components/schemas/forbiddenErrorResponse'
+
   /users/login:
     post:
       tags:
@@ -58,7 +65,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: './user.resources.yml#/components/schemas/userRequest'
+              $ref: './user.resources.yml#/components/schemas/loginUserRequest'
         required: true
 
       responses:
@@ -115,22 +122,22 @@ paths:
               schema:
                 $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
-  /users/logout:
-    get:
+  /users/{userId}/avatar:
+    post:
       tags:
         - users
-      summary: Выход пользователя из аккаунта.
+      summary: Загрузка аватара для пользователя.
 
       responses:
-        "204":
+        "201":
           description: Пользователь разлогинен.
           content:
             application/json:
               schema:
-                $ref: './user.resources.yml#/components/schemas/userResponse'
+                $ref: './user.resources.yml#/components/schemas/uploadAvatarResponse'
 
-        "404":
-          description: Пользователь с таким id не найден.
+        "403":
+          description: Id пользователя загружаемого автара и Id авторизованного пользователя не совпадают.
           content:
             application/json:
               schema:
@@ -157,7 +164,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './offer.resources.yml#/components/schemas/offerResponse'
+                $ref: './offer.resources.yml#/components/schemas/detailOfferfferResponse'
 
         "401":
           description: Пользователь не авторизован
@@ -166,7 +173,7 @@ paths:
               schema:
                 $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
-        "422":
+        "400":
           description: Неверные данные в запросе
           content:
             application/json:
@@ -199,7 +206,7 @@ paths:
                 items:
                   $ref: './offer.resources.yml#/components/schemas/offerResponse'
 
-        "422":
+        "400":
           description: Неверный запрос
           content:
             application/json:
@@ -209,7 +216,7 @@ paths:
   /offers/{city}/premium:
     get:
       tags:
-        -offers
+        - offers
       summary: Получение списка премиальных предложений для города
 
       responses:
@@ -234,7 +241,7 @@ paths:
   /offers/favorites:
     get:
       tags:
-        -offers
+        - offers
       summary: Получает список избранных объявлений
 
       responses:
@@ -283,7 +290,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './offer.resources.yml#/components/schemas/offerResponse'
+                $ref: './offer.resources.yml#/components/schemas/detailOfferfferResponse'
 
         "401":
           description: Пользователь не авторизован
@@ -317,7 +324,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './offer.resources.yml#/components/schemas/offerDetailsResponse'
+                $ref: './offer.resources.yml#/components/schemas/detailOfferfferResponse'
 
         "404":
           description: Объявление с таким id не найдено
@@ -329,7 +336,7 @@ paths:
   /offers/{offerId}/favorites:
     get:
       tags:
-        -offers
+        - offers
       summary: Добавляет/удаляет объявление в список избранных
 
       responses:
@@ -338,7 +345,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './offer.resources.yml#/components/schemas/favoriteOfferResponse'
+                $ref: './offer.resources.yml#/components/schemas/detailOfferfferResponse'
 
         "401":
           description: Пользователь не авторизован
@@ -348,7 +355,7 @@ paths:
                 $ref: './error.resources.yml#/components/schemas/unauthorizedErrorResponse'
 
   /offers/{offerId}/delete:
-    get:
+    delete:
       tags:
         - offers
       summary: Удаляет объявление
@@ -357,7 +364,9 @@ paths:
         "204":
           description: Объявление удалено.
           content:
-            application/json: {}
+            application/json:
+              schema:
+                $ref: './offer.resources.yml#/components/schemas/detailOfferfferResponse'
 
         "401":
           description: Пользователь не авторизован
@@ -403,7 +412,7 @@ paths:
               schema:
                 $ref: './comment.resources.yml#/components/schemas/commentResponse'
 
-        "422":
+        "400":
           description: Неверные данные в запросе
           content:
             application/json:
@@ -421,7 +430,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './comment.resources.yml#/components/schemas/commentContentResponse'
+                $ref: './comment.resources.yml#/components/schemas/commentResponse'
 
         "404":
           description: Объявление с таким id не найдено

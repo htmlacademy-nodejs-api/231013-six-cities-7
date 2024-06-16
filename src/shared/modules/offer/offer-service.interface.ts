@@ -7,7 +7,7 @@ import {OfferEntity} from './offer.entity.js';
 import {City} from '../../enum/index.js';
 import {ServiceInterface} from '../../libs/rest/service/service.interface.js';
 
-export interface OfferService extends ServiceInterface<OfferEntity, CreateOfferDTO, UpdateOfferDTO>, DocumentExists {
+export interface OfferService extends ServiceInterface<OfferEntity>, DocumentExists {
   create(dto: CreateOfferDTO): Promise<DocumentType<OfferEntity>>;
   findById(offerId: string): Promise<DocumentType<OfferEntity> | null>;
   updateById(offerId: string, dto: UpdateOfferDTO): Promise<DocumentType<OfferEntity> | null>;

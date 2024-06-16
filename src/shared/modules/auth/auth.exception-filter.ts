@@ -1,9 +1,5 @@
 import {inject, injectable} from 'inversify';
-import {
-  NextFunction,
-  Request,
-  Response
-} from 'express';
+import {NextFunction, Request, Response} from 'express';
 
 import {ExceptionFilter} from '../../libs/rest/index.js';
 import {Component} from '../../enum/index.js';

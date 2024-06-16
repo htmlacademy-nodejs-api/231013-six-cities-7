@@ -9,14 +9,15 @@ import {
   UploadFileMiddleware,
   ValidateDtoMiddleware,
   ValidateObjectIdMiddleware,
-  PrivateRouteMiddleware
+  PrivateRouteMiddleware,
+  RequestParams,
+  RequestBody
 } from '../../libs/rest/index.js';
 import {Logger} from '../../libs/logger/index.js';
 import {Component} from '../../enum/index.js';
 import {Config, RestSchema} from '../../libs/config/index.js';
 import {fillDTO} from '../../helpers/index.js';
 import {AuthService} from '../auth/index.js';
-import {CreateUserRequest} from './create-user-request.type.js';
 import {UserService} from './user-service.interface.js';
 import {LoginUserRequest} from './login-user-request.type.js';
 import {CreateUserDTO} from './dto/create-user.dto.js';
@@ -57,7 +58,6 @@ export class UserController extends BaseController {
       method: HttpMethod.Post,
       handler: this.uploadAvatar,
       middlewares: [
-        new PrivateRouteMiddleware(),
         new ValidateObjectIdMiddleware('userId'),
         new UploadFileMiddleware(
           this.configService.get('UPLOAD_DIRECTORY'),
@@ -88,7 +88,7 @@ export class UserController extends BaseController {
   }
 
   public async create(
-    {body, tokenPayload}: CreateUserRequest,
+    {body, tokenPayload}: Request<RequestParams, RequestBody, CreateUserDTO>,
     res: Response,
   ): Promise<void> {
     if(tokenPayload) {
@@ -122,10 +122,17 @@ export class UserController extends BaseController {
     this.ok(res, Object.assign(responseData, { token }));
   }
 
-  public async uploadAvatar({ params, file }: Request, res: Response) {
+  public async uploadAvatar({ params, tokenPayload, file }: Request, res: Response) {
     const {userId} = params;
+    if (tokenPayload.id !== userId) {
+      throw new HttpError(
+        StatusCodes.FORBIDDEN,
+        `User ${tokenPayload.id} is not authorized to perform this operation`,
+        'UserController'
+      );
+    }
     const uploadFile = { avatar: file?.filename };
     await this.userService.updateById(userId, uploadFile);
-    this.created(res, fillDTO(UploadUserAvatarRDO, { filepath: uploadFile.avatar }));
+    this.created(res, fillDTO(UploadUserAvatarRDO, { avatar: uploadFile.avatar }));
   }
 }

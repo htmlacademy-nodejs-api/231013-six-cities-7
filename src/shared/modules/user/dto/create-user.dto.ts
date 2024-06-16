@@ -5,6 +5,12 @@ import {
   IsEmail,
 } from 'class-validator';
 
+import {
+  MIN_PASSWORD_LENGTH,
+  MAX_PASSWORD_LENGTH,
+  MIN_NAME_LENGTH,
+  MAX_NAME_LENGTH,
+} from '../../../constants/constants.js';
 import {UserType} from '../../../enum/index.js';
 import {UserValidationMessage} from './user-validation.message.js';
 
@@ -12,14 +18,14 @@ export class CreateUserDTO {
   @IsEmail({}, {message: UserValidationMessage.email.invalid})
   public email: string;
 
-  @MinLength(1, {message: UserValidationMessage.name.minLength})
-  @MaxLength(15, {message: UserValidationMessage.name.maxLength})
+  @MinLength(MIN_NAME_LENGTH, {message: UserValidationMessage.name.minLength})
+  @MaxLength(MAX_NAME_LENGTH, {message: UserValidationMessage.name.maxLength})
   public name: string;
 
   @IsEnum(UserType, {message: UserValidationMessage.type.invalid})
   public type: UserType;
 
-  @MinLength(6, {message: UserValidationMessage.password.minLength})
-  @MaxLength(12, {message: UserValidationMessage.password.maxLength})
+  @MinLength(MIN_PASSWORD_LENGTH, {message: UserValidationMessage.password.minLength})
+  @MaxLength(MAX_PASSWORD_LENGTH, {message: UserValidationMessage.password.maxLength})
   public password: string;
 }
