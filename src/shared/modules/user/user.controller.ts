@@ -122,15 +122,9 @@ export class UserController extends BaseController {
     this.ok(res, Object.assign(responseData, { token }));
   }
 
-  public async uploadAvatar({ params, tokenPayload, file }: Request, res: Response) {
+  public async uploadAvatar({ params, file }: Request, res: Response) {
     const {userId} = params;
-    if (tokenPayload.id !== userId) {
-      throw new HttpError(
-        StatusCodes.FORBIDDEN,
-        `User ${tokenPayload.id} is not authorized to perform this operation`,
-        'UserController'
-      );
-    }
+
     const uploadFile = { avatar: file?.filename };
     await this.userService.updateById(userId, uploadFile);
     this.created(res, fillDTO(UploadUserAvatarRDO, { avatar: uploadFile.avatar }));
