@@ -130,18 +130,11 @@ paths:
 
       responses:
         "201":
-          description: Пользователь разлогинен.
+          description: Аватар загружен
           content:
             application/json:
               schema:
                 $ref: './user.resources.yml#/components/schemas/uploadAvatarResponse'
-
-        "403":
-          description: Id пользователя загружаемого автара и Id авторизованного пользователя не совпадают.
-          content:
-            application/json:
-              schema:
-                $ref: './error.resources.yml#/components/schemas/notFoundErrorResponse'
 
   /offers:
     post:
