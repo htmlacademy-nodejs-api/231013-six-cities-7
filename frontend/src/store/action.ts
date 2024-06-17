@@ -81,7 +81,7 @@ export const postOffer = createAsyncThunk<Offer, NewOffer, { extra: Extra }>(
   Action.POST_OFFER,
   async (newOffer, { extra }) => {
     const { api, history } = extra;
-    const response = await api.post<CreateOfferDTO & DetailsOfferRDO>(ApiRoute.Offers, adaptCreateOfferToServer(newOffer));;
+    const response = await api.post<CreateOfferDTO & DetailsOfferRDO>(ApiRoute.Offers, adaptCreateOfferToServer(newOffer));
     history.push(`${AppRoute.Property}/${adaptOfferToClient(response.data).id}`);
 
     return adaptOfferToClient(response.data);
@@ -129,8 +129,9 @@ export const fetchUserStatus = createAsyncThunk<UserAuth['email'], undefined, { 
   async (_, { extra }) => {
     const { api } = extra;
     try {
-      const { data } = await api.get<UserRDO>(ApiRoute.Login);
-      const responseData = adaptUserToClient(data);
+      const response = await api.get<UserRDO>(ApiRoute.Login);
+
+      const responseData = adaptUserToClient(response.data);
       return responseData.email;
     } catch (error) {
       const axiosError = error as AxiosError;
