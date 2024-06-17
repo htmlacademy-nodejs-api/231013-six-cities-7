@@ -12,4 +12,7 @@ export class LoggedUserRDO {
 
   @Expose()
   public favoriteOffersId: string[];
+
+  @Expose()
+  public type: string;
 }
