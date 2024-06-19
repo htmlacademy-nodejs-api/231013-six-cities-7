@@ -5,7 +5,6 @@
 /dist/
 /docs/
 /upload/
-/logs/
 .idea/*
 *.tsv
 

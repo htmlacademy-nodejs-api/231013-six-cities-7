@@ -1,5 +1,5 @@
 import EventEmitter from 'node:events';
-import { createReadStream } from 'node:fs';
+import {createReadStream} from 'node:fs';
 
 import {FileReader} from './file-reader.interface.js';
 import {Offer, Location } from '../../types/index.js';
@@ -85,7 +85,8 @@ export class TSVFileReader extends EventEmitter implements FileReader {
     for await (const chunk of readStream) {
       remainingData += chunk.toString();
 
-      while ((nextLinePosition = remainingData.indexOf('\n')) >= 0) {
+      while (remainingData.indexOf('\n') >= 0) {
+        nextLinePosition = remainingData.indexOf('\n');
         const completeRow = remainingData.slice(0, nextLinePosition + 1);
         remainingData = remainingData.slice(++nextLinePosition);
         importedRowCount++;

@@ -1,7 +1,8 @@
 # Предложения
 
 ## Получить список предложений
-GET http://localhost:4000/offers/ HTTP/1.1
+GET http://localhost:4000/offers/?limit=5 HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJyQGdnLmdnIiwibmFtZSI6InJyIiwiaWQiOiI2NjZmZGFmOGJlZDk3NWM5Yjg5MmVjNmIiLCJpYXQiOjE3MTg4MjUyNjksImV4cCI6MTcxODk5ODA2OX0.F1AyjNvqRw5vGRrcbWn6-ilEwzzJEA5ASJ9RAkBPOCU
 Content-Type: application/json
 
 ###
@@ -42,7 +43,7 @@ Content-Type: application/json
 ## Получить детали объявления авторизованный
 
 GET http://localhost:4000/offers/666f3a825452ec71d7deed1e/details HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imphbi5zdGVlbkBleGFtcGxlLmNvbSIsIm5hbWUiOiLQr9C9INCh0YLQtdC10L0iLCJpZCI6IjY2NDY0NWExMmUzYjBjYzZjODZiOTMwNyIsImlhdCI6MTcxODQzMzEyOCwiZXhwIjoxNzE4NjA1OTI4fQ.e3rJ1OkbhWvQ6Yx5wc9H_R4Zvf4VbBItpaWkM_r-hRU
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
 Content-Type: application/json
 
 ###
@@ -70,8 +71,8 @@ Content-Type: application/json
 
 ## Добавляет объявление в избранное
 
-PATCH http://localhost:4000/offers/666f3a825452ec71d7deed1e/favorites HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
+PATCH http://localhost:4000/offers/666f3b3e302603e94f814213/favorites HTTP/1.1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJyQGdnLmdnIiwibmFtZSI6InJyIiwiaWQiOiI2NjZmZGFmOGJlZDk3NWM5Yjg5MmVjNmIiLCJpYXQiOjE3MTg4MjUyNjksImV4cCI6MTcxODk5ODA2OX0.F1AyjNvqRw5vGRrcbWn6-ilEwzzJEA5ASJ9RAkBPOCU
 Content-Type: application/json
 
 ###

@@ -52,18 +52,18 @@ export class DefaultOfferService extends AbstractService<OfferEntity> implements
   }
 
   public async find(limit: number): Promise<DocumentType<OfferEntity>[]> {
-    const result = await this.offerModel
+    return await this.offerModel
       .find({}, {}, {limit})
       .populate(['userId'])
       .sort({publicDate: SortType.Down})
       .exec();
-
-    return result;
   }
 
   public async getPremiumOffersByCity(city: City): Promise<DocumentType<OfferEntity>[] | null> {
     return this.offerModel
       .find({city: city, isPremium: true}, {}, {DEFAULT_PREMIUM_OFFERS_COUNT})
+      .populate(['userId'])
+      .sort({publicDate: SortType.Down})
       .exec();
   }
 

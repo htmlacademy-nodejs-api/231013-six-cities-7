@@ -24,14 +24,14 @@ import {OfferRDO} from './rdo/offer.rdo.js';
 import {DetailsOfferRDO} from './rdo/details-offer.rdo.js';
 import {CreateOfferDTO} from './dto/create-offer.dto.js';
 import {UpdateOfferDTO} from './dto/update-offer.dto.js';
-
+import {TokenPayload} from '../auth/index.js';
 
 @injectable()
 export class OfferController extends BaseController {
   constructor(
     @inject(Component.Logger) protected readonly logger: Logger,
     @inject(Component.OfferService) private readonly offerService: OfferService,
-    @inject(Component.CommentService) private readonly commentServise: CommentService,
+    @inject(Component.CommentService) private readonly commentService: CommentService,
     @inject(Component.UserService) private readonly userService: UserService,
   ) {
     super(logger);
@@ -96,10 +96,21 @@ export class OfferController extends BaseController {
     this.addRoute({ path: '/:city/premium', method: HttpMethod.Get, handler: this.premium });
   }
 
+  private async getFavoriteOffersId(tokenPayload: TokenPayload): Promise<string[] | undefined> {
+    const userData = await this.userService.findByEmail(tokenPayload.email);
+    return userData?.favoriteOffersId;
+  }
+
   public async index(req: Request, res: Response): Promise<void> {
     const limit = req.query.limit ? Number(req.query.limit) : DEFAULT_OFFERS_COUNT;
     const offers = await this.offerService.find(limit);
-    const responseData = fillDTO(OfferRDO, offers);
+    let responseData = fillDTO(OfferRDO, offers) as unknown as OfferRDO[];
+
+    if(req.tokenPayload){
+      const favoriteOffers = await this.getFavoriteOffersId(req.tokenPayload);
+      responseData = responseData.map((offer) => ({...offer, isFavorite: favoriteOffers?.includes(offer.id as string)}));
+    }
+
     this.ok(res, responseData);
   }
 
@@ -126,13 +137,18 @@ export class OfferController extends BaseController {
       );
     }
     const offers = await this.offerService.getPremiumOffersByCity(city as City);
-    const responseData = fillDTO(OfferRDO, offers);
+    let responseData = fillDTO(OfferRDO, offers) as unknown as OfferRDO[];
+
+    if(req.tokenPayload){
+      const favoriteOffers = await this.getFavoriteOffersId(req.tokenPayload);
+      responseData = responseData.map((offer) => ({...offer, isFavorite: favoriteOffers?.includes(offer.id as string)}));
+    }
+
     this.ok(res, responseData);
   }
 
   public async update({ params, body }: Request<Record<string, unknown>, Record<string, unknown>, UpdateOfferDTO>,
     res: Response): Promise<void> {
-    console.log(body);
     const updateOffer = await this.offerService.updateById(params.offerId as string, body);
 
     const responseData = fillDTO(DetailsOfferRDO, updateOffer);
@@ -145,10 +161,7 @@ export class OfferController extends BaseController {
     let responseData: DetailsOfferRDO & {isFavorite?: boolean} = fillDTO(DetailsOfferRDO, detailsOffer);
 
     if(tokenPayload){
-      const favoriteOffersId = await this.userService
-        .findByEmail(tokenPayload.email)
-        .then((data) => data?.favoriteOffersId);
-
+      const favoriteOffersId = await this.getFavoriteOffersId(tokenPayload);
       responseData = {...responseData, isFavorite: favoriteOffersId?.includes(params.offerId as string)};
     }
 
@@ -157,8 +170,12 @@ export class OfferController extends BaseController {
 
   public async delete({ params }: Request<Record<string, unknown>, Record<string, unknown>>,
     res: Response): Promise<void> {
-    const deleteOffer = await this.offerService.deleteById(params.offerId as string);
-    await this.commentServise.deleteByOfferId(params.offerId as string);
+    const deleteOperations = [
+      this.offerService.deleteById(params.offerId as string),
+      this.commentService.deleteByOfferId(params.offerId as string)
+    ];
+
+    const [deleteOffer, ] = await Promise.all(deleteOperations);
 
     const responseData = fillDTO(DetailsOfferRDO, deleteOffer);
     this.ok(res, responseData);
@@ -166,41 +183,42 @@ export class OfferController extends BaseController {
 
   public async favorites({ tokenPayload }: Request<Record<string, unknown>, Record<string, unknown>>,
     res: Response): Promise<void> {
-    const favoriteOffers = await this.userService
-      .findByEmail(tokenPayload.email)
-      .then((data) => data?.favoriteOffersId);
+    const favoriteOffers = await this.getFavoriteOffersId(tokenPayload);
 
-    const responseData = [];
-    if(favoriteOffers) {
-      let counter = 0;
-      while(counter < favoriteOffers.length) {
-        const offer = await this.offerService.findById(favoriteOffers[counter]);
-        const fillingOffer = fillDTO(OfferRDO, offer);
-        responseData .push({...fillingOffer, isFavorite: true});
-        counter = counter + 1;
-      }
+    if (!favoriteOffers || favoriteOffers.length === 0) {
+      this.ok(res, []);
+      return;
     }
+
+    const fetchOffersPromises = favoriteOffers.map(async (offerId) => {
+      const offer = await this.offerService.findById(offerId);
+      const filledOffer = fillDTO(OfferRDO, offer);
+      return {...filledOffer, isFavorite: true };
+    });
+
+    const responseData = await Promise.all(fetchOffersPromises);
 
     this.ok(res, responseData);
   }
 
   public async switchFavorite({params, tokenPayload }: Request<Record<string, unknown>, Record<string, unknown>>,
     res: Response): Promise<void> {
-    const favoriteOffersId = await this.userService
-      .findByEmail(tokenPayload.email)
-      .then((data) => data?.favoriteOffersId);
+    const favoriteOffersId = await this.getFavoriteOffersId(tokenPayload);
 
     let updateFavoriteOffersId: string[];
 
     const offer = await this.offerService.findById(params.offerId as string);
-    let responseData;
+
+    let isFavorite: boolean;
     if(favoriteOffersId?.includes(params.offerId as string)) {
       updateFavoriteOffersId = favoriteOffersId.filter((id) => id !== params.offerId as string);
-      responseData = { ...fillDTO(DetailsOfferRDO, offer), isFavorite: false};
+      isFavorite = false;
     } else {
       updateFavoriteOffersId = favoriteOffersId ? [...favoriteOffersId, params.offerId as string] : [params.offerId as string];
-      responseData = { ...fillDTO(DetailsOfferRDO, offer), isFavorite: true};
+      isFavorite = true;
     }
+
+    const responseData = { ...fillDTO(DetailsOfferRDO, offer), isFavorite: isFavorite};
 
     await this.userService
       .updateById(tokenPayload.id, {favoriteOffersId: updateFavoriteOffersId});
