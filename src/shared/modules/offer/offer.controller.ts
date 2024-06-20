@@ -205,20 +205,16 @@ export class OfferController extends BaseController {
     res: Response): Promise<void> {
     const favoriteOffersId = await this.getFavoriteOffersId(tokenPayload);
 
-    let updateFavoriteOffersId: string[];
-
     const offer = await this.offerService.findById(params.offerId as string);
+    const isFavoriteId = favoriteOffersId?.includes(params.offerId as string);
+    const responseData = { ...fillDTO(DetailsOfferRDO, offer), isFavorite: !isFavoriteId};
 
-    let isFavorite: boolean;
-    if(favoriteOffersId?.includes(params.offerId as string)) {
-      updateFavoriteOffersId = favoriteOffersId.filter((id) => id !== params.offerId as string);
-      isFavorite = false;
+    let updateFavoriteOffersId: string[] | undefined;
+    if(isFavoriteId) {
+      updateFavoriteOffersId = favoriteOffersId?.filter((id) => id !== params.offerId as string);
     } else {
       updateFavoriteOffersId = favoriteOffersId ? [...favoriteOffersId, params.offerId as string] : [params.offerId as string];
-      isFavorite = true;
     }
-
-    const responseData = { ...fillDTO(DetailsOfferRDO, offer), isFavorite: isFavorite};
 
     await this.userService
       .updateById(tokenPayload.id, {favoriteOffersId: updateFavoriteOffersId});
