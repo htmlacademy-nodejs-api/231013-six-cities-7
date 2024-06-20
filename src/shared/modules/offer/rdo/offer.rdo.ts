@@ -21,6 +21,9 @@ export class OfferRDO {
   @Expose()
   public isPremium: boolean;
 
+  @Expose()
+  public isFavorite?: boolean;
+
   @Expose({name: 'overageRating'})
   public rating: number;
 
