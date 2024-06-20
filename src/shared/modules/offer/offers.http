@@ -80,7 +80,7 @@ Content-Type: application/json
 ## Получить избранные у пользователя
 
 GET http://localhost:4000/offers/favorites HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImRlZmF1bHR1c2VyOEBtYWlsLmNvbSIsIm5hbWUiOiJkZWZhdWx0IHVzZXIgOCIsImlkIjoiNjY2ZjU0NDA0NzhmMzhjYTgyY2E5ZGVhIiwiaWF0IjoxNzE4NTcyNTEwLCJleHAiOjE3MTg3NDUzMTB9.4vLSmY5AJ_9AVFynuEzu90FHjFHbQ3WVuMdj1LcdyvY
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InJyQGdnLmdnIiwibmFtZSI6InJyIiwiaWQiOiI2NjZmZGFmOGJlZDk3NWM5Yjg5MmVjNmIiLCJpYXQiOjE3MTg4MjUyNjksImV4cCI6MTcxODk5ODA2OX0.F1AyjNvqRw5vGRrcbWn6-ilEwzzJEA5ASJ9RAkBPOCU
 Content-Type: application/json
 
 ###
